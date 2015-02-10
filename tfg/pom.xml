@@ -23,7 +23,7 @@
   </properties>
   
   <build>
-	<finalName>blogs</finalName>
+	<finalName>tfg</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
