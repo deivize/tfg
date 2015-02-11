@@ -1,6 +1,7 @@
 package es.udc.fi.tfg.model;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Activos {
 
@@ -9,6 +10,7 @@ public class Activos {
 	private byte[] icono;
 	private String categoria;
 	private Etiqueta etiqueta;
+	private List<Localizacion> ubicacion;
 	
 	
 	public Long getIdActivo() {
