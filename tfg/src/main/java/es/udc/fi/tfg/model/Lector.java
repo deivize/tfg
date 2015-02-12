@@ -3,9 +3,9 @@ package es.udc.fi.tfg.model;
 
 import java.util.List;
 
-public class Localizador {
+public class Lector {
 
-	private Long idLocalizador;
+	private Long idLector;
 	private String modelo;
 	private String tipo;
 	private List<Localizacion> ubicacion;
@@ -14,10 +14,10 @@ public class Localizador {
 	
 	
 	public Long getIdLocalizador() {
-		return idLocalizador;
+		return idLector;
 	}
 	public void setIdLocalizador(Long idLocalizador) {
-		this.idLocalizador = idLocalizador;
+		this.idLector = idLocalizador;
 	}
 	public String getModelo() {
 		return modelo;
@@ -52,7 +52,7 @@ public class Localizador {
 		result = prime * result
 				+ ((etiquetas == null) ? 0 : etiquetas.hashCode());
 		result = prime * result
-				+ ((idLocalizador == null) ? 0 : idLocalizador.hashCode());
+				+ ((idLector == null) ? 0 : idLector.hashCode());
 		result = prime * result + ((modelo == null) ? 0 : modelo.hashCode());
 		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		result = prime * result
@@ -69,16 +69,16 @@ public class Localizador {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Localizador other = (Localizador) obj;
+		Lector other = (Lector) obj;
 		if (etiquetas == null) {
 			if (other.etiquetas != null)
 				return false;
 		} else if (!etiquetas.equals(other.etiquetas))
 			return false;
-		if (idLocalizador == null) {
-			if (other.idLocalizador != null)
+		if (idLector == null) {
+			if (other.idLector != null)
 				return false;
-		} else if (!idLocalizador.equals(other.idLocalizador))
+		} else if (!idLector.equals(other.idLector))
 			return false;
 		if (modelo == null) {
 			if (other.modelo != null)
@@ -101,7 +101,7 @@ public class Localizador {
 	
 	@Override
 	public String toString() {
-		return "Localizador [idLocalizador=" + idLocalizador + ", modelo="
+		return "Localizador [idLocalizador=" + idLector + ", modelo="
 				+ modelo + ", tipo=" + tipo + ", ubicacion=" + ubicacion
 				+ ", etiquetas=" + etiquetas + "]";
 	}

@@ -8,7 +8,7 @@ public class Etiqueta {
 	private Boolean infoCifrada;
 	private Tecnologia tecnologia;
 	private Estandar estandar;
-	private Parametros parametros;
+	private Parametro parametros;
 	
 	
 	
@@ -48,10 +48,10 @@ public class Etiqueta {
 	public void setEstandar(Estandar estandar) {
 		this.estandar = estandar;
 	}
-	public Parametros getParametros() {
+	public Parametro getParametros() {
 		return parametros;
 	}
-	public void setParametros(Parametros parametros) {
+	public void setParametros(Parametro parametros) {
 		this.parametros = parametros;
 	}
 	

@@ -1,6 +1,6 @@
 package es.udc.fi.tfg.model;
 
-public class Parametros {
+public class Parametro {
 	
 	private Long idParametros;
 	private String nombre;
@@ -48,7 +48,7 @@ public class Parametros {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Parametros other = (Parametros) obj;
+		Parametro other = (Parametro) obj;
 		if (idParametros == null) {
 			if (other.idParametros != null)
 				return false;

@@ -3,7 +3,7 @@ package es.udc.fi.tfg.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class Activos {
+public class Activo {
 
 	private Long idActivo;
 	private String nombre;
@@ -44,6 +44,12 @@ public class Activos {
 		this.etiqueta = etiqueta;
 	}
 	
+	public List<Localizacion> getUbicacion() {
+		return ubicacion;
+	}
+	public void setUbicacion(List<Localizacion> ubicacion) {
+		this.ubicacion = ubicacion;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -57,6 +63,8 @@ public class Activos {
 		result = prime * result
 				+ ((idActivo == null) ? 0 : idActivo.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result
+				+ ((ubicacion == null) ? 0 : ubicacion.hashCode());
 		return result;
 	}
 	
@@ -69,7 +77,7 @@ public class Activos {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Activos other = (Activos) obj;
+		Activo other = (Activo) obj;
 		if (categoria == null) {
 			if (other.categoria != null)
 				return false;
@@ -92,6 +100,11 @@ public class Activos {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
+		if (ubicacion == null) {
+			if (other.ubicacion != null)
+				return false;
+		} else if (!ubicacion.equals(other.ubicacion))
+			return false;
 		return true;
 	}
 	
@@ -100,7 +113,8 @@ public class Activos {
 	public String toString() {
 		return "Activos [idActivo=" + idActivo + ", nombre=" + nombre
 				+ ", icono=" + Arrays.toString(icono) + ", categoria="
-				+ categoria + ", etiqueta=" + etiqueta + "]";
+				+ categoria + ", etiqueta=" + etiqueta + ", ubicacion="
+				+ ubicacion + "]";
 	}
 	
 	
