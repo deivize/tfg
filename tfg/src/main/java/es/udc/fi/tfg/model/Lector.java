@@ -8,7 +8,7 @@ public class Lector {
 	private Long idLector;
 	private String modelo;
 	private String tipo;
-	private List<Localizacion> ubicacion;
+	private Localizacion ubicacion;
 	private List<Etiqueta> etiquetas;
 	
 	
@@ -31,10 +31,10 @@ public class Lector {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public List<Localizacion> getUbicacion() {
+	public Localizacion getUbicacion() {
 		return ubicacion;
 	}
-	public void setUbicacion(List<Localizacion> ubicacion) {
+	public void setUbicacion(Localizacion ubicacion) {
 		this.ubicacion = ubicacion;
 	}
 	public List<Etiqueta> getEtiquetas() {
