@@ -3,6 +3,20 @@ package es.udc.fi.tfg.model;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Activo")
 public class Activo {
 
 	private Long idActivo;
@@ -12,31 +26,56 @@ public class Activo {
 	private Etiqueta etiqueta;
 	private List<Localizacion> ubicacion;
 	
+	public Activo(){
+	}
 	
+	public Activo(Long idActivo, String nombre, byte[] icono, String categoria,
+			Etiqueta etiqueta, List<Localizacion> ubicacion) {
+		super();
+		this.idActivo = idActivo;
+		this.nombre = nombre;
+		this.icono = icono;
+		this.categoria = categoria;
+		this.etiqueta = etiqueta;
+		this.ubicacion = ubicacion;
+	}
+	
+	@Id
+	@SequenceGenerator(name="idActvio",sequenceName="id_actvivo_seq",allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idActivo")
 	public Long getIdActivo() {
 		return idActivo;
 	}
 	public void setIdActivo(Long idActivo) {
 		this.idActivo = idActivo;
 	}
+	
+	@Column(nullable=false)
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	@Column
 	public byte[] getIcono() {
 		return icono;
 	}
 	public void setIcono(byte[] icono) {
 		this.icono = icono;
 	}
+	
+	@Column
 	public String getCategoria() {
 		return categoria;
 	}
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
+	
+	@OneToOne
+	@JoinColumn(name="idEtiqueta")
 	public Etiqueta getEtiqueta() {
 		return etiqueta;
 	}
@@ -44,6 +83,12 @@ public class Activo {
 		this.etiqueta = etiqueta;
 	}
 	
+	@ManyToMany
+	@JoinTable(
+		name="Activo_Loc",
+		joinColumns={@JoinColumn(name="idActivo")},
+		inverseJoinColumns={@JoinColumn(name="idLocalizacion")}				
+	)
 	public List<Localizacion> getUbicacion() {
 		return ubicacion;
 	}
