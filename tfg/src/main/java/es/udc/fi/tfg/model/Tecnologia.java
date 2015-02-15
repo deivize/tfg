@@ -1,26 +1,53 @@
 package es.udc.fi.tfg.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="Tecnologia")
 public class Tecnologia {
 	
 	private Long idTecnologia;
 	private String tipo;
 	private String subtipo;
 
+	@SuppressWarnings("unused")
+	private Tecnologia(){
+	}
 	
 	
+	public Tecnologia(Long idTecnologia, String tipo, String subtipo) {
+		super();
+		this.idTecnologia = idTecnologia;
+		this.tipo = tipo;
+		this.subtipo = subtipo;
+	}
 	
+	@Id
+	@SequenceGenerator(name="idTecnologia",sequenceName="tecnologia_idtecnologia_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idTecnologia")
 	public Long getIdTecnologia() {
 		return idTecnologia;
 	}
 	public void setIdTecnologia(Long idTecnologia) {
 		this.idTecnologia = idTecnologia;
 	}
+	
+	@Column(name="tipo")
 	public String getTipo() {
 		return tipo;
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	
+	@Column(name="subtipo")
 	public String getSubtipo() {
 		return subtipo;
 	}

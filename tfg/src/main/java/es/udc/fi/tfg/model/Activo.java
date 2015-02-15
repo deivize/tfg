@@ -26,7 +26,8 @@ public class Activo {
 	private Etiqueta etiqueta;
 	private List<Localizacion> ubicacion;
 	
-	public Activo(){
+	@SuppressWarnings("unused")
+	private Activo(){
 	}
 	
 	public Activo(Long idActivo, String nombre, byte[] icono, String categoria,
@@ -41,7 +42,7 @@ public class Activo {
 	}
 	
 	@Id
-	@SequenceGenerator(name="idActvio",sequenceName="id_actvivo_seq",allocationSize=1)
+	@SequenceGenerator(name="idActvio",sequenceName="activo_idactvivo_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idActivo")
 	public Long getIdActivo() {
 		return idActivo;
@@ -50,7 +51,7 @@ public class Activo {
 		this.idActivo = idActivo;
 	}
 	
-	@Column(nullable=false)
+	@Column(name="nombre",nullable=false)
 	public String getNombre() {
 		return nombre;
 	}
@@ -58,7 +59,7 @@ public class Activo {
 		this.nombre = nombre;
 	}
 	
-	@Column
+	@Column(name="icono",nullable=true)
 	public byte[] getIcono() {
 		return icono;
 	}
@@ -66,7 +67,7 @@ public class Activo {
 		this.icono = icono;
 	}
 	
-	@Column
+	@Column(name="categoria",nullable=true)
 	public String getCategoria() {
 		return categoria;
 	}
@@ -85,7 +86,7 @@ public class Activo {
 	
 	@ManyToMany
 	@JoinTable(
-		name="Activo_Loc",
+		name="Activo_Localizacion",
 		joinColumns={@JoinColumn(name="idActivo")},
 		inverseJoinColumns={@JoinColumn(name="idLocalizacion")}				
 	)

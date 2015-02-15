@@ -1,18 +1,43 @@
 package es.udc.fi.tfg.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="Estandar")
 public class Estandar {
 	
 	private Long idEstandar;
 	private String nombre;
 	
+	@SuppressWarnings("unused")
+	private Estandar(){
+	}
+	
+	public Estandar(Long idEstandar, String nombre) {
+		super();
+		this.idEstandar = idEstandar;
+		this.nombre = nombre;
+	}
 	
 	
+	@Id
+	@SequenceGenerator(name="idEstandar",sequenceName="estandar_idestandar_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idEstandar")
 	public Long getIdEstandar() {
 		return idEstandar;
 	}
 	public void setIdEstandar(Long idEstandar) {
 		this.idEstandar = idEstandar;
 	}
+	
+	@Column(name="nombre",nullable=false)
 	public String getNombre() {
 		return nombre;
 	}

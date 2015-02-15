@@ -2,6 +2,16 @@ package es.udc.fi.tfg.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Localizacion")
 public class Localizacion {
 	
 	private Long idLocalizacion;
@@ -14,55 +24,94 @@ public class Localizacion {
 	private String zona;
 	private Timestamp fecha;
 	
+	@SuppressWarnings("unused")
+	private Localizacion(){
+	}
 	
+	
+	public Localizacion(Long idLocalizacion, Long coord_x, Long coord_y,
+			Long coord_z, String edificio, Long planta, String area,
+			String zona, Timestamp fecha) {
+		super();
+		this.idLocalizacion = idLocalizacion;
+		this.coord_x = coord_x;
+		this.coord_y = coord_y;
+		this.coord_z = coord_z;
+		this.edificio = edificio;
+		this.planta = planta;
+		this.area = area;
+		this.zona = zona;
+		this.fecha = fecha;
+	}
+	
+	
+	@Id
+	@SequenceGenerator(name="idLocalizacion",sequenceName="localizacion_idlocalizacion_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idLocalizacion")
 	public Long getIdLocalizacion() {
 		return idLocalizacion;
 	}
 	public void setIdLocalizacion(Long idLocalizacion) {
 		this.idLocalizacion = idLocalizacion;
 	}
+	
+	@Column(name="coord_x",nullable=false)
 	public Long getCoord_x() {
 		return coord_x;
 	}
 	public void setCoord_x(Long coord_x) {
 		this.coord_x = coord_x;
 	}
+	
+	@Column(name="coord_y",nullable=false)
 	public Long getCoord_y() {
 		return coord_y;
 	}
 	public void setCoord_y(Long coord_y) {
 		this.coord_y = coord_y;
 	}
+	
+	@Column(name="coord_z",nullable=false)
 	public Long getCoord_z() {
 		return coord_z;
 	}
 	public void setCoord_z(Long coord_z) {
 		this.coord_z = coord_z;
 	}
+	
+	@Column(name="edificio",nullable=false)
 	public String getEdificio() {
 		return edificio;
 	}
 	public void setEdificio(String edificio) {
 		this.edificio = edificio;
 	}
+	
+	@Column(name="planta",nullable=false)
 	public Long getPlanta() {
 		return planta;
 	}
 	public void setPlanta(Long planta) {
 		this.planta = planta;
 	}
+	
+	@Column(name="area",nullable=true)
 	public String getArea() {
 		return area;
 	}
 	public void setArea(String area) {
 		this.area = area;
 	}
+	
+	@Column(name="zona",nullable=true)
 	public String getZona() {
 		return zona;
 	}
 	public void setZona(String zona) {
 		this.zona = zona;
 	}
+	
+	@Column(name="fecha",nullable=false)
 	public Timestamp getFecha() {
 		return fecha;
 	}

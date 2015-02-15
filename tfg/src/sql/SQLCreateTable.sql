@@ -28,7 +28,7 @@ CREATE INDEX ParametroIndexByidParametro ON Parametro(idParametro);
 CREATE TABLE Etiqueta( idEtiqueta BIGSERIAL NOT NULL,
 	contenido VARCHAR(255) NOT NULL,
 	fabricante VARCHAR(255) NOT NULL,
-	infoCifrada BOOLEAN,
+	infoCifrada BOOLEAN NOT NULL,
 	idEstandar BIGINT NOT NULL,
 	idTecnologia BIGINT NOT NULL,
 	idParametro BIGINT NOT NULL,

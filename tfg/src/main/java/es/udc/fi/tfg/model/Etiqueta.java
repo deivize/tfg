@@ -1,5 +1,17 @@
 package es.udc.fi.tfg.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Etiqueta")
 public class Etiqueta {
 	
 	private Long etiquetaId;
@@ -10,44 +22,78 @@ public class Etiqueta {
 	private Estandar estandar;
 	private Parametro parametros;
 	
+	@SuppressWarnings("unused")
+	private Etiqueta(){
+	}
+	
+	public Etiqueta(Long etiquetaId, String contenido, String fabricante,
+			Boolean infoCifrada, Tecnologia tecnologia, Estandar estandar,
+			Parametro parametros) {
+		super();
+		this.etiquetaId = etiquetaId;
+		this.contenido = contenido;
+		this.fabricante = fabricante;
+		this.infoCifrada = infoCifrada;
+		this.tecnologia = tecnologia;
+		this.estandar = estandar;
+		this.parametros = parametros;
+	}
 	
 	
+	@Id
+	@SequenceGenerator(name="idEtiqueta",sequenceName="etiqueta_idetiqueta_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idEtiqueta")
 	public Long getEtiquetaId() {
 		return etiquetaId;
 	}
 	public void setEtiquetaId(Long etiquetaId) {
 		this.etiquetaId = etiquetaId;
 	}
+	
+	@Column(name="contenido",nullable=false)
 	public String getContenido() {
 		return contenido;
 	}
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
 	}
+	
+	@Column(name="fabricante",nullable=false)
 	public String getFabricante() {
 		return fabricante;
 	}
 	public void setFabricante(String fabricante) {
 		this.fabricante = fabricante;
 	}
+	
+	@Column(name="infoCifrada",nullable=false)
 	public Boolean getInfoCifrada() {
 		return infoCifrada;
 	}
 	public void setInfoCifrada(Boolean infoCifrada) {
 		this.infoCifrada = infoCifrada;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name="idTecnologia")
 	public Tecnologia getTecnologia() {
 		return tecnologia;
 	}
 	public void setTecnologia(Tecnologia tecnologia) {
 		this.tecnologia = tecnologia;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name="idEstandar")
 	public Estandar getEstandar() {
 		return estandar;
 	}
 	public void setEstandar(Estandar estandar) {
 		this.estandar = estandar;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name="idParametro")
 	public Parametro getParametros() {
 		return parametros;
 	}

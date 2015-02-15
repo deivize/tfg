@@ -1,25 +1,52 @@
 package es.udc.fi.tfg.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Parametro")
 public class Parametro {
 	
 	private Long idParametros;
 	private String nombre;
 	private String valor;
 	
+	@SuppressWarnings("unused")
+	private Parametro(){
+	}
+	
+	public Parametro(Long idParametros, String nombre, String valor) {
+		super();
+		this.idParametros = idParametros;
+		this.nombre = nombre;
+		this.valor = valor;
+	}
 	
 	
+	@Id
+	@SequenceGenerator(name="idParametro",sequenceName="parametro_idparametro_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idParametro")
 	public Long getIdParametros() {
 		return idParametros;
 	}
 	public void setIdParametros(Long idParametros) {
 		this.idParametros = idParametros;
 	}
+	
+	@Column(name="nombre",nullable=false)
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	@Column(name="valor",nullable=false)
 	public String getValor() {
 		return valor;
 	}

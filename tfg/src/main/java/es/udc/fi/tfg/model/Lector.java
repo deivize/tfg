@@ -3,6 +3,20 @@ package es.udc.fi.tfg.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Lector")
 public class Lector {
 
 	private Long idLector;
@@ -11,32 +25,63 @@ public class Lector {
 	private Localizacion ubicacion;
 	private List<Etiqueta> etiquetas;
 	
+	@SuppressWarnings("unused")
+	private Lector(){
+	}
 	
 	
-	public Long getIdLocalizador() {
+	public Lector(Long idLector, String modelo, String tipo,
+			Localizacion ubicacion, List<Etiqueta> etiquetas) {
+		super();
+		this.idLector = idLector;
+		this.modelo = modelo;
+		this.tipo = tipo;
+		this.ubicacion = ubicacion;
+		this.etiquetas = etiquetas;
+	}
+	
+	
+	@Id
+	@SequenceGenerator(name="idLector",sequenceName="lector_idlector_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idLector")
+	public Long getIdLector() {
 		return idLector;
 	}
-	public void setIdLocalizador(Long idLocalizador) {
+	public void setIdLector(Long idLocalizador) {
 		this.idLector = idLocalizador;
 	}
+	
+	@Column(name="modelo",nullable=false)
 	public String getModelo() {
 		return modelo;
 	}
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
+	
+	@Column(name="tipo",nullable=true)
 	public String getTipo() {
 		return tipo;
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name="idLocalizacion")
 	public Localizacion getUbicacion() {
 		return ubicacion;
 	}
 	public void setUbicacion(Localizacion ubicacion) {
 		this.ubicacion = ubicacion;
 	}
+	
+	@ManyToMany
+	@JoinTable(
+			name="Etiqueta_Lector",
+			joinColumns={@JoinColumn(name="idLector")},
+			inverseJoinColumns={@JoinColumn(name="idEtiqueta")}				
+		)
 	public List<Etiqueta> getEtiquetas() {
 		return etiquetas;
 	}
