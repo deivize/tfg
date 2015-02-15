@@ -62,7 +62,7 @@ CREATE TABLE Localizacion( idLocalizacion BIGSERIAL NOT NULL,
 	edificio VARCHAR(255) NOT NULL,
 	planta BIGINT NOT NULL,
 	area VARCHAR(255),
-	zona VARHCAR(255),
+	zona VARCHAR(255),
 	fecha TIMESTAMP NOT NULL,
 	CONSTRAINT LocalizacionPK PRIMARY KEY (idLocalizacion));
 	
@@ -91,10 +91,10 @@ CREATE TABLE Etiqueta_Lector( idLector BIGINT NOT NULL,
 		
 
 -- ---------------Activo_Localizacion------------
-CREATE TABLE Activo_Localizacion( idActvio BIGINT NOT NULL,
+CREATE TABLE Activo_Localizacion( idActivo BIGINT NOT NULL,
 	idLocalizacion BIGINT NOT NULL,
 	fecha TIMESTAMP NOT NULL,
-	CONSTRAINT Activo_LocalizacionPK PRIMATY KEY (idActivo,idLocalizacion,fecha),
+	CONSTRAINT Activo_LocalizacionPK PRIMARY KEY (idActivo,idLocalizacion,fecha),
 	CONSTRAINT Activo_LocalizacionidActivoFK FOREIGN KEY (idActivo)
 		REFERENCES Activo(idActivo),
 	CONSTRAINT Activo_LocalizacionidLocalizacionFK FOREIGN KEY (idLocalizacion)
