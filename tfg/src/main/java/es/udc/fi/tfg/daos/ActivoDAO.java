@@ -4,7 +4,7 @@ import java.util.List;
 
 import es.udc.fi.tfg.model.Activo;
 
-public interface ActivosDAO {
+public interface ActivoDAO {
 	
 	Long create(Activo activo);
 	List<Activo> findByName(String nombre);

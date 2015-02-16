@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name="Parametro")
 public class Parametro {
 	
-	private Long idParametros;
+	private Long idParametro;
 	private String nombre;
 	private String valor;
 	
@@ -22,7 +22,7 @@ public class Parametro {
 	
 	public Parametro(Long idParametros, String nombre, String valor) {
 		super();
-		this.idParametros = idParametros;
+		this.idParametro = idParametros;
 		this.nombre = nombre;
 		this.valor = valor;
 	}
@@ -31,11 +31,11 @@ public class Parametro {
 	@Id
 	@SequenceGenerator(name="idParametro",sequenceName="parametro_idparametro_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idParametro")
-	public Long getIdParametros() {
-		return idParametros;
+	public Long getIdParametro() {
+		return idParametro;
 	}
-	public void setIdParametros(Long idParametros) {
-		this.idParametros = idParametros;
+	public void setIdParametro(Long idParametros) {
+		this.idParametro = idParametros;
 	}
 	
 	@Column(name="nombre",nullable=false)
@@ -60,7 +60,7 @@ public class Parametro {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((idParametros == null) ? 0 : idParametros.hashCode());
+				+ ((idParametro == null) ? 0 : idParametro.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
 		return result;
@@ -76,10 +76,10 @@ public class Parametro {
 		if (getClass() != obj.getClass())
 			return false;
 		Parametro other = (Parametro) obj;
-		if (idParametros == null) {
-			if (other.idParametros != null)
+		if (idParametro == null) {
+			if (other.idParametro != null)
 				return false;
-		} else if (!idParametros.equals(other.idParametros))
+		} else if (!idParametro.equals(other.idParametro))
 			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
@@ -97,7 +97,7 @@ public class Parametro {
 	
 	@Override
 	public String toString() {
-		return "Parametros [idParametros=" + idParametros + ", nombre="
+		return "Parametros [idParametros=" + idParametro + ", nombre="
 				+ nombre + ", valor=" + valor + "]";
 	}
 	

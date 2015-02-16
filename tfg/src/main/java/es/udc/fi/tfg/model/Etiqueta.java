@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name="Etiqueta")
 public class Etiqueta {
 	
-	private Long etiquetaId;
+	private Long idEtiqueta;
 	private String contenido;
 	private String fabricante;
 	private Boolean infoCifrada;
@@ -30,7 +30,7 @@ public class Etiqueta {
 			Boolean infoCifrada, Tecnologia tecnologia, Estandar estandar,
 			Parametro parametros) {
 		super();
-		this.etiquetaId = etiquetaId;
+		this.idEtiqueta = etiquetaId;
 		this.contenido = contenido;
 		this.fabricante = fabricante;
 		this.infoCifrada = infoCifrada;
@@ -43,11 +43,11 @@ public class Etiqueta {
 	@Id
 	@SequenceGenerator(name="idEtiqueta",sequenceName="etiqueta_idetiqueta_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idEtiqueta")
-	public Long getEtiquetaId() {
-		return etiquetaId;
+	public Long getIdEtiqueta() {
+		return idEtiqueta;
 	}
-	public void setEtiquetaId(Long etiquetaId) {
-		this.etiquetaId = etiquetaId;
+	public void setIdEtiqueta(Long etiquetaId) {
+		this.idEtiqueta = etiquetaId;
 	}
 	
 	@Column(name="contenido",nullable=false)
@@ -111,7 +111,7 @@ public class Etiqueta {
 		result = prime * result
 				+ ((estandar == null) ? 0 : estandar.hashCode());
 		result = prime * result
-				+ ((etiquetaId == null) ? 0 : etiquetaId.hashCode());
+				+ ((idEtiqueta == null) ? 0 : idEtiqueta.hashCode());
 		result = prime * result
 				+ ((fabricante == null) ? 0 : fabricante.hashCode());
 		result = prime * result
@@ -143,10 +143,10 @@ public class Etiqueta {
 				return false;
 		} else if (!estandar.equals(other.estandar))
 			return false;
-		if (etiquetaId == null) {
-			if (other.etiquetaId != null)
+		if (idEtiqueta == null) {
+			if (other.idEtiqueta != null)
 				return false;
-		} else if (!etiquetaId.equals(other.etiquetaId))
+		} else if (!idEtiqueta.equals(other.idEtiqueta))
 			return false;
 		if (fabricante == null) {
 			if (other.fabricante != null)
@@ -175,7 +175,7 @@ public class Etiqueta {
 	
 	@Override
 	public String toString() {
-		return "Etiqueta [etiquetaId=" + etiquetaId + ", contenido="
+		return "Etiqueta [etiquetaId=" + idEtiqueta + ", contenido="
 				+ contenido + ", fabricante=" + fabricante + ", infoCifrada="
 				+ infoCifrada + ", tecnologia=" + tecnologia + ", estandar="
 				+ estandar + ", parametros=" + parametros + "]";
