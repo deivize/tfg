@@ -20,9 +20,8 @@ public class Estandar {
 	private Estandar(){
 	}
 	
-	public Estandar(Long idEstandar, String nombre) {
+	public Estandar(String nombre) {
 		super();
-		this.idEstandar = idEstandar;
 		this.nombre = nombre;
 	}
 	
@@ -30,6 +29,7 @@ public class Estandar {
 	@Id
 	@SequenceGenerator(name="idEstandar",sequenceName="estandar_idestandar_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idEstandar")
+	@Column(name="idEstandar",nullable=false)
 	public Long getIdEstandar() {
 		return idEstandar;
 	}

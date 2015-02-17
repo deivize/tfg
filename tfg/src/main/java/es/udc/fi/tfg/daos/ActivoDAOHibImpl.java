@@ -45,6 +45,22 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 	}
 
 	@Override
+	public Activo findById(Long id){
+		Query query= miSessionFactory.getCurrentSession().
+				createQuery("FROM Activo WHERE idActivo= :id");
+		query.setParameter("id", id);
+		
+		Activo activo= (Activo) query.uniqueResult();
+		
+		if(activo==null){
+			throw new RuntimeException("No se ha podido encontrar el activo con id: "+id);
+		}
+		return activo;
+		
+	}
+	
+	
+	@Override
 	public void update(Activo activo) {
 		
 		miSessionFactory.getCurrentSession().update(activo);

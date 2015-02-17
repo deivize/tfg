@@ -9,6 +9,7 @@ public interface ActivoDAO {
 	Long create(Activo activo);
 	List<Activo> findByName(String nombre);
 	List<Activo> findAll();
+	Activo findById(Long id);
 	void update(Activo activo);
 	void remove(Activo activo);
 	

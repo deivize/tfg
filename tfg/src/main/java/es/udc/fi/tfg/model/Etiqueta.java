@@ -2,6 +2,7 @@ package es.udc.fi.tfg.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="Etiqueta")
@@ -26,11 +30,10 @@ public class Etiqueta {
 	private Etiqueta(){
 	}
 	
-	public Etiqueta(Long etiquetaId, String contenido, String fabricante,
+	public Etiqueta(String contenido, String fabricante,
 			Boolean infoCifrada, Tecnologia tecnologia, Estandar estandar,
 			Parametro parametros) {
 		super();
-		this.idEtiqueta = etiquetaId;
 		this.contenido = contenido;
 		this.fabricante = fabricante;
 		this.infoCifrada = infoCifrada;
@@ -43,6 +46,7 @@ public class Etiqueta {
 	@Id
 	@SequenceGenerator(name="idEtiqueta",sequenceName="etiqueta_idetiqueta_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idEtiqueta")
+	@Column(name="idEtiqueta",nullable=false)
 	public Long getIdEtiqueta() {
 		return idEtiqueta;
 	}
@@ -74,8 +78,9 @@ public class Etiqueta {
 		this.infoCifrada = infoCifrada;
 	}
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idTecnologia")
+	@Cascade({CascadeType.SAVE_UPDATE})
 	public Tecnologia getTecnologia() {
 		return tecnologia;
 	}
@@ -83,8 +88,9 @@ public class Etiqueta {
 		this.tecnologia = tecnologia;
 	}
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idEstandar")
+	@Cascade({CascadeType.SAVE_UPDATE})
 	public Estandar getEstandar() {
 		return estandar;
 	}
@@ -92,8 +98,9 @@ public class Etiqueta {
 		this.estandar = estandar;
 	}
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idParametro")
+	@Cascade({CascadeType.SAVE_UPDATE})
 	public Parametro getParametros() {
 		return parametros;
 	}

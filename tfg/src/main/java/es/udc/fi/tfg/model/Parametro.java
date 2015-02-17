@@ -20,9 +20,8 @@ public class Parametro {
 	private Parametro(){
 	}
 	
-	public Parametro(Long idParametros, String nombre, String valor) {
+	public Parametro(String nombre, String valor) {
 		super();
-		this.idParametro = idParametros;
 		this.nombre = nombre;
 		this.valor = valor;
 	}
@@ -31,6 +30,7 @@ public class Parametro {
 	@Id
 	@SequenceGenerator(name="idParametro",sequenceName="parametro_idparametro_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idParametro")
+	@Column(name="idParametro",nullable=false)
 	public Long getIdParametro() {
 		return idParametro;
 	}

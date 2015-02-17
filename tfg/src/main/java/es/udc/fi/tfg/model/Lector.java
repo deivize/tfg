@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,20 +31,19 @@ public class Lector {
 	}
 	
 	
-	public Lector(Long idLector, String modelo, String tipo,
-			Localizacion ubicacion, List<Etiqueta> etiquetas) {
+	public Lector(String modelo, String tipo,
+			Localizacion ubicacion) {
 		super();
-		this.idLector = idLector;
 		this.modelo = modelo;
 		this.tipo = tipo;
 		this.ubicacion = ubicacion;
-		this.etiquetas = etiquetas;
 	}
 	
 	
 	@Id
 	@SequenceGenerator(name="idLector",sequenceName="lector_idlector_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idLector")
+	@Column(name="idLector",nullable=false)
 	public Long getIdLector() {
 		return idLector;
 	}
@@ -67,7 +67,7 @@ public class Lector {
 		this.tipo = tipo;
 	}
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idLocalizacion")
 	public Localizacion getUbicacion() {
 		return ubicacion;
@@ -76,7 +76,7 @@ public class Lector {
 		this.ubicacion = ubicacion;
 	}
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="Etiqueta_Lector",
 			joinColumns={@JoinColumn(name="idLector")},

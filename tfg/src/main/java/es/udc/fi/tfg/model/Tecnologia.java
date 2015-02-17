@@ -22,9 +22,8 @@ public class Tecnologia {
 	}
 	
 	
-	public Tecnologia(Long idTecnologia, String tipo, String subtipo) {
+	public Tecnologia(String tipo, String subtipo) {
 		super();
-		this.idTecnologia = idTecnologia;
 		this.tipo = tipo;
 		this.subtipo = subtipo;
 	}
@@ -32,6 +31,7 @@ public class Tecnologia {
 	@Id
 	@SequenceGenerator(name="idTecnologia",sequenceName="tecnologia_idtecnologia_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idTecnologia")
+	@Column(name="idTecnologia",nullable=false)
 	public Long getIdTecnologia() {
 		return idTecnologia;
 	}

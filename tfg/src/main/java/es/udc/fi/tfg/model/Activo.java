@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="Activo")
@@ -30,20 +34,19 @@ public class Activo {
 	private Activo(){
 	}
 	
-	public Activo(Long idActivo, String nombre, byte[] icono, String categoria,
-			Etiqueta etiqueta, List<Localizacion> ubicacion) {
+	public Activo(String nombre, byte[] icono, String categoria,
+			Etiqueta etiqueta) {
 		super();
-		this.idActivo = idActivo;
 		this.nombre = nombre;
 		this.icono = icono;
 		this.categoria = categoria;
 		this.etiqueta = etiqueta;
-		this.ubicacion = ubicacion;
 	}
 	
 	@Id
-	@SequenceGenerator(name="idActvio",sequenceName="activo_idactvivo_seq")
+	@SequenceGenerator(name="idActivo",sequenceName="activo_idactvivo_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idActivo")
+	@Column(name="idActivo",nullable=false)
 	public Long getIdActivo() {
 		return idActivo;
 	}
@@ -75,8 +78,9 @@ public class Activo {
 		this.categoria = categoria;
 	}
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idEtiqueta")
+	@Cascade({CascadeType.SAVE_UPDATE})
 	public Etiqueta getEtiqueta() {
 		return etiqueta;
 	}
@@ -84,12 +88,13 @@ public class Activo {
 		this.etiqueta = etiqueta;
 	}
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 		name="Activo_Localizacion",
 		joinColumns={@JoinColumn(name="idActivo")},
 		inverseJoinColumns={@JoinColumn(name="idLocalizacion")}				
 	)
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
 	public List<Localizacion> getUbicacion() {
 		return ubicacion;
 	}

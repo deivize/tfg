@@ -29,11 +29,10 @@ public class Localizacion {
 	}
 	
 	
-	public Localizacion(Long idLocalizacion, Long coord_x, Long coord_y,
+	public Localizacion(Long coord_x, Long coord_y,
 			Long coord_z, String edificio, Long planta, String area,
 			String zona, Timestamp fecha) {
 		super();
-		this.idLocalizacion = idLocalizacion;
 		this.coord_x = coord_x;
 		this.coord_y = coord_y;
 		this.coord_z = coord_z;
@@ -48,6 +47,7 @@ public class Localizacion {
 	@Id
 	@SequenceGenerator(name="idLocalizacion",sequenceName="localizacion_idlocalizacion_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idLocalizacion")
+	@Column(name="idLocalizacion",nullable=false)
 	public Long getIdLocalizacion() {
 		return idLocalizacion;
 	}
