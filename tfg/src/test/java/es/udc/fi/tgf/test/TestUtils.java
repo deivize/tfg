@@ -12,12 +12,20 @@ import es.udc.fi.tfg.model.Localizacion;
 import es.udc.fi.tfg.model.Parametro;
 import es.udc.fi.tfg.model.Tecnologia;
 import es.udc.fi.tfg.services.ActivoService;
+import es.udc.fi.tfg.services.EtiquetaService;
+import es.udc.fi.tfg.services.LocalizacionService;
 
 public class TestUtils {
 	
 	
 	@Autowired
 	private ActivoService activoService;
+	
+	@Autowired
+	private EtiquetaService etiquetaService;
+	
+	@Autowired
+	private LocalizacionService localizacionService;
 	
 	public final long timeout = 50;
 	
@@ -43,7 +51,7 @@ public class TestUtils {
 	public Localizacion loc3;
 	
 	
-	public void createSetDatosPrueba(){
+	public void crearSetDatosPrueba(){
 		
 		estandar1= new Estandar("estandar1");
 		estandar2= new Estandar("estandar2");
@@ -52,7 +60,7 @@ public class TestUtils {
 		tecnologia2= new Tecnologia("tec2", "tec 2.1");
 		
 		parametro1= new Parametro("param1","val1");
-		parametro1= new Parametro("param2","val2");
+		parametro2= new Parametro("param2","val2");
 		
 		etiqueta1= new Etiqueta("contenido1","fabricante1",true,tecnologia1,estandar1,parametro1);
 		etiqueta2= new Etiqueta("contenido2","fabricante2",false,tecnologia2,estandar2,parametro2);
@@ -88,6 +96,24 @@ public class TestUtils {
 		for(Activo a:activoService.buscarActivos()){
 			activoService.borrarActivo(a);
 		}
+		
+		etiquetaService.borrarEstandar(estandar1);
+		etiquetaService.borrarEstandar(estandar2);
+		
+		etiquetaService.borrarTecnologia(tecnologia1);
+		etiquetaService.borrarTecnologia(tecnologia2);
+		
+		etiquetaService.borrarParametro(parametro1);
+		etiquetaService.borrarParametro(parametro2);
+		
+		for(Etiqueta e:etiquetaService.buscarEtiquetas()){
+			etiquetaService.borrarEtiqueta(e);
+		}
+		
+		localizacionService.borrarLocalizacion(loc1);
+		localizacionService.borrarLocalizacion(loc2);
+		localizacionService.borrarLocalizacion(loc3);
+		
 		
 	}
 	

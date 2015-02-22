@@ -62,8 +62,14 @@ public class ActivoServiceImpl implements ActivoService {
 	@Override
 	@Transactional(value="miTransactionManager")
 	public Activo buscarActivoPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Activo activo=null;
+		try{
+			activo=activoDAO.findById(id);
+			log.info("Buscando activo con id: "+id);
+		}catch(DataAccessException e){
+			log.error("Error al buscar activo con id: "+id);
+		}
+		return activo;
 	}
 	
 	@Override
