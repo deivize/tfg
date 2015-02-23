@@ -34,8 +34,26 @@
           <target>${java.version}</target>
         </configuration>
       </plugin>
-     </plugins>
-    </build>
+     
+     <plugin>  
+            <groupId>org.mortbay.jetty</groupId>  
+            <artifactId>maven-jetty-plugin</artifactId>  
+            <configuration>  
+                <scanIntervalSeconds>3</scanIntervalSeconds>  
+            </configuration>  
+        </plugin>  
+    
+    <!-- Para empaquetar os fontes usando mvn assembly:assembly -->
+		<plugin>
+			<artifactId>maven-assembly-plugin</artifactId>
+			<configuration>
+				<descriptors>
+					<descriptor>assembly-src.xml</descriptor>
+				</descriptors>
+			</configuration>
+		</plugin>
+    </plugins>
+  </build>
 
   <dependencies>
     <dependency>

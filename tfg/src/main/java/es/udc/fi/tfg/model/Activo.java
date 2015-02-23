@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Activo {
 	private byte[] icono;
 	private String categoria;
 	private Etiqueta etiqueta;
-	private List<Localizacion> ubicacion;
+	private List<Localizacion> ubicacion= new ArrayList<Localizacion>();
 	
 	@SuppressWarnings("unused")
 	private Activo(){
@@ -44,7 +45,7 @@ public class Activo {
 	}
 	
 	@Id
-	@SequenceGenerator(name="idActivo",sequenceName="activo_idactvivo_seq")
+	@SequenceGenerator(name="idActivo",sequenceName="activo_idactivo_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idActivo")
 	@Column(name="idActivo",nullable=false)
 	public Long getIdActivo() {
@@ -88,7 +89,7 @@ public class Activo {
 		this.etiqueta = etiqueta;
 	}
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 		name="Activo_Localizacion",
 		joinColumns={@JoinColumn(name="idActivo")},
@@ -162,7 +163,7 @@ public class Activo {
 	
 	@Override
 	public String toString() {
-		return "Activos [idActivo=" + idActivo + ", nombre=" + nombre
+		return "Activo [idActivo=" + idActivo + ", nombre=" + nombre
 				+ ", icono=" + Arrays.toString(icono) + ", categoria="
 				+ categoria + ", etiqueta=" + etiqueta + ", ubicacion="
 				+ ubicacion + "]";

@@ -1,6 +1,7 @@
 package es.udc.fi.tfg.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ public class Lector {
 	private String modelo;
 	private String tipo;
 	private Localizacion ubicacion;
-	private List<Etiqueta> etiquetas;
+	private List<Etiqueta> etiquetas= new ArrayList<Etiqueta>();
 	
 	@SuppressWarnings("unused")
 	private Lector(){

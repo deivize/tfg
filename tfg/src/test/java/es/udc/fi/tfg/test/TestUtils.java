@@ -1,4 +1,4 @@
-package es.udc.fi.tgf.test;
+package es.udc.fi.tfg.test;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -97,6 +97,10 @@ public class TestUtils {
 			activoService.borrarActivo(a);
 		}
 		
+		for(Etiqueta e:etiquetaService.buscarEtiquetas()){
+			etiquetaService.borrarEtiqueta(e);
+		}
+		
 		etiquetaService.borrarEstandar(estandar1);
 		etiquetaService.borrarEstandar(estandar2);
 		
@@ -106,9 +110,7 @@ public class TestUtils {
 		etiquetaService.borrarParametro(parametro1);
 		etiquetaService.borrarParametro(parametro2);
 		
-		for(Etiqueta e:etiquetaService.buscarEtiquetas()){
-			etiquetaService.borrarEtiqueta(e);
-		}
+		
 		
 		localizacionService.borrarLocalizacion(loc1);
 		localizacionService.borrarLocalizacion(loc2);

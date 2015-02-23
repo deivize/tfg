@@ -52,9 +52,6 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		
 		Activo activo= (Activo) query.uniqueResult();
 		
-		if(activo==null){
-			throw new RuntimeException("No se ha podido encontrar el activo con id: "+id);
-		}
 		return activo;
 		
 	}

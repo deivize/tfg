@@ -24,8 +24,7 @@
 	
 	<!-- Externalizamos os parámetros da conexión a un ficheiro database.properties -->
 	<context:property-placeholder location="database.properties" />
-	
-<beans>
+
 	<bean id="miDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClass}"/>
         <property name="url" 			 value="${jdbc.jdbcUrl}"/>

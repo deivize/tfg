@@ -1,14 +1,23 @@
 package es.udc.fi.tfg.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="Localizacion")
@@ -23,10 +32,12 @@ public class Localizacion {
 	private String area;
 	private String zona;
 	private Timestamp fecha;
+	private List<Activo> activos= new ArrayList<Activo>();
 	
 	@SuppressWarnings("unused")
 	private Localizacion(){
 	}
+	
 	
 	
 	public Localizacion(Long coord_x, Long coord_y,
@@ -42,8 +53,8 @@ public class Localizacion {
 		this.zona = zona;
 		this.fecha = fecha;
 	}
-	
-	
+
+
 	@Id
 	@SequenceGenerator(name="idLocalizacion",sequenceName="localizacion_idlocalizacion_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="idLocalizacion")
@@ -120,10 +131,30 @@ public class Localizacion {
 	}
 	
 	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(
+		name="Activo_Localizacion",
+		joinColumns={@JoinColumn(name="idLocalizacion")},
+		inverseJoinColumns={@JoinColumn(name="idActivo")}				
+	)
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
+	public List<Activo> getActivos() {
+		return activos;
+	}
+
+
+
+	public void setActivos(List<Activo> activos) {
+		this.activos = activos;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((activos == null) ? 0 : activos.hashCode());
 		result = prime * result + ((area == null) ? 0 : area.hashCode());
 		result = prime * result + ((coord_x == null) ? 0 : coord_x.hashCode());
 		result = prime * result + ((coord_y == null) ? 0 : coord_y.hashCode());
@@ -147,6 +178,11 @@ public class Localizacion {
 		if (getClass() != obj.getClass())
 			return false;
 		Localizacion other = (Localizacion) obj;
+		if (activos == null) {
+			if (other.activos != null)
+				return false;
+		} else if (!activos.equals(other.activos))
+			return false;
 		if (area == null) {
 			if (other.area != null)
 				return false;
