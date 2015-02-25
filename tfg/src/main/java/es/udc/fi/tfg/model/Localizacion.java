@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -32,7 +33,7 @@ public class Localizacion {
 	private String area;
 	private String zona;
 	private Timestamp fecha;
-	private List<Activo> activos= new ArrayList<Activo>();
+	private List<ActivoLocalizacion> activos= new ArrayList<ActivoLocalizacion>();
 	
 	@SuppressWarnings("unused")
 	private Localizacion(){
@@ -131,20 +132,15 @@ public class Localizacion {
 	}
 	
 	
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(
-		name="Activo_Localizacion",
-		joinColumns={@JoinColumn(name="idLocalizacion")},
-		inverseJoinColumns={@JoinColumn(name="idActivo")}				
-	)
+	@OneToMany(mappedBy="pk.localizacion",fetch=FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
-	public List<Activo> getActivos() {
+	public List<ActivoLocalizacion> getActivos() {
 		return activos;
 	}
 
 
 
-	public void setActivos(List<Activo> activos) {
+	public void setActivos(List<ActivoLocalizacion> activos) {
 		this.activos = activos;
 	}
 

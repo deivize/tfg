@@ -35,6 +35,7 @@ public class EtiquetaServiceImpl implements EtiquetaService {
 	private ParametroDAO parametroDAO;
 
 	@Override
+	@Transactional(value="miTransactionManager")
 	public void crearEtiqueta(Etiqueta miEtiqueta) {
 		try{
 			etiquetaDAO.create(miEtiqueta);

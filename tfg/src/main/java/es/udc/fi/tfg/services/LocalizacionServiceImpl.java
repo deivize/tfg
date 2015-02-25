@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.daos.LocalizacionDAO;
 import es.udc.fi.tfg.model.Localizacion;
@@ -17,6 +18,7 @@ public class LocalizacionServiceImpl implements LocalizacionService {
 	LocalizacionDAO localizacionDAO;
 	
 	@Override
+	@Transactional(value="miTransactionManager")
 	public void crearLocalizacion(Localizacion miLocalizacion) {
 		try{
 			localizacionDAO.create(miLocalizacion);
@@ -28,6 +30,7 @@ public class LocalizacionServiceImpl implements LocalizacionService {
 	}
 
 	@Override
+	@Transactional(value="miTransactionManager")
 	public void borrarLocalizacion(Localizacion miLocalizacion) {
 		try{
 			localizacionDAO.remove(miLocalizacion);

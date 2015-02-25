@@ -18,9 +18,12 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 
 	@Override
 	public Long create(Activo activo) {
+		
 		if(activo.getIdActivo()!=null){
 			throw new RuntimeException("Intento de creacion de activo ya persistente");
 		}
+		
+		
 		
 		Long activoId= (Long)miSessionFactory.getCurrentSession().save(activo);
 		return activoId;

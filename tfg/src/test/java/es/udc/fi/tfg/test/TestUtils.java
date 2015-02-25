@@ -6,6 +6,7 @@ import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.udc.fi.tfg.model.Activo;
+import es.udc.fi.tfg.model.ActivoLocalizacion;
 import es.udc.fi.tfg.model.Estandar;
 import es.udc.fi.tfg.model.Etiqueta;
 import es.udc.fi.tfg.model.Localizacion;
@@ -50,6 +51,9 @@ public class TestUtils {
 	public Localizacion loc2;
 	public Localizacion loc3;
 	
+	public ActivoLocalizacion activoLoc1;
+	public ActivoLocalizacion activoLoc2;
+	public ActivoLocalizacion activoLoc3;
 	
 	public void crearSetDatosPrueba(){
 		
@@ -71,18 +75,38 @@ public class TestUtils {
 		activo3= new Activo("activo3",null,"categoria3",etiqueta3);
 		
 		loc1= new Localizacion(43L,21L,54L,"edificio1",1L,"area1","zona1",new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		localizacionService.crearLocalizacion(loc1);
 		try { Thread.sleep(timeout); } catch (InterruptedException e) {}
 		loc2= new Localizacion(34L,76L,12L,"edificio2",5L,"area3","zona4",new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		localizacionService.crearLocalizacion(loc2);
 		try { Thread.sleep(timeout); } catch (InterruptedException e) {}
 		loc3= new Localizacion(65L,12L,78L,"edificio3",4L,"area6","zona7",new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		localizacionService.crearLocalizacion(loc3);
+		
+		ActivoLocalizacion activoLoc1= new ActivoLocalizacion();
+		activoLoc1.setActivo(activo1);
+		activoLoc1.setLocalizacion(loc1);
+		activoLoc1.setFecha(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		
+		try { Thread.sleep(timeout); } catch (InterruptedException e) {}
+		
+		ActivoLocalizacion activoLoc2= new ActivoLocalizacion();
+		activoLoc2.setActivo(activo2);
+		activoLoc2.setLocalizacion(loc2);
+		activoLoc2.setFecha(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		
+		try { Thread.sleep(timeout); } catch (InterruptedException e) {}
+		
+		ActivoLocalizacion activoLoc3= new ActivoLocalizacion();
+		activoLoc3.setActivo(activo3);
+		activoLoc3.setLocalizacion(loc3);
+		activoLoc3.setFecha(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		
+		activo1.getUbicacion().add(0,activoLoc1);
+		activo2.getUbicacion().add(0,activoLoc2);		
+		activo3.getUbicacion().add(0,activoLoc3);
 		
 		
-		activo1.getUbicacion().add(0,loc1);
-		activo1.getUbicacion().add(0,loc2);
-		activo2.getUbicacion().add(0,loc3);		
-		activo3.getUbicacion().add(0,loc1);
-		
-		//Activada la propagacion en activo se guardaran sus localizaciones y etiquetas sin necesidad de hacerlo explicitamente
 		activoService.crearActivo(activo1);
 		activoService.crearActivo(activo2);
 		activoService.crearActivo(activo3);

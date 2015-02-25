@@ -60,7 +60,7 @@ public class TestActivos {
 		
 		//Comprobar que el activo se ha guardado en la BD
 		assertNotNull(miActivo.getIdActivo());
-		//assertEquals(activoService.buscarActivoPorId(miActivo.getIdActivo()),miActivo);
+		assertEquals(activoService.buscarActivoPorId(miActivo.getIdActivo()),miActivo);
 		
 		//T2 Comprobar el rechazo de duplicados
 		boolean duplicado = true;

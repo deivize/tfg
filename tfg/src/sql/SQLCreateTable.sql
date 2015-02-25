@@ -82,7 +82,8 @@ CREATE INDEX LectorIndexByidLector ON Lector(idLector);
 -- -----------Etiqueta_Lector---------------
 CREATE TABLE Etiqueta_Lector( idLector BIGINT NOT NULL,
 	idEtiqueta BIGINT NOT NULL,
-	CONSTRAINT Etiqueta_LectorPK PRIMARY KEY (idLector,idEtiqueta),
+	fecha TIMESTAMP NOT NULL,
+	CONSTRAINT Etiqueta_LectorPK PRIMARY KEY (idLector,idEtiqueta,fecha),
 	CONSTRAINT Etiqueta_LectoridLectorFK FOREIGN KEY (idLector)
 		REFERENCES Lector(idLector),
 	CONSTRAINT Etiqueta_LectoridEtiquetaFK FOREIGN KEY (idEtiqueta)
@@ -92,7 +93,8 @@ CREATE TABLE Etiqueta_Lector( idLector BIGINT NOT NULL,
 -- ---------------Activo_Localizacion------------
 CREATE TABLE Activo_Localizacion( idActivo BIGINT NOT NULL,
 	idLocalizacion BIGINT NOT NULL,
-	CONSTRAINT Activo_LocalizacionPK PRIMARY KEY (idActivo,idLocalizacion),
+	fecha TIMESTAMP NOT NULL,
+	CONSTRAINT Activo_LocalizacionPK PRIMARY KEY (idActivo,idLocalizacion,fecha),
 	CONSTRAINT Activo_LocalizacionidActivoFK FOREIGN KEY (idActivo)
 		REFERENCES Activo(idActivo),
 	CONSTRAINT Activo_LocalizacionidLocalizacionFK FOREIGN KEY (idLocalizacion)
