@@ -72,10 +72,8 @@ CREATE INDEX LocalizacionIndexByidLocalizacion ON Localizacion(idLocalizacion);
 CREATE TABLE Lector( idLector BIGSERIAL NOT NULL,
 	modelo VARCHAR(255) NOT NULL,
 	tipo VARCHAR(255),
-	idLocalizacion BIGINT NOT NULL,
 	CONSTRAINT LectorPK PRIMARY KEY (idLector),
-	CONSTRAINT LectoridLocalizacionFK FOREIGN KEY (idLocalizacion)
-		REFERENCES Localizacion(idLocalizacion));
+	
 		
 CREATE INDEX LectorIndexByidLector ON Lector(idLector);
 
@@ -102,6 +100,15 @@ CREATE TABLE Activo_Localizacion( idActivo BIGINT NOT NULL,
 
 
 
+-- ----------------Lector_Localizacion---------------------
+CREATE TABLE Lector_Localizacion(	idLector BIGINT NOT NULL,
+	idLocalizacion BIGINT NOT NULL,
+	fecha TIMESTAMP NOT NULL,
+	CONSTRAINT Lector_LocalizacionPK PRIMARY KEY (idLector,idLocalizacion,fecha),
+	CONSTRAINT Lector_LocalizacionLectorFK FOREIGN KEY (idLector)
+		REFERENCES Lector(idLector),
+	CONSTRAINT Lector_LocalizacionLocalizacionFK FOREIGN KEY (idLocalizacion)
+		REFERENCES Localizacion(idLocalizacion));
 		
 
 

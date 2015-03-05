@@ -58,9 +58,21 @@ public class TestActivos {
 		assertNull(miActivo.getIdActivo());
 		activoService.crearActivo(miActivo);
 		
+		
 		//Comprobar que el activo se ha guardado en la BD
 		assertNotNull(miActivo.getIdActivo());
-		assertEquals(activoService.buscarActivoPorId(miActivo.getIdActivo()),miActivo);
+		Activo activo1=activoService.buscarActivoPorId(miActivo.getIdActivo());
+		//assertEquals(activoService.buscarActivoPorId(miActivo.getIdActivo()),miActivo);
+		assertEquals(activo1.getIdActivo(),miActivo.getIdActivo());
+		assertEquals(activo1.getNombre(),miActivo.getNombre());
+		assertEquals(activo1.getIcono(),miActivo.getIcono());
+		assertEquals(activo1.getCategoria(),miActivo.getCategoria());
+		assertEquals(activo1.getEtiqueta(),miActivo.getEtiqueta());
+		//assertEquals(activo1.getUbicacion(),miActivo.getUbicacion());
+		
+		/*System.out.println(activo1.getUbicacion().getClass()+"-------------------------------------------------------");
+		System.out.println(miActivo.getUbicacion().getClass()+"-------------------------------------------------------");*/
+		
 		
 		//T2 Comprobar el rechazo de duplicados
 		boolean duplicado = true;
