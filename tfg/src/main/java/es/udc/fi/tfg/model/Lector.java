@@ -14,8 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="Lector")
@@ -24,8 +28,8 @@ public class Lector {
 	private Long idLector;
 	private String modelo;
 	private String tipo;
-	private Localizacion ubicacion;
-	private List<Etiqueta> etiquetas= new ArrayList<Etiqueta>();
+	private List<EtiquetaLector> etiquetas= new ArrayList<EtiquetaLector>();
+	private List<LectorLocalizacion> ubicacion= new ArrayList<LectorLocalizacion>();
 	
 	@SuppressWarnings("unused")
 	private Lector(){
@@ -37,7 +41,6 @@ public class Lector {
 		super();
 		this.modelo = modelo;
 		this.tipo = tipo;
-		this.ubicacion = ubicacion;
 	}
 	
 	
@@ -68,28 +71,26 @@ public class Lector {
 		this.tipo = tipo;
 	}
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idLocalizacion")
-	public Localizacion getUbicacion() {
-		return ubicacion;
-	}
-	public void setUbicacion(Localizacion ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-	
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(
-			name="Etiqueta_Lector",
-			joinColumns={@JoinColumn(name="idLector")},
-			inverseJoinColumns={@JoinColumn(name="idEtiqueta")}				
-		)
-	public List<Etiqueta> getEtiquetas() {
+	@OneToMany(mappedBy="pkEL.lector",fetch=FetchType.EAGER)
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
+	public List<EtiquetaLector> getEtiquetas() {
 		return etiquetas;
 	}
-	public void setEtiquetas(List<Etiqueta> etiquetas) {
+	public void setEtiquetas(List<EtiquetaLector> etiquetas) {
 		this.etiquetas = etiquetas;
 	}
 	
+	@OneToMany(mappedBy="pkLL.lector",fetch=FetchType.EAGER)
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
+	public List<LectorLocalizacion> getUbicacion() {
+		return ubicacion;
+	}
+
+
+	public void setUbicacion(List<LectorLocalizacion> ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
 	
 	@Override
 	public int hashCode() {
@@ -147,9 +148,8 @@ public class Lector {
 	
 	@Override
 	public String toString() {
-		return "Localizador [idLocalizador=" + idLector + ", modelo="
-				+ modelo + ", tipo=" + tipo + ", ubicacion=" + ubicacion
-				+ ", etiquetas=" + etiquetas + "]";
+		return "Lector [idLector=" + idLector + ", modelo=" + modelo
+				+ ", tipo=" + tipo + "]";
 	}
 	
 	

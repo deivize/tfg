@@ -1,5 +1,8 @@
 package es.udc.fi.tfg.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -25,6 +29,7 @@ public class Etiqueta {
 	private Tecnologia tecnologia;
 	private Estandar estandar;
 	private Parametro parametros;
+	private List<EtiquetaLector> lectores= new ArrayList<EtiquetaLector>();
 	
 	@SuppressWarnings("unused")
 	private Etiqueta(){
@@ -108,7 +113,16 @@ public class Etiqueta {
 		this.parametros = parametros;
 	}
 	
-	
+	@OneToMany(mappedBy="pkEL.etiqueta",fetch=FetchType.EAGER)
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
+	public List<EtiquetaLector> getLectores() {
+		return lectores;
+	}
+
+	public void setLectores(List<EtiquetaLector> lectores) {
+		this.lectores = lectores;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -118,11 +132,13 @@ public class Etiqueta {
 		result = prime * result
 				+ ((estandar == null) ? 0 : estandar.hashCode());
 		result = prime * result
-				+ ((idEtiqueta == null) ? 0 : idEtiqueta.hashCode());
-		result = prime * result
 				+ ((fabricante == null) ? 0 : fabricante.hashCode());
 		result = prime * result
+				+ ((idEtiqueta == null) ? 0 : idEtiqueta.hashCode());
+		result = prime * result
 				+ ((infoCifrada == null) ? 0 : infoCifrada.hashCode());
+		result = prime * result
+				+ ((lectores == null) ? 0 : lectores.hashCode());
 		result = prime * result
 				+ ((parametros == null) ? 0 : parametros.hashCode());
 		result = prime * result
@@ -150,20 +166,25 @@ public class Etiqueta {
 				return false;
 		} else if (!estandar.equals(other.estandar))
 			return false;
-		if (idEtiqueta == null) {
-			if (other.idEtiqueta != null)
-				return false;
-		} else if (!idEtiqueta.equals(other.idEtiqueta))
-			return false;
 		if (fabricante == null) {
 			if (other.fabricante != null)
 				return false;
 		} else if (!fabricante.equals(other.fabricante))
 			return false;
+		if (idEtiqueta == null) {
+			if (other.idEtiqueta != null)
+				return false;
+		} else if (!idEtiqueta.equals(other.idEtiqueta))
+			return false;
 		if (infoCifrada == null) {
 			if (other.infoCifrada != null)
 				return false;
 		} else if (!infoCifrada.equals(other.infoCifrada))
+			return false;
+		if (lectores == null) {
+			if (other.lectores != null)
+				return false;
+		} else if (!lectores.equals(other.lectores))
 			return false;
 		if (parametros == null) {
 			if (other.parametros != null)
@@ -182,7 +203,7 @@ public class Etiqueta {
 	
 	@Override
 	public String toString() {
-		return "Etiqueta [etiquetaId=" + idEtiqueta + ", contenido="
+		return "Etiqueta [idEtiqueta=" + idEtiqueta + ", contenido="
 				+ contenido + ", fabricante=" + fabricante + ", infoCifrada="
 				+ infoCifrada + ", tecnologia=" + tecnologia + ", estandar="
 				+ estandar + ", parametros=" + parametros + "]";

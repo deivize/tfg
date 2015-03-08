@@ -10,51 +10,50 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+
+
 @Entity
-@Table(name="activo_localizacion")
+@Table(name="lector_localizacion")
 @AssociationOverrides({
-	@AssociationOverride(name="pkAL.activo",joinColumns= @JoinColumn(name="idactivo")),
-	@AssociationOverride(name="pkAL.localizacion",joinColumns= @JoinColumn(name="idlocalizacion"))
+	@AssociationOverride(name="pkLL.lector",joinColumns= @JoinColumn(name="idlector")),
+	@AssociationOverride(name="pkLL.localizacion",joinColumns= @JoinColumn(name="idlocalizacion"))
 })
-public class ActivoLocalizacion {
-	
-	private ActivoLocalizacionId pkAL= new ActivoLocalizacionId();
+public class LectorLocalizacion {
+
+	private LectorLocalizacionId pkLL= new LectorLocalizacionId();
 	private Timestamp fecha=new Timestamp(Calendar.getInstance().getTimeInMillis());
 	
-	public ActivoLocalizacion(){
-	}
-	
-	@EmbeddedId
-	public ActivoLocalizacionId getPkAL() {
-		return pkAL;
+	public LectorLocalizacion(){
 	}
 
-	public void setPkAL(ActivoLocalizacionId pk) {
-		this.pkAL = pk;
+	@EmbeddedId
+	public LectorLocalizacionId getPkLL() {
+		return pkLL;
+	}
+
+	public void setPkLL(LectorLocalizacionId pk) {
+		this.pkLL = pk;
 	}
 	
 	@Transient
-	public Activo getActivo(){
-		return getPkAL().getActivo();
+	public Lector getLector(){
+		return pkLL.getLector();
 	}
 	
-	public void setActivo(Activo activo){
-		getPkAL().setActivo(activo);
+	public void setLector(Lector lector){
+		getPkLL().setLector(lector);
 	}
 	
 	@Transient
 	public Localizacion getLocalizacion(){
-		return getPkAL().getLocalizacion();
+		return pkLL.getLocalizacion();
 	}
 	
 	public void setLocalizacion(Localizacion localizacion){
-		getPkAL().setLocalizacion(localizacion);
+		getPkLL().setLocalizacion(localizacion);
 	}
-	
 	
 	@Column(name="fecha",nullable=false)
 	public Timestamp getFecha() {
@@ -70,7 +69,7 @@ public class ActivoLocalizacion {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
-		result = prime * result + ((pkAL == null) ? 0 : pkAL.hashCode());
+		result = prime * result + ((pkLL == null) ? 0 : pkLL.hashCode());
 		return result;
 	}
 
@@ -82,21 +81,24 @@ public class ActivoLocalizacion {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ActivoLocalizacion other = (ActivoLocalizacion) obj;
+		LectorLocalizacion other = (LectorLocalizacion) obj;
 		if (fecha == null) {
 			if (other.fecha != null)
 				return false;
 		} else if (!fecha.equals(other.fecha))
 			return false;
-		if (pkAL == null) {
-			if (other.pkAL != null)
+		if (pkLL == null) {
+			if (other.pkLL != null)
 				return false;
-		} else if (!pkAL.equals(other.pkAL))
+		} else if (!pkLL.equals(other.pkLL))
 			return false;
 		return true;
 	}
 	
 	
 	
-
+	
+	
+	
+	
 }

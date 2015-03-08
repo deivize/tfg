@@ -10,70 +10,66 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+
 @Entity
-@Table(name="activo_localizacion")
+@Table(name="etiqueta_lector")
 @AssociationOverrides({
-	@AssociationOverride(name="pkAL.activo",joinColumns= @JoinColumn(name="idactivo")),
-	@AssociationOverride(name="pkAL.localizacion",joinColumns= @JoinColumn(name="idlocalizacion"))
+	@AssociationOverride(name="pkEL.lector",joinColumns= @JoinColumn(name="idlector")),
+	@AssociationOverride(name="pkEL.etiqueta",joinColumns= @JoinColumn(name="idetiqueta"))
 })
-public class ActivoLocalizacion {
+public class EtiquetaLector {
 	
-	private ActivoLocalizacionId pkAL= new ActivoLocalizacionId();
+	private EtiquetaLectorId pkEL= new EtiquetaLectorId();
 	private Timestamp fecha=new Timestamp(Calendar.getInstance().getTimeInMillis());
 	
-	public ActivoLocalizacion(){
+	public EtiquetaLector(){
 	}
 	
 	@EmbeddedId
-	public ActivoLocalizacionId getPkAL() {
-		return pkAL;
+	public EtiquetaLectorId getPkEL() {
+		return pkEL;
 	}
-
-	public void setPkAL(ActivoLocalizacionId pk) {
-		this.pkAL = pk;
-	}
-	
-	@Transient
-	public Activo getActivo(){
-		return getPkAL().getActivo();
-	}
-	
-	public void setActivo(Activo activo){
-		getPkAL().setActivo(activo);
+	public void setPkEL(EtiquetaLectorId pk) {
+		this.pkEL = pk;
 	}
 	
 	@Transient
-	public Localizacion getLocalizacion(){
-		return getPkAL().getLocalizacion();
+	public Etiqueta getEtiqueta(){
+		return pkEL.getEtiqueta();
 	}
 	
-	public void setLocalizacion(Localizacion localizacion){
-		getPkAL().setLocalizacion(localizacion);
+	public void setEtiqueta(Etiqueta etiqueta){
+		getPkEL().setEtiqueta(etiqueta);
 	}
 	
+	@Transient
+	public Lector getLector(){
+		return pkEL.getLector();
+	}
+	
+	public void setLector(Lector lector){
+		getPkEL().setLector(lector);
+	}
 	
 	@Column(name="fecha",nullable=false)
 	public Timestamp getFecha() {
 		return fecha;
 	}
-
 	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
-		result = prime * result + ((pkAL == null) ? 0 : pkAL.hashCode());
+		result = prime * result + ((pkEL == null) ? 0 : pkEL.hashCode());
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -82,19 +78,20 @@ public class ActivoLocalizacion {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ActivoLocalizacion other = (ActivoLocalizacion) obj;
+		EtiquetaLector other = (EtiquetaLector) obj;
 		if (fecha == null) {
 			if (other.fecha != null)
 				return false;
 		} else if (!fecha.equals(other.fecha))
 			return false;
-		if (pkAL == null) {
-			if (other.pkAL != null)
+		if (pkEL == null) {
+			if (other.pkEL != null)
 				return false;
-		} else if (!pkAL.equals(other.pkAL))
+		} else if (!pkEL.equals(other.pkEL))
 			return false;
 		return true;
 	}
+	
 	
 	
 	

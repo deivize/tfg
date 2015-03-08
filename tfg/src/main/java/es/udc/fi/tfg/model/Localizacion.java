@@ -34,6 +34,7 @@ public class Localizacion {
 	private String zona;
 	private Timestamp fecha;
 	private List<ActivoLocalizacion> activos= new ArrayList<ActivoLocalizacion>();
+	private List<LectorLocalizacion> lectores= new ArrayList<LectorLocalizacion>();
 	
 	@SuppressWarnings("unused")
 	private Localizacion(){
@@ -132,16 +133,24 @@ public class Localizacion {
 	}
 	
 	
-	@OneToMany(mappedBy="pk.localizacion",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="pkAL.localizacion",fetch=FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
 	public List<ActivoLocalizacion> getActivos() {
 		return activos;
 	}
-
-
-
+	
 	public void setActivos(List<ActivoLocalizacion> activos) {
 		this.activos = activos;
+	}
+	
+	@OneToMany(mappedBy="pkLL.localizacion",fetch=FetchType.EAGER)
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
+	public List<LectorLocalizacion> getLectores() {
+		return lectores;
+	}
+	
+	public void setLectores(List<LectorLocalizacion> lectores) {
+		this.lectores = lectores;
 	}
 
 

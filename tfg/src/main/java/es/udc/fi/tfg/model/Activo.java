@@ -90,7 +90,7 @@ public class Activo {
 		this.etiqueta = etiqueta;
 	}
 	
-	@OneToMany(mappedBy="pk.activo",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="pkAL.activo",fetch=FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
 	public List<ActivoLocalizacion> getUbicacion() {
 		return ubicacion;
