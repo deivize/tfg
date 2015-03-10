@@ -8,6 +8,7 @@ public interface EtiquetaDAO {
 	
 	Long create(Etiqueta etiqueta);
 	List<Etiqueta> findAll();
+	Etiqueta findById(Long id);
 	void update(Etiqueta etiqueta);
 	void remove(Etiqueta etiqueta);
 	

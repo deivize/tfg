@@ -82,6 +82,20 @@ public class EtiquetaServiceImpl implements EtiquetaService {
 		}
 		return etiquetas;
 	}
+	
+	@Override
+	@Transactional(value="miTransactionManager")
+	public Etiqueta buscarEtiquetaPorId(Long id){
+		Etiqueta etiqueta=null;
+		try{
+			etiqueta=etiquetaDAO.findById(id);
+			log.info("Buscando etiqueta con id: "+id);
+		}catch (DataAccessException e){
+			log.info("Error al buscar la etiqueta con id: "+id);
+		}
+		return etiqueta;
+	}
+	
 
 	@Override
 	@Transactional(value="miTransactionManager")

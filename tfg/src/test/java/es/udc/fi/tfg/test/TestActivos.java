@@ -86,5 +86,27 @@ public class TestActivos {
 		
 		
 	}
+	
+	@Test
+	public void testActualizarActivo(){
+		
+		//Crear activo
+		Activo miActivo= new Activo("activo23",null,"categoria1",testUtils.etiqueta1);
+		assertNull(miActivo.getIdActivo());
+		activoService.crearActivo(miActivo);
+		
+		//Modificar algun campo del activo
+		miActivo.setNombre("activoModificado");
+		activoService.modificarActivo(miActivo);
+		Activo activo1=activoService.buscarActivoPorId(miActivo.getIdActivo());
+		//Comprobar que se ha modificado correctamente
+		assertEquals(activo1.getIdActivo(),miActivo.getIdActivo());
+		assertEquals(activo1.getNombre(),miActivo.getNombre());
+		assertEquals(activo1.getIcono(),miActivo.getIcono());
+		assertEquals(activo1.getCategoria(),miActivo.getCategoria());
+		
+		activoService.borrarActivo(miActivo);
+		
+	}
 
 }

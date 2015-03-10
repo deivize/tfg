@@ -9,6 +9,7 @@ public interface LocalizacionDAO {
 	Long create(Localizacion localizacion);
 	List<Localizacion> findAll();
 	List<Localizacion> findByEdificio(String edificio);
+	Localizacion findById(Long id);
 	void update(Localizacion edificio);
 	void remove(Localizacion edificio);
 }

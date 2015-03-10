@@ -13,6 +13,7 @@ public interface EtiquetaService {
 	void modificarEtiqueta(Etiqueta miEtiqueta);
 	void borrarEtiqueta(Etiqueta miEtiqueta);
 	List<Etiqueta> buscarEtiquetas();
+	Etiqueta buscarEtiquetaPorId(Long id);
 	
 	void crearEstandar(Estandar miEstandar);
 	void borrarEstandar(Estandar miEstandar);

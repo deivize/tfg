@@ -36,8 +36,7 @@ public class Lector {
 	}
 	
 	
-	public Lector(String modelo, String tipo,
-			Localizacion ubicacion) {
+	public Lector(String modelo, String tipo) {
 		super();
 		this.modelo = modelo;
 		this.tipo = tipo;

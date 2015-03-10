@@ -8,6 +8,7 @@ public interface LectorDAO {
 
 	Long create(Lector lector);
 	List<Lector> findAll();
+	Lector findById(Long id);
 	void update(Lector lector);
 	void remove(Lector lector);
 	

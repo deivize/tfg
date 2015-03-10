@@ -9,7 +9,7 @@ import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import es.udc.fi.tfg.model.Lector;
+
 import es.udc.fi.tfg.model.Localizacion;
 
 @Repository
@@ -45,6 +45,18 @@ public class LocalizacionDAOHibImpl implements LocalizacionDAO {
 		List<Localizacion> localizaciones= (List<Localizacion>)query.list();
 				
 		return localizaciones;
+	}
+	
+	@Override
+	public Localizacion findById(Long id){
+		Query query= miSessionFactory.getCurrentSession().
+				createQuery("FROM Localizacion WHERE idLocalizacion= :id");
+		query.setParameter("id", id);
+		
+		Localizacion localizacion= (Localizacion) query.uniqueResult();
+		
+		return localizacion;
+		
 	}
 
 	@Override

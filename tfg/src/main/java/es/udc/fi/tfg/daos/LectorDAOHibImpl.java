@@ -2,11 +2,12 @@ package es.udc.fi.tfg.daos;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import es.udc.fi.tfg.model.Activo;
+
 import es.udc.fi.tfg.model.Lector;
 
 @Repository
@@ -31,6 +32,17 @@ public class LectorDAOHibImpl implements LectorDAO {
 				createQuery("FROM Lector").list();
 				
 		return lectores;
+	}
+	
+	@Override
+	public Lector findById(Long id){
+		Query query= miSessionFactory.getCurrentSession().
+				createQuery("FROM Lector WHERE idLector= :id");
+		query.setParameter("id", id);
+		
+		Lector lector= (Lector) query.uniqueResult();
+		
+		return lector;
 	}
 
 	@Override

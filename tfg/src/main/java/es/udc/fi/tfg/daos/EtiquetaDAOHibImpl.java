@@ -2,11 +2,11 @@ package es.udc.fi.tfg.daos;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Etiqueta;
 
 @Repository
@@ -35,6 +35,19 @@ public class EtiquetaDAOHibImpl implements EtiquetaDAO {
 		return etiquetas;
 	}
 
+	@Override
+	public Etiqueta findById(Long id){
+		Query query= miSessionFactory.getCurrentSession().
+				createQuery("FROM Etiqueta WHERE idEtiqueta= :id");
+		query.setParameter("id", id);
+		
+		Etiqueta etiqueta= (Etiqueta) query.uniqueResult();
+		
+		return etiqueta;
+		
+	}
+	
+	
 	@Override
 	public void update(Etiqueta etiqueta) {
 		
