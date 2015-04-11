@@ -12,17 +12,19 @@ import es.udc.fi.tfg.services.ActivoService;
 
 
 @Controller
+@RequestMapping(value="/activos")
 public class ActivoController {
 	
 	@Autowired
 	private ActivoService activoService;
 	
 	@RequestMapping(value="/listactivos")
-	public void listActivos(Model model){
+	public String listActivos(Model model){
 		
 		List<Activo> activos=activoService.buscarActivos();
 		model.addAttribute("activos", activos);
 		
+		return "listactivos";
 	}
 	
 
