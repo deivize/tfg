@@ -14,6 +14,7 @@
 
 			<tr>
 				<td>${activos.nombre}</td>
+				
 			</tr>
 
 		</c:forEach>
