@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.udc.fi.tfg.forms.ActivoForm;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Etiqueta;
 import es.udc.fi.tfg.services.ActivoService;
@@ -36,16 +37,17 @@ public class ActivoController {
 	
 	@RequestMapping(method=RequestMethod.GET,params="new")
 	public String createActivoProfile(Model model){
-	
-		model.addAttribute("activo", new Activo(null,null,null,null));
+		List<Etiqueta> etiquetas=etiquetaService.buscarEtiquetas();
+		model.addAttribute("etiquetas", etiquetas);
+		model.addAttribute("activo", new ActivoForm());
 		return "nuevoactivo";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String addActivoFromForm(Activo activo){
+	public String addActivoFromForm(ActivoForm activoForm){
 		
-		Etiqueta etiqueta=etiquetaService.buscarEtiquetaPorId(1L);
-		activo.setEtiqueta(etiqueta);
+		Etiqueta etiqueta=etiquetaService.buscarEtiquetaPorId(activoForm.getEtiqueta());
+		Activo activo=new Activo(activoForm.getNombre(),null,activoForm.getCategoria(),etiqueta);
 		activoService.crearActivo(activo);
 		return "redirect:/home";
 	}

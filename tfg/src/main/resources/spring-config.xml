@@ -16,7 +16,6 @@
     <context:annotation-config/>
 	<context:component-scan base-package="es.udc.fi.tfg.daos" />
 	<context:component-scan base-package="es.udc.fi.tfg.services" />
-	
 	<tx:annotation-driven/>  
 	
 	
