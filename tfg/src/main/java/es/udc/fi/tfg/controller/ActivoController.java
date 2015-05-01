@@ -35,7 +35,7 @@ public class ActivoController {
 		return "listactivos";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,params="new")
+	@RequestMapping(method=RequestMethod.GET,value="/nuevoactivo")
 	public String createActivoProfile(Model model){
 		List<Etiqueta> etiquetas=etiquetaService.buscarEtiquetas();
 		model.addAttribute("etiquetas", etiquetas);
@@ -43,7 +43,7 @@ public class ActivoController {
 		return "nuevoactivo";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.POST,value="/nuevoactivo")
 	public String addActivoFromForm(ActivoForm activoForm){
 		
 		Etiqueta etiqueta=etiquetaService.buscarEtiquetaPorId(activoForm.getEtiqueta());
@@ -52,11 +52,20 @@ public class ActivoController {
 		return "redirect:/home";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,params="delete")
+	@RequestMapping(value="/borraractivo")
+	public String listaBorradoActivo(Model model){
+		List<Activo> activos=activoService.buscarActivos();
+		model.addAttribute("activos", activos);
+		model.addAttribute("activo",new Activo(null,null,null,null));
+		return "borraractivo";
+	}
+	
+	
+	@RequestMapping(method=RequestMethod.POST,value="/borraractivo")
 	public String deleteActivo(Activo activo){
 		
 		activoService.borrarActivo(activo);
-		return "redirect:/home";
+		return "redirect:/activos/borraractivo";
 	}
 	
 }
