@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.daos.ActivoDAO;
 import es.udc.fi.tfg.model.Activo;
+import es.udc.fi.tfg.model.Localizacion;
 
 @Service
 public class ActivoServiceImpl implements ActivoService {
@@ -84,6 +85,19 @@ public class ActivoServiceImpl implements ActivoService {
 		}
 		return activos;
 		
+	}
+
+	@Override
+	public List<Localizacion> getLocalizacines(Long id) {
+		List<Localizacion> localizaciones = null;
+		try{
+			localizaciones=activoDAO.getLocalizacionesActivo(id);
+			log.info("Buscando localizaciones del activo: "+id);
+			
+		}catch(DataAccessException e){
+			log.error("Error al busca localizaciones del activo: "+id);
+		}
+		return localizaciones;
 	}
 	
 

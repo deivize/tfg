@@ -1,8 +1,10 @@
 package es.udc.fi.tfg.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import es.udc.fi.tfg.forms.ActivoForm;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Etiqueta;
+import es.udc.fi.tfg.model.Localizacion;
 import es.udc.fi.tfg.services.ActivoService;
 import es.udc.fi.tfg.services.EtiquetaService;
 
@@ -68,4 +71,11 @@ public class ActivoController {
 		return "redirect:/activos/borraractivo";
 	}
 	
+	@RequestMapping(value="/verRecorrido")
+	public String verRecorrido(Model model, Long id){
+		
+		
+		
+		return "verrecorrido";
+	}
 }

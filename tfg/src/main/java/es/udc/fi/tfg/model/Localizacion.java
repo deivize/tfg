@@ -25,9 +25,9 @@ import org.hibernate.annotations.CascadeType;
 public class Localizacion {
 	
 	private Long idLocalizacion;
-	private Long coord_x;
-	private Long coord_y;
-	private Long coord_z;
+	private Double coord_x;
+	private Double coord_y;
+	private Double coord_z;
 	private String edificio;
 	private Long planta;
 	private String area;
@@ -42,8 +42,8 @@ public class Localizacion {
 	
 	
 	
-	public Localizacion(Long coord_x, Long coord_y,
-			Long coord_z, String edificio, Long planta, String area,
+	public Localizacion(Double coord_x, Double coord_y,
+			Double coord_z, String edificio, Long planta, String area,
 			String zona, Timestamp fecha) {
 		super();
 		this.coord_x = coord_x;
@@ -69,26 +69,26 @@ public class Localizacion {
 	}
 	
 	@Column(name="coord_x",nullable=false)
-	public Long getCoord_x() {
+	public Double getCoord_x() {
 		return coord_x;
 	}
-	public void setCoord_x(Long coord_x) {
+	public void setCoord_x(Double coord_x) {
 		this.coord_x = coord_x;
 	}
 	
 	@Column(name="coord_y",nullable=false)
-	public Long getCoord_y() {
+	public Double getCoord_y() {
 		return coord_y;
 	}
-	public void setCoord_y(Long coord_y) {
+	public void setCoord_y(Double coord_y) {
 		this.coord_y = coord_y;
 	}
 	
 	@Column(name="coord_z",nullable=false)
-	public Long getCoord_z() {
+	public Double getCoord_z() {
 		return coord_z;
 	}
-	public void setCoord_z(Long coord_z) {
+	public void setCoord_z(Double coord_z) {
 		this.coord_z = coord_z;
 	}
 	

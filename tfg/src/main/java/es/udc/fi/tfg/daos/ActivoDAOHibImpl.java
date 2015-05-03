@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import es.udc.fi.tfg.model.Activo;
+import es.udc.fi.tfg.model.Localizacion;
 
 @Repository
 public class ActivoDAOHibImpl implements ActivoDAO {
@@ -72,6 +73,18 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 
 		miSessionFactory.getCurrentSession().delete(activo);
 		
+	}
+
+	@Override
+	public List<Localizacion> getLocalizacionesActivo(Long id) {
+		Query query=miSessionFactory.getCurrentSession().createQuery("SELECT b.idLocalizacion,b.coord_x,b.coord_y,b.coord_z,b.edificio,b.planta,b.area,b.zona,b.fecha "
+				+ "FROM activo_localizacion a JOIN localizacion b "
+				+ "ON a.idLocalizacion=b.idLocalizacion "
+				+ "WHERE idActivo= :id ORDER BY a.fecha ASC");
+		query.setParameter("id", id);
+		
+		List<Localizacion> localizaciones=(List<Localizacion>) query.list();
+		return localizaciones;
 	}
 
 }

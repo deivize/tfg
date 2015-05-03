@@ -3,6 +3,7 @@ package es.udc.fi.tfg.services;
 import java.util.List;
 
 import es.udc.fi.tfg.model.Activo;
+import es.udc.fi.tfg.model.Localizacion;
 
 public interface ActivoService {
 
@@ -10,6 +11,7 @@ public interface ActivoService {
 	void modificarActivo(Activo miActivo);
 	void borrarActivo(Activo miActivo);
 	Activo buscarActivoPorId(Long id);
+	List<Localizacion> getLocalizacines(Long id);
 	List<Activo> buscarActivos();
 	
 }

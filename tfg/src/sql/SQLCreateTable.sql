@@ -56,9 +56,9 @@ CREATE INDEX ActivoIndexByidActivo ON Activo(idActivo);
 
 -- --------Localizacion--------------------
 CREATE TABLE Localizacion( idLocalizacion BIGSERIAL NOT NULL,
-	coord_x BIGINT NOT NULL,
-	coord_y BIGINT NOT NULL,
-	coord_z BIGINT NOT NULL,
+	coord_x DOUBLE PRECISION NOT NULL,
+	coord_y DOUBLE PRECISION NOT NULL,
+	coord_z DOUBLE PRECISION NOT NULL,
 	edificio VARCHAR(255) NOT NULL,
 	planta BIGINT NOT NULL,
 	area VARCHAR(255),

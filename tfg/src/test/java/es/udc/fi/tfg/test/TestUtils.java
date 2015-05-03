@@ -74,13 +74,13 @@ public class TestUtils {
 		activo2= new Activo("activo2",null,"categoria2",etiqueta2);
 		activo3= new Activo("activo3",null,"categoria3",etiqueta3);
 		
-		loc1= new Localizacion(43L,21L,54L,"edificio1",1L,"area1","zona1",new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		loc1= new Localizacion(43D,21D,54D,"edificio1",1L,"area1","zona1",new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		localizacionService.crearLocalizacion(loc1);
 		try { Thread.sleep(timeout); } catch (InterruptedException e) {}
-		loc2= new Localizacion(34L,76L,12L,"edificio2",5L,"area3","zona4",new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		loc2= new Localizacion(34D,76D,12D,"edificio2",5L,"area3","zona4",new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		localizacionService.crearLocalizacion(loc2);
 		try { Thread.sleep(timeout); } catch (InterruptedException e) {}
-		loc3= new Localizacion(65L,12L,78L,"edificio3",4L,"area6","zona7",new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		loc3= new Localizacion(65D,12D,78D,"edificio3",4L,"area6","zona7",new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		localizacionService.crearLocalizacion(loc3);
 		
 		ActivoLocalizacion activoLoc1= new ActivoLocalizacion();
