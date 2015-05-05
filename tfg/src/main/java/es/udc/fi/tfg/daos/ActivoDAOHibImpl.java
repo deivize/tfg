@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import es.udc.fi.tfg.model.Activo;
+import es.udc.fi.tfg.model.ActivoLocalizacion;
 import es.udc.fi.tfg.model.Localizacion;
 
 @Repository
@@ -77,13 +79,32 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 
 	@Override
 	public List<Localizacion> getLocalizacionesActivo(Long id) {
-		Query query=miSessionFactory.getCurrentSession().createQuery("SELECT b.idLocalizacion,b.coord_x,b.coord_y,b.coord_z,b.edificio,b.planta,b.area,b.zona,b.fecha "
-				+ "FROM activo_localizacion a JOIN localizacion b "
-				+ "ON a.idLocalizacion=b.idLocalizacion "
-				+ "WHERE idActivo= :id ORDER BY a.fecha ASC");
-		query.setParameter("id", id);
+//		Query query=miSessionFactory.getCurrentSession().createQuery("SELECT b.idlocalizacion,b.coord_x,b.coord_y,b.coord_z,b.edificio,b.planta,b.area,b.zona,b.fecha "
+//				+ "FROM ActivoLocalizacion a JOIN localizacion b "
+//				+ "ON a.idlocalizacion=b.idlocalizacion "
+//				+ "WHERE a.pkAL.activo.idactivo= :id ORDER BY a.fecha ASC");
+//		query.setParameter("id", id);
 		
-		List<Localizacion> localizaciones=(List<Localizacion>) query.list();
+		Query query1=miSessionFactory.getCurrentSession().createQuery("FROM ActivoLocalizacion WHERE idactivo= :id ORDER BY fecha ASC");
+		query1.setParameter("id",id);
+		List<ActivoLocalizacion> activoLocalizaciones= (List<ActivoLocalizacion>) query1.list();
+		
+		List<Long> idLocalizaciones= new ArrayList<Long>();
+		for(ActivoLocalizacion actLoc:activoLocalizaciones){
+			idLocalizaciones.add(actLoc.getLocalizacion().getIdLocalizacion());
+		}
+		
+		
+		List<Localizacion> localizaciones=new ArrayList<Localizacion>();
+		for(Long idLoc:idLocalizaciones){
+			Query query2 = miSessionFactory.getCurrentSession().createQuery("FROM Localizacion WHERE idLocalizacion= :idLoc");
+			query2.setParameter("idLoc", idLoc);
+			Localizacion auxLoc =(Localizacion) query2.uniqueResult();
+			localizaciones.add(auxLoc);
+		}
+		
+		
+//		List<Localizacion> localizaciones=(List<Localizacion>) query.list();
 		return localizaciones;
 	}
 

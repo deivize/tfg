@@ -78,36 +78,36 @@ CREATE TABLE Lector( idLector BIGSERIAL NOT NULL,
 CREATE INDEX LectorIndexByidLector ON Lector(idLector);
 
 -- -----------Etiqueta_Lector---------------
-CREATE TABLE Etiqueta_Lector( idLector BIGINT NOT NULL,
+CREATE TABLE EtiquetaLector( idLector BIGINT NOT NULL,
 	idEtiqueta BIGINT NOT NULL,
 	fecha TIMESTAMP NOT NULL,
-	CONSTRAINT Etiqueta_LectorPK PRIMARY KEY (idLector,idEtiqueta,fecha),
-	CONSTRAINT Etiqueta_LectoridLectorFK FOREIGN KEY (idLector)
+	CONSTRAINT EtiquetaLectorPK PRIMARY KEY (idLector,idEtiqueta,fecha),
+	CONSTRAINT EtiquetaLectoridLectorFK FOREIGN KEY (idLector)
 		REFERENCES Lector(idLector),
-	CONSTRAINT Etiqueta_LectoridEtiquetaFK FOREIGN KEY (idEtiqueta)
+	CONSTRAINT EtiquetaLectoridEtiquetaFK FOREIGN KEY (idEtiqueta)
 		REFERENCES Etiqueta(idEtiqueta));
 		
 
 -- ---------------Activo_Localizacion------------
-CREATE TABLE Activo_Localizacion( idActivo BIGINT NOT NULL,
+CREATE TABLE ActivoLocalizacion( idActivo BIGINT NOT NULL,
 	idLocalizacion BIGINT NOT NULL,
 	fecha TIMESTAMP NOT NULL,
-	CONSTRAINT Activo_LocalizacionPK PRIMARY KEY (idActivo,idLocalizacion,fecha),
-	CONSTRAINT Activo_LocalizacionidActivoFK FOREIGN KEY (idActivo)
+	CONSTRAINT ActivoLocalizacionPK PRIMARY KEY (idActivo,idLocalizacion,fecha),
+	CONSTRAINT ActivoLocalizacionidActivoFK FOREIGN KEY (idActivo)
 		REFERENCES Activo(idActivo),
-	CONSTRAINT Activo_LocalizacionidLocalizacionFK FOREIGN KEY (idLocalizacion)
+	CONSTRAINT ActivoLocalizacionidLocalizacionFK FOREIGN KEY (idLocalizacion)
 		REFERENCES Localizacion(idLocalizacion));
 
 
 
 -- ----------------Lector_Localizacion---------------------
-CREATE TABLE Lector_Localizacion(	idLector BIGINT NOT NULL,
+CREATE TABLE LectorLocalizacion(	idLector BIGINT NOT NULL,
 	idLocalizacion BIGINT NOT NULL,
 	fecha TIMESTAMP NOT NULL,
-	CONSTRAINT Lector_LocalizacionPK PRIMARY KEY (idLector,idLocalizacion,fecha),
-	CONSTRAINT Lector_LocalizacionLectorFK FOREIGN KEY (idLector)
+	CONSTRAINT LectorLocalizacionPK PRIMARY KEY (idLector,idLocalizacion,fecha),
+	CONSTRAINT LectorLocalizacionLectorFK FOREIGN KEY (idLector)
 		REFERENCES Lector(idLector),
-	CONSTRAINT Lector_LocalizacionLocalizacionFK FOREIGN KEY (idLocalizacion)
+	CONSTRAINT LectorLocalizacionLocalizacionFK FOREIGN KEY (idLocalizacion)
 		REFERENCES Localizacion(idLocalizacion));
 		
 

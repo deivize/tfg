@@ -52,6 +52,7 @@ public class TestUtils {
 	public Localizacion loc3;
 	
 	public ActivoLocalizacion activoLoc1;
+	public ActivoLocalizacion activoLoc11;
 	public ActivoLocalizacion activoLoc2;
 	public ActivoLocalizacion activoLoc3;
 	
@@ -88,6 +89,11 @@ public class TestUtils {
 		activoLoc1.setLocalizacion(loc1);
 		activoLoc1.setFecha(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		
+		ActivoLocalizacion activoLoc11= new ActivoLocalizacion();
+		activoLoc11.setActivo(activo1);
+		activoLoc11.setLocalizacion(loc2);
+		activoLoc11.setFecha(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		
 		try { Thread.sleep(timeout); } catch (InterruptedException e) {}
 		
 		ActivoLocalizacion activoLoc2= new ActivoLocalizacion();
@@ -103,6 +109,7 @@ public class TestUtils {
 		activoLoc3.setFecha(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		
 		activo1.getUbicacion().add(0,activoLoc1);
+		activo1.getUbicacion().add(1,activoLoc11);
 		activo2.getUbicacion().add(0,activoLoc2);		
 		activo3.getUbicacion().add(0,activoLoc3);
 		

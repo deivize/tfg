@@ -84,7 +84,7 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 <body onload="init()">
 	<div id="menu" class="menu">
 		<input type="button" value="Ver Mapa" onclick="showMap()"><br>
-		<a href="<s:url value="/activos/listactivos"/>">Ver lista deactivos</a><br>
+		<a href="<s:url value="/activos/listactivos"/>">Ver lista de activos</a><br>
 		<a href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo activo</a><br> 
 		<a href="<s:url value="/activos/borraractivo"/>">Borrar activos</a>
 		<input id="printTrace" type="button" value="Dibujar recorrido"><br>

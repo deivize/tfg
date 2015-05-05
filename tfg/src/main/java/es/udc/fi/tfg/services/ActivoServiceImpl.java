@@ -88,6 +88,7 @@ public class ActivoServiceImpl implements ActivoService {
 	}
 
 	@Override
+	@Transactional(value="miTransactionManager")
 	public List<Localizacion> getLocalizacines(Long id) {
 		List<Localizacion> localizaciones = null;
 		try{

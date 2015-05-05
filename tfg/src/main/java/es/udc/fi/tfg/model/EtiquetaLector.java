@@ -14,7 +14,7 @@ import javax.persistence.Transient;
 
 
 @Entity
-@Table(name="etiqueta_lector")
+@Table(name="etiquetalector")
 @AssociationOverrides({
 	@AssociationOverride(name="pkEL.lector",joinColumns= @JoinColumn(name="idlector")),
 	@AssociationOverride(name="pkEL.etiqueta",joinColumns= @JoinColumn(name="idetiqueta"))

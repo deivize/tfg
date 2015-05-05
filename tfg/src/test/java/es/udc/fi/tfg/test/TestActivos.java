@@ -1,6 +1,11 @@
 package es.udc.fi.tfg.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -13,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import es.udc.fi.tfg.model.Activo;
+import es.udc.fi.tfg.model.Localizacion;
 import es.udc.fi.tfg.services.ActivoService;
 
 
@@ -109,4 +115,17 @@ public class TestActivos {
 		
 	}
 
+	@Test
+	public void testGetLocalizaciones(){
+		
+		List<Activo> activos= activoService.buscarActivos();
+		Activo activo=activos.get(0);
+		
+		List<Localizacion> localizaciones=activoService.getLocalizacines(activo.getIdActivo());
+		
+		assertEquals(localizaciones.size(),2);
+		
+		
+	}
+	
 }

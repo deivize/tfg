@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name="activo_localizacion")
+@Table(name="ActivoLocalizacion")
 @AssociationOverrides({
 	@AssociationOverride(name="pkAL.activo",joinColumns= @JoinColumn(name="idactivo")),
 	@AssociationOverride(name="pkAL.localizacion",joinColumns= @JoinColumn(name="idlocalizacion"))

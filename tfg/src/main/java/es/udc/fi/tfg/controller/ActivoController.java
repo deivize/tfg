@@ -73,8 +73,8 @@ public class ActivoController {
 	
 	@RequestMapping(value="/verRecorrido")
 	public String verRecorrido(Model model, Long id){
-		
-		
+		List<Localizacion> localizaciones=activoService.getLocalizacines(id);
+		model.addAttribute("localizaciones", localizaciones);
 		
 		return "verrecorrido";
 	}

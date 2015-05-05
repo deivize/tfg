@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 
 
 @Entity
-@Table(name="lector_localizacion")
+@Table(name="lectorlocalizacion")
 @AssociationOverrides({
 	@AssociationOverride(name="pkLL.lector",joinColumns= @JoinColumn(name="idlector")),
 	@AssociationOverride(name="pkLL.localizacion",joinColumns= @JoinColumn(name="idlocalizacion"))

@@ -44,19 +44,34 @@ function drawpath( canvas, pathstr, duration, attr, callback )
     return result;
 };
 
-
+function init(){
+	var trace=document.getElementById("printTrace");
+	
+	trace.onclick=printTrace;
+	
+};
 
 function printTrace(paper) {
 	var paper = new Raphael(document.getElementById('mapcontainer'), 1000, 1000);
-	var path= drawpath(paper,"M8.9151812,19.530167 L340.43829,330.79755",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
 	
+// 	for(i=0;i<${localizaciones}.length-1;i++){
+// 		var coord_x1=${localizaciones[0].coord_x};
+// 		var coord_y1=${localizaciones[0].coord_y};
+// 		var coord_x2=${localizaciones[i+1].coord_x};
+// 		var coord_y2=${localizaciones[i+1].coord_y};
+		
+		var path= drawpath(paper,"M${localizaciones[0].coord_x},${localizaciones[0].coord_y} L${localizaciones[1].coord_x},${localizaciones[1].coord_y}",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
+		var path2= drawpath(paper,"M${localizaciones[1].coord_x},${localizaciones[1].coord_y} L${localizaciones[2].coord_x},${localizaciones[2].coord_y}",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
+
+
+// 	var path= drawpath(paper,"M8.9151812,19.530167 L340.43829,330.79755",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
 };
 
 
 </script>
 
 </head>
-<body>
+<body onload="init()">
 
 <input id="printTrace" type="button" value="Dibujar recorrido">
 
@@ -69,6 +84,14 @@ function printTrace(paper) {
 <!-- 			</div> -->
 <%-- 		</c:forEach> --%>
 <!-- 	</div> -->
+	<div id="localizaciones">
+		<c:forEach var="localizacion" items="${localizaciones}" varStatus="statut">
+			<td>${localizacion.coord_x}</td>
+			<td>${localizacion.coord_y}</td>
+			<td>${localizacion.coord_z}</td>
+		</c:forEach>
+	
+	</div>
 
 	<div id="mapa" class="mapa">
 		<svg id="svg1" height="1000" width="1000"> 
