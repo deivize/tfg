@@ -53,18 +53,25 @@ function init(){
 
 function printTrace(paper) {
 	var paper = new Raphael(document.getElementById('mapcontainer'), 1000, 1000);
+	var length=${loc_size};
 	
-// 	for(i=0;i<${localizaciones}.length-1;i++){
-// 		var coord_x1=${localizaciones[0].coord_x};
-// 		var coord_y1=${localizaciones[0].coord_y};
-// 		var coord_x2=${localizaciones[i+1].coord_x};
-// 		var coord_y2=${localizaciones[i+1].coord_y};
-		
-		var path= drawpath(paper,"M${localizaciones[0].coord_x},${localizaciones[0].coord_y} L${localizaciones[1].coord_x},${localizaciones[1].coord_y}",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
-		var path2= drawpath(paper,"M${localizaciones[1].coord_x},${localizaciones[1].coord_y} L${localizaciones[2].coord_x},${localizaciones[2].coord_y}",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
-
+	
+// 	for(localizacion in ${localizaciones}){
+// 		var path= drawpath(paper,"M${localizaciones[0].coord_x},${localizaciones[0].coord_y} L${localizaciones[1].coord_x},${localizaciones[1].coord_y}",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
+// 		var path2= drawpath(paper,"M${localizaciones[1].coord_x},${localizaciones[1].coord_y} L${localizaciones[2].coord_x},${localizaciones[2].coord_y}",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
+// 	}
 
 // 	var path= drawpath(paper,"M8.9151812,19.530167 L340.43829,330.79755",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
+
+	for(i=0;i<length+0;i++){
+// 		var coord_x1=${coordenadas[i+0][0]};
+// 		var coord_y1=${coordenadas[i+0][1]};
+// 		var coord_x2=${coordenadas[i+1][0]};
+// 		var coord_y2=${coordenadas[i+1][1]};
+		var path=drawpath(paper,"M${coordenadas[i+0][0]},${coordenadas[i+0][1]} L${coordenadas[i+1][0]},${coordenadas[i+1][1]}",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
+		console.log(${coordenadas[i+0][0]});
+		
+	}
 };
 
 
@@ -85,10 +92,11 @@ function printTrace(paper) {
 <%-- 		</c:forEach> --%>
 <!-- 	</div> -->
 	<div id="localizaciones">
-		<c:forEach var="localizacion" items="${localizaciones}" varStatus="statut">
+		<c:forEach var="localizacion" items="${localizaciones}" varStatus="status">
 			<td>${localizacion.coord_x}</td>
 			<td>${localizacion.coord_y}</td>
-			<td>${localizacion.coord_z}</td>
+<%-- 			<td>${localizacion.coord_x2}</td> --%>
+<%-- 			<td>${localizacion.coord_y2}</td> --%>
 		</c:forEach>
 	
 	</div>
