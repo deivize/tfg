@@ -81,11 +81,29 @@ public class ActivoController {
 			cood.add(1,loc.getCoord_y());
 			coordenadas.add(cood);
 		}
+		
+		ArrayList<Double> coord= new ArrayList<Double>();
+		for(Localizacion loc:localizaciones_){
+			coord.add(loc.getCoord_x());
+			coord.add(loc.getCoord_y());
+		}
+		
+		ArrayList<ArrayList<Double>> paths=new ArrayList<ArrayList<Double>>();
+		for(int i=0;i<coord.size()-2;i=i+2){
+			ArrayList<Double> cood=new ArrayList<Double>();
+			cood.add(0,coord.get(i));
+			cood.add(1,coord.get(i+1));
+			cood.add(2,coord.get(i+2));
+			cood.add(3,coord.get(i+3));
+			paths.add(cood);
+		}
 
 		
 		model.addAttribute("coordenadas",coordenadas);
 		model.addAttribute("loc_size",length);
 		model.addAttribute("localizaciones", localizaciones_);
+		model.addAttribute("paths", paths);
+		model.addAttribute("path_size",paths.size());
 		
 		return "verrecorrido";
 	}

@@ -45,11 +45,29 @@ function drawpath( canvas, pathstr, duration, attr, callback )
 };
 
 function init(){
+	
+	for(var i=0; i<=2; i++) {
+	    setAnimations(i);
+	  }
+	
 	var trace=document.getElementById("printTrace");
 	
 	trace.onclick=printTrace;
 	
 };
+
+function setAnimations(number) {
+	  path=document.getElementById('path'+number);
+	  pathLength=path.getTotalLength().toString();
+	  pathAnim=document.getElementById('dashAnim'+number);
+	  path.setAttributeNS(null,'stroke-dasharray',pathLength+" "+pathLength);
+	  path.setAttributeNS(null,'stroke-dashoffset',pathLength);
+	  pathAnim.setAttributeNS(null,'from',pathLength);
+	  pathAnim.setAttributeNS(null,'values',pathLength+';0');
+	}
+
+
+
 
 function printTrace(paper) {
 	var paper = new Raphael(document.getElementById('mapcontainer'), 1000, 1000);
@@ -98,6 +116,18 @@ function printTrace(paper) {
 <%-- 			<td>${localizacion.coord_x2}</td> --%>
 <%-- 			<td>${localizacion.coord_y2}</td> --%>
 		</c:forEach>
+	</div>	
+		
+		
+	<div id="paths">
+		<c:forEach var="path" items="${paths}" varStatus="status">
+			<c:forEach var="i" begin="0" end="4" step="2">
+				<td>${path[i]}</td>
+				<td>${path[i+1]}</td>
+			</c:forEach>
+		</c:forEach>
+		
+		
 	
 	</div>
 
@@ -121,6 +151,20 @@ function printTrace(paper) {
 			width="29.541664" height="15.361248" x="340.43829" y="330.79755" />
 		<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector3"
 			width="36.106476" height="24.254602" x="654.72876" y="289.56473" />
+			<c:set var="i" value="1"/>
+			<path id="path0" d="">
+    			<animate id="dashAnim0" attributeName="stroke-dashoffset" from="0"
+                                     to="0" dur="1s" begin="1s" fill="freeze"
+                               keySplines="0 0.5 0.5 1" calcMode="spline"/>
+  			</path>
+			<c:forEach var="path" items="${paths}" varStatus="status">
+					<path id="path${i}" d="M${path[0]},${path[1]} L${path[2]},${path[3]}">
+						<animate id="dashAnim${i}" attributeName="stroke-dashoffset" from="0"
+                                     to="0" dur="10s" begin="dashAnim${i-1}.end+2s" fill="freeze"
+                               keySplines="0 0.5 0.5 1" calcMode="spline"/>
+  					</path>
+				<c:set var="i" value="${i+1}"/>
+		</c:forEach>	
 		</g> 
 		</svg>
 	</div>
