@@ -22,6 +22,29 @@ body{
 
 }
 
+#content{
+	margin-left:200px;
+}
+
+#navbar{
+	float: left;
+	width:200px;
+}
+
+#container{
+	width:1000px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#footer{
+	clear:both;
+}
+
+#header{
+	text-align: center;
+}
+
 .mapa{
 
 /* display:none;  */
@@ -41,12 +64,10 @@ float:right;
 
 
 
-@import url(http://fonts.googleapis.com/css?family=Oswald);
 #cssmenu,
 #cssmenu ul,
 #cssmenu ul li,
-#cssmenu ul li a,
-#cssmenu #menu-button {
+#cssmenu ul li a {
   margin: 0;
   padding: 0;
   border: 0;
@@ -58,142 +79,155 @@ float:right;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-#cssmenu:after,
-#cssmenu > ul:after {
-  content: ".";
-  display: block;
-  clear: both;
-  visibility: hidden;
-  line-height: 0;
-  height: 0;
+#cssmenu {
+  width: 200px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #ffffff;
 }
-#cssmenu #menu-button {
+#cssmenu ul ul {
   display: none;
 }
-#cssmenu {
-  width: auto;
-  border: 3px solid #fd8a17;
-  border-radius: 3px;
-  font-family: 'Oswald', sans-serif;
-  line-height: 1;
-  background: #f7f7f7;
-  box-shadow: 1px 1px 0 #df7002, 2px 2px 0 #df7002, 3px 3px 3px rgba(0, 0, 0, 0.35);
-}
-#cssmenu > ul {
-  background: url('images/bg.png');
-}
-#cssmenu > ul > li {
-  float: left;
-}
-#cssmenu.align-center > ul {
-  font-size: 0;
-  text-align: center;
-}
-#cssmenu.align-center > ul > li {
-  display: inline-block;
-  float: none;
-}
-#cssmenu.align-right > ul > li {
+.align-right {
   float: right;
 }
 #cssmenu > ul > li > a {
-  padding: 20px 25px;
+  padding: 15px 20px;
+  border-left: 1px solid #1682ba;
+  border-right: 1px solid #1682ba;
+  border-top: 1px solid #1682ba;
+  cursor: pointer;
+  z-index: 2;
   font-size: 14px;
-  text-transform: uppercase;
+  font-weight: bold;
   text-decoration: none;
-  color: #fd8a17;
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -ms-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  background: #36aae7;
+  background: -webkit-linear-gradient(#36aae7, #1fa0e4);
+  background: -moz-linear-gradient(#36aae7, #1fa0e4);
+  background: -o-linear-gradient(#36aae7, #1fa0e4);
+  background: -ms-linear-gradient(#36aae7, #1fa0e4);
+  background: linear-gradient(#36aae7, #1fa0e4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 #cssmenu > ul > li > a:hover,
-#cssmenu > ul > li:hover > a,
-#cssmenu > ul > li.active > a {
-  color: #444444;
+#cssmenu > ul > li.active > a,
+#cssmenu > ul > li.open > a {
+  color: #eeeeee;
+  background: #1fa0e4;
+  background: -webkit-linear-gradient(#1fa0e4, #1992d1);
+  background: -moz-linear-gradient(#1fa0e4, #1992d1);
+  background: -o-linear-gradient(#1fa0e4, #1992d1);
+  background: -ms-linear-gradient(#1fa0e4, #1992d1);
+  background: linear-gradient(#1fa0e4, #1992d1);
 }
-#cssmenu #menu-indicator {
-  position: absolute;
-  bottom: 0;
-  display: block;
-  height: 0;
+#cssmenu > ul > li.open > a {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #1682ba;
+}
+#cssmenu > ul > li:last-child > a,
+#cssmenu > ul > li.last > a {
+  border-bottom: 1px solid #1682ba;
+}
+.holder {
   width: 0;
-  border: 5px solid transparent;
-  border-bottom-color: #fd8a17;
-  -webkit-transition: all 0.25s ease-out;
-  -moz-transition: all 0.25s ease-out;
-  -ms-transition: all 0.25s ease-out;
-  -o-transition: all 0.25s ease-out;
-  transition: all 0.25s ease-out;
+  height: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
-#cssmenu.small-screen {
-  width: 100%;
-}
-#cssmenu.small-screen > ul,
-#cssmenu.small-screen.align-center > ul {
-  width: 100%;
-  text-align: left;
-}
-#cssmenu.small-screen > ul > li,
-#cssmenu.small-screen.align-center > ul > li {
-  float: none;
+.holder::after,
+.holder::before {
   display: block;
-  border-top: 1px solid rgba(100, 100, 100, 0.1);
+  position: absolute;
+  content: "";
+  width: 6px;
+  height: 6px;
+  right: 20px;
+  z-index: 10;
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  transform: rotate(-135deg);
 }
-#cssmenu.small-screen > ul > li > a {
-  padding: 18px 25px;
+.holder::after {
+  top: 17px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
 }
-#cssmenu.small-screen > ul > li:after,
-#cssmenu.small-screen > ul > li:before {
-  display: none;
+#cssmenu > ul > li > a:hover > span::after,
+#cssmenu > ul > li.active > a > span::after,
+#cssmenu > ul > li.open > a > span::after {
+  border-color: #eeeeee;
 }
-#cssmenu.small-screen #menu-button {
-  display: block;
-  padding: 18px 25px;
+.holder::before {
+  top: 18px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+  border-top-color: inherit;
+  border-left-color: inherit;
+}
+#cssmenu ul ul li a {
   cursor: pointer;
-  font-size: 14px;
-  text-transform: uppercase;
+  border-bottom: 1px solid #32373e;
+  border-left: 1px solid #32373e;
+  border-right: 1px solid #32373e;
+  padding: 10px 20px;
+  z-index: 1;
   text-decoration: none;
-  color: #fd8a17;
-  background: url('images/bg.png');
+  font-size: 13px;
+  color: #eeeeee;
+  background: #49505a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
-#cssmenu.small-screen #menu-button.menu-opened {
-  color: #444444;
+#cssmenu ul ul li:hover > a,
+#cssmenu ul ul li.open > a,
+#cssmenu ul ul li.active > a {
+  background: #424852;
+  color: #ffffff;
 }
-#cssmenu.small-screen #menu-button:after {
-  content: "";
-  position: absolute;
-  right: 25px;
-  top: 19.5px;
+#cssmenu ul ul li:first-child > a {
+  box-shadow: none;
+}
+#cssmenu ul ul ul li:first-child > a {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+#cssmenu ul ul ul li a {
+  padding-left: 30px;
+}
+#cssmenu > ul > li > ul > li:last-child > a,
+#cssmenu > ul > li > ul > li.last > a {
+  border-bottom: 0;
+}
+#cssmenu > ul > li > ul > li.open:last-child > a,
+#cssmenu > ul > li > ul > li.last.open > a {
+  border-bottom: 1px solid #32373e;
+}
+#cssmenu > ul > li > ul > li.open:last-child > ul > li:last-child > a {
+  border-bottom: 0;
+}
+#cssmenu ul ul li.has-sub > a::after {
   display: block;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  border-top: 2px solid #fd8a17;
-  border-bottom: 2px solid #fd8a17;
-  width: 18px;
-  height: 3px;
-}
-#cssmenu.small-screen #menu-button.menu-opened:after {
-  border-top: 2px solid #444444;
-  border-bottom: 2px solid #444444;
-}
-#cssmenu.small-screen #menu-button:before {
-  content: "";
   position: absolute;
-  right: 25px;
-  top: 29.5px;
-  display: block;
-  width: 18px;
-  height: 2px;
-  background: #fd8a17;
+  content: "";
+  width: 5px;
+  height: 5px;
+  right: 20px;
+  z-index: 10;
+  top: 11.5px;
+  border-top: 2px solid #eeeeee;
+  border-left: 2px solid #eeeeee;
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  transform: rotate(-135deg);
 }
-#cssmenu.small-screen #menu-button.menu-opened:before {
-  background: #444444;
-}
-#cssmenu.small-screen #menu-indicator {
-  display: none;
+#cssmenu ul ul li.active > a::after,
+#cssmenu ul ul li.open > a::after,
+#cssmenu ul ul li > a:hover::after {
+  border-color: #ffffff;
 }
 
 
@@ -265,145 +299,71 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 		
 	};
 	
-	(function($) {
+	( function( $ ) {
+		$( document ).ready(function() {
+		$('#cssmenu li.has-sub>a').on('click', function(){
+				$(this).removeAttr('href');
+				var element = $(this).parent('li');
+				if (element.hasClass('open')) {
+					element.removeClass('open');
+					element.find('li').removeClass('open');
+					element.find('ul').slideUp();
+				}
+				else {
+					element.addClass('open');
+					element.children('ul').slideDown();
+					element.siblings('li').children('ul').slideUp();
+					element.siblings('li').removeClass('open');
+					element.siblings('li').find('li').removeClass('open');
+					element.siblings('li').find('ul').slideUp();
+				}
+			});
 
-		  $.fn.menumaker = function(options) {
-		      
-		      var cssmenu = $(this), settings = $.extend({
-		        title: "Menu",
-		        format: "dropdown",
-		        breakpoint: 768,
-		        sticky: false
-		      }, options);
+			$('#cssmenu>ul>li.has-sub>a').append('<span class="holder"></span>');
 
-		      return this.each(function() {
-		        cssmenu.find('li ul').parent().addClass('has-sub');
-		        if (settings.format != 'select') {
-		          cssmenu.prepend('<div id="menu-button">' + settings.title + '</div>');
-		          $(this).find("#menu-button").on('click', function(){
-		            $(this).toggleClass('menu-opened');
-		            var mainmenu = $(this).next('ul');
-		            if (mainmenu.hasClass('open')) { 
-		              mainmenu.hide().removeClass('open');
-		            }
-		            else {
-		              mainmenu.show().addClass('open');
-		              if (settings.format === "dropdown") {
-		                mainmenu.find('ul').show();
-		              }
-		            }
-		          });
+			(function getColor() {
+				var r, g, b;
+				var textColor = $('#cssmenu').css('color');
+				textColor = textColor.slice(4);
+				r = textColor.slice(0, textColor.indexOf(','));
+				textColor = textColor.slice(textColor.indexOf(' ') + 1);
+				g = textColor.slice(0, textColor.indexOf(','));
+				textColor = textColor.slice(textColor.indexOf(' ') + 1);
+				b = textColor.slice(0, textColor.indexOf(')'));
+				var l = rgbToHsl(r, g, b);
+				if (l > 0.7) {
+					$('#cssmenu>ul>li>a').css('text-shadow', '0 1px 1px rgba(0, 0, 0, .35)');
+					$('#cssmenu>ul>li>a>span').css('border-color', 'rgba(0, 0, 0, .35)');
+				}
+				else
+				{
+					$('#cssmenu>ul>li>a').css('text-shadow', '0 1px 0 rgba(255, 255, 255, .35)');
+					$('#cssmenu>ul>li>a>span').css('border-color', 'rgba(255, 255, 255, .35)');
+				}
+			})();
 
-		          multiTg = function() {
-		            cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
-		            cssmenu.find('.submenu-button').on('click', function() {
-		              $(this).toggleClass('submenu-opened');
-		              if ($(this).siblings('ul').hasClass('open')) {
-		                $(this).siblings('ul').removeClass('open').hide();
-		              }
-		              else {
-		                $(this).siblings('ul').addClass('open').show();
-		              }
-		            });
-		          };
+			function rgbToHsl(r, g, b) {
+			    r /= 255, g /= 255, b /= 255;
+			    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+			    var h, s, l = (max + min) / 2;
 
-		          if (settings.format === 'multitoggle') multiTg();
-		          else cssmenu.addClass('dropdown');
-		        }
-
-		        else if (settings.format === 'select')
-		        {
-		          cssmenu.append('<select style="width: 100%"/>').addClass('select-list');
-		          var selectList = cssmenu.find('select');
-		          selectList.append('<option>' + settings.title + '</option>', {
-		                                                         "selected": "selected",
-		                                                         "value": ""});
-		          cssmenu.find('a').each(function() {
-		            var element = $(this), indentation = "";
-		            for (i = 1; i < element.parents('ul').length; i++)
-		            {
-		              indentation += '-';
-		            }
-		            selectList.append('<option value="' + $(this).attr('href') + '">' + indentation + element.text() + '</option');
-		          });
-		          selectList.on('change', function() {
-		            window.location = $(this).find("option:selected").val();
-		          });
-		        }
-
-		        if (settings.sticky === true) cssmenu.css('position', 'fixed');
-
-		        resizeFix = function() {
-		          if ($(window).width() > settings.breakpoint) {
-		            cssmenu.find('ul').show();
-		            cssmenu.removeClass('small-screen');
-		            if (settings.format === 'select') {
-		              cssmenu.find('select').hide();
-		            }
-		            else {
-		              cssmenu.find("#menu-button").removeClass("menu-opened");
-		            }
-		          }
-
-		          if ($(window).width() <= settings.breakpoint && !cssmenu.hasClass("small-screen")) {
-		            cssmenu.find('ul').hide().removeClass('open');
-		            cssmenu.addClass('small-screen');
-		            if (settings.format === 'select') {
-		              cssmenu.find('select').show();
-		            }
-		          }
-		        };
-		        resizeFix();
-		        return $(window).on('resize', resizeFix);
-
-		      });
-		  };
-		})(jQuery);
-
-		(function($){
-		$(document).ready(function(){
-
-		$(window).load(function() {
-		  $("#cssmenu").menumaker({
-		    title: "Menu",
-		    format: "dropdown"
-		  });
-
-
-		$('#cssmenu').prepend("<div id='menu-indicator'></div>");
-
-		var foundActive = false, activeElement, indicatorPosition, indicator = $('#cssmenu #menu-indicator'), defaultPosition;
-
-		$("#cssmenu > ul > li").each(function() {
-		  if ($(this).hasClass('active')) {
-		    activeElement = $(this);
-		    foundActive = true;
-		  }
+			    if(max == min){
+			        h = s = 0;
+			    }
+			    else {
+			        var d = max - min;
+			        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+			        switch(max){
+			            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+			            case g: h = (b - r) / d + 2; break;
+			            case b: h = (r - g) / d + 4; break;
+			        }
+			        h /= 6;
+			    }
+			    return l;
+			}
 		});
-
-		if (foundActive === false) {
-		  activeElement = $("#cssmenu > ul > li").first();
-		}
-
-		defaultPosition = indicatorPosition = activeElement.position().left + activeElement.width()/2 - 5;
-		console.log(activeElement);
-		console.log(activeElement.position().left);
-		console.log(activeElement.width());
-		indicator.css("left", indicatorPosition);
-
-		$("#cssmenu > ul > li").hover(function() {
-		  activeElement = $(this);
-		  indicatorPosition = activeElement.position().left + activeElement.width()/2 - 5;
-		  indicator.css("left", indicatorPosition);
-		}, 
-		function() {
-		  indicator.css("left", defaultPosition);
-		});
-
-		});
-
-		});
-		})(jQuery);	
+		} )( jQuery );
 	
 	
 	
@@ -422,45 +382,52 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 </head>
 
 <body onload="init()">
+	<div id="container">
+		<div id="header"></div>
+		<div id="navbar">
+			<div id="cssmenu" class="menu">
+				<ul>
+					<li class='active'><a class="home_link"
+						href="<s:url value="/activos/listactivos"/>">Ver lista de
+							activos</a></li>
+					<li><a class="home_link"
+						href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo
+							activo</a></li>
+					<li class="last"><a class="home_link"
+						href="<s:url value="/activos/borraractivo"/>">Borrar activos</a></li>
+				</ul>
+			</div>
+		</div>
 
-	<div id="cssmenu" class="menu">
-	<ul>
-		<li class='active'><a class="home_link" href="<s:url value="/activos/listactivos"/>">Ver lista de activos</a></li>
-		<li><a class="home_link" href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo activo</a></li> 
-		<li><a class="home_link" href="<s:url value="/activos/borraractivo"/>">Borrar activos</a></li>
-	</ul>
+
+
+		<div id="botonera">
+			<input type="button" value="Ver Mapa" onclick="showMap()"
+				class="view_map"><br> <input id="printTrace"
+				type="button" value="Dibujar recorrido"><br>
+		</div>
+		<div id="content">
+			<div id="mapa" class="mapa">
+				<svg id="svg1" height="1000" width="1000"> <g
+					id="mapcontainer" style="fill:none;stroke:#000000"
+					transform="matrix(0.92131341,0,0,0.93511906,35.636145,35.381704)"
+					id="g4"> <path style="stroke-width:0.83458px"
+					d="m -0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0 z"
+					id="map_border" /> <path style="stroke-width:1px"
+					d="m 356.73,682.25 0,-334.44" id="path4143" /> <path id="path3339"
+					d="m 356.76909,-0.6820391 0,260.3327391"
+					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.07569587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector1"
+					width="43.491894" height="30.722496" x="8.9151812" y="19.530167" />
+				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector2"
+					width="29.541664" height="15.361248" x="340.43829" y="330.79755" />
+				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector3"
+					width="36.106476" height="24.254602" x="654.72876" y="289.56473" />
+				</g> </svg>
+			</div>
+		</div>
 	</div>
-
-
-
-	<div id="botonera">
-		<input type="button" value="Ver Mapa" onclick="showMap()" class="view_map"><br> 
-		<input id="printTrace" type="button" value="Dibujar recorrido"><br>
-	</div>
-
-	<div id="mapa" class="mapa">
-		<svg id="svg1" height="1000" width="1000"> 
-		<g id="mapcontainer"
-			style="fill:none;stroke:#000000"
-			transform="matrix(0.92131341,0,0,0.93511906,35.636145,35.381704)"
-			id="g4"> 
-			<path style="stroke-width:0.83458px"
-			d="m -0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0 z"
-			id="map_border" /> 
-			<path style="stroke-width:1px"
-			d="m 356.73,682.25 0,-334.44" id="path4143" /> 
-			<path id="path3339"
-			d="m 356.76909,-0.6820391 0,260.3327391"
-			style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.07569587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-		<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector1"
-			width="43.491894" height="30.722496" x="8.9151812" y="19.530167" />
-		<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector2"
-			width="29.541664" height="15.361248" x="340.43829" y="330.79755" />
-		<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector3"
-			width="36.106476" height="24.254602" x="654.72876" y="289.56473" />
-		</g> 
-		</svg>
-	</div>
+	<div id="footer"></div>
 </body>
 
 </html>

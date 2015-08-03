@@ -62,6 +62,8 @@ function setAnimations(number) {
 	  pathAnim=document.getElementById('dashAnim'+number);
 	  path.setAttributeNS(null,'stroke-dasharray',pathLength+" "+pathLength);
 	  path.setAttributeNS(null,'stroke-dashoffset',pathLength);
+	  path.setAttributeNS(null,'stroke','red');
+	  path.setAttributeNS(null,'stroke-width','5');
 	  pathAnim.setAttributeNS(null,'from',pathLength);
 	  pathAnim.setAttributeNS(null,'values',pathLength+';0');
 	}
@@ -154,13 +156,13 @@ function printTrace(paper) {
 			<c:set var="i" value="1"/>
 			<path id="path0" d="">
     			<animate id="dashAnim0" attributeName="stroke-dashoffset" from="0"
-                                     to="0" dur="1s" begin="1s" fill="freeze"
+                                     to="0" dur="0.01s" begin="0s" fill="freeze"
                                keySplines="0 0.5 0.5 1" calcMode="spline"/>
   			</path>
 			<c:forEach var="path" items="${paths}" varStatus="status">
 					<path id="path${i}" d="M${path[0]},${path[1]} L${path[2]},${path[3]}">
 						<animate id="dashAnim${i}" attributeName="stroke-dashoffset" from="0"
-                                     to="0" dur="10s" begin="dashAnim${i-1}.end+2s" fill="freeze"
+                                     to="0" dur="10s" begin="dashAnim${i-1}.end+1s" fill="freeze"
                                keySplines="0 0.5 0.5 1" calcMode="spline"/>
   					</path>
 				<c:set var="i" value="${i+1}"/>
