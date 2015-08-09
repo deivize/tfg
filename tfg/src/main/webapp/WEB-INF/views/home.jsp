@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@include file="svgTransform.jsp" %>
+<%@include file="svg3d.jsp" %>
+<%@include file="domUtils.jsp" %>
+<%@include file="svg3dParsing.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -242,14 +245,20 @@ float:right;
 
 <title>Home Page</title>
 <script type="text/javascript">
-	
-var scene;	
+
+var scene;
 var camera;
 var renderer;
 
+function render() {
+	requestAnimationFrame( render );
+	
+	renderer.render( scene, camera );
+}
+
 function initScene() {
     // set the scene size
-    var WIDTH = 600, HEIGHT = 600;
+    var WIDTH = 1500, HEIGHT = 600;
 
     // set some camera attributes
     var VIEW_ANGLE = 45, ASPECT = WIDTH / HEIGHT, NEAR = 0.1, FAR = 10000;
@@ -282,13 +291,13 @@ function initScene() {
     pointLight.position.z = 800;
 
     // add a base plane on which we'll render our map
-    var planeGeo = new THREE.PlaneGeometry(10000, 10000, 10, 10);
-    var planeMat = new THREE.MeshLambertMaterial({color: 0x666699});
-    var plane = new THREE.Mesh(planeGeo, planeMat);
+//     var planeGeo = new THREE.PlaneGeometry(10000, 10000, 10, 10);
+//     var planeMat = new THREE.MeshLambertMaterial({color: 0x666699});
+//     var plane = new THREE.Mesh(planeGeo, planeMat);
 
     // rotate it to correct position
-    plane.rotation.x = -Math.PI/2;
-    scene.add(plane);
+//     plane.rotation.x = -Math.PI/2;
+//     scene.add(plane);
 }
 
 
@@ -303,19 +312,18 @@ function addSvgObject(){
 	console.log(meshes);
 	for(var i=0; i<meshes.length;i++){
 		var material=new THREE.MeshLambertMaterial({
-			color:0xFF3300
+			color:0xffffff
 		});
-		
 		var extrude=50;
 // 		var shape3d= meshes[i].extrude({amount:Math.round(extrude),bevelEnabled:false});
-// 		console.log(shape3d);
+ 		console.log(meshes[i]);
 		//var shape= new THREE.Shape(meshes[i]);
 		var shape3d= new THREE.ExtrudeGeometry(meshes[i],{amount:extrude,bevelEnabled:false});
 		
 		var toAdd=new THREE.Mesh(shape3d,material);
 		toAdd.rotation.x = Math.PI/2;
         toAdd.translateX(-490);
-        toAdd.translateZ(50);
+        toAdd.translateZ(100);
         toAdd.translateY(extrude/2);
         
         scene.add(toAdd);
@@ -372,8 +380,8 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 		var trace=document.getElementById("printTrace");
 		trace.onclick=printTrace;
 		initScene();
-		addSvgObject();
-		renderer.render(scene,camera);
+ 		addSvgObject();
+		render();
 // 		console.log(transformSVGPath("m-0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0z"));
 // 		console.log(transformSVGPath("m356.73,682.25 0,-334.44"));
 // 		console.log(transformSVGPath("m356.76909,-0.6820391 0,260.3327391"));
@@ -504,10 +512,11 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 		</div>
 		<div id="content">
 			<div id="mapa" class="mapa">
-				<svg id="svg1" height="1000" width="1000"> <g
+				<svg id="svg1" height="1000" width="1000" > <g
 					id="mapcontainer" style="fill:none;stroke:#000000"
 					transform="matrix(0.92131341,0,0,0.93511906,35.636145,35.381704)"
-					id="g4"> <path style="stroke-width:0.83458px"
+					id="g4">
+					<path style="stroke-width:0.83458px"
 					d="m -0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0 z"
 					id="map_border" /> <path style="stroke-width:1px"
 					d="m 356.73,682.25 0,-334.44" id="path4143" /> <path id="path3339"
