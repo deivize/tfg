@@ -5,6 +5,8 @@
 <%@include file="svg3d.jsp" %>
 <%@include file="domUtils.jsp" %>
 <%@include file="svg3dParsing.jsp" %>
+<%@include file="statsJs.jsp" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -250,10 +252,54 @@ var scene;
 var camera;
 var renderer;
 
+var stats;
+
+var group,text, plane;
+
+var targetRotationX = 0;
+var targetRotationOnMouseDownX = 0;
+ 
+var targetRotationY = 0;
+var targetRotationOnMouseDownY = 0;
+ 
+var mouseX = 0;
+var mouseXOnMouseDown = 0;
+ 
+var mouseY = 0;
+var mouseYOnMouseDown = 0;
+ 
+var windowHalfX = window.innerWidth / 2;
+var windowHalfY = window.innerHeight / 2;
+ 
+var finalRotationY
+
+
 function render() {
 	requestAnimationFrame( render );
-	
-	renderer.render( scene, camera );
+	  //horizontal rotation   
+    group.rotation.y += ( targetRotationX - group.rotation.y ) * 0.1;
+
+    //vertical rotation 
+    finalRotationY = (targetRotationY - group.rotation.x); 
+//    group.rotation.x += finalRotationY * 0.05;
+
+//    finalRotationY = (targetRotationY - group.rotation.x);  
+   if (group.rotation.x  <= 1 && group.rotation.x >= -1 ) {
+
+       group.rotation.x += finalRotationY * 0.1;
+       }
+    if (group.rotation.x  > 1 ) {
+
+       group.rotation.x = 1
+       }
+
+    if (group.rotation.x  < -1 ) {
+
+       group.rotation.x = -1
+       }
+
+       renderer.render( scene, camera );
+       stats.update();
 }
 
 function initScene() {
@@ -271,7 +317,7 @@ function initScene() {
 
     // add and position the camera at a fixed position
     scene.add(camera);
-    camera.position.z = 550;
+    camera.position.z = 500;
     camera.position.x = 0;
     camera.position.y = 550;
     camera.lookAt( scene.position );
@@ -284,12 +330,38 @@ function initScene() {
     $("#chart").append(renderer.domElement);
 
     // add a light at a specific position
-    var pointLight = new THREE.PointLight(0xFFFFFF);
-    scene.add(pointLight);
-    pointLight.position.x = 800;
-    pointLight.position.y = 800;
-    pointLight.position.z = 800;
+//     var pointLight = new THREE.PointLight(0xFFFFFF);
+//     scene.add(pointLight);
+//     pointLight.position.x = 800;
+//     pointLight.position.y = 800;
+//     pointLight.position.z = 800;
+    
+    light = new THREE.DirectionalLight( 0xffffff );
+	light.position.set( 1, 1, 1 );
+	scene.add( light );
 
+	light = new THREE.DirectionalLight( 0x002288 );
+	light.position.set( -1, -1, -1 );
+	scene.add( light );
+
+	light = new THREE.AmbientLight( 0x222222 );
+	scene.add( light );
+
+    group = new THREE.Object3D();
+    
+    stats = new Stats();
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.top = '0px';
+    $("#chart").append( stats.domElement );
+    
+    
+    document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+    document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+    
+    
+    window.addEventListener( 'resize', onWindowResize, false );
+    
     // add a base plane on which we'll render our map
 //     var planeGeo = new THREE.PlaneGeometry(10000, 10000, 10, 10);
 //     var planeMat = new THREE.MeshLambertMaterial({color: 0x666699});
@@ -301,15 +373,112 @@ function initScene() {
 }
 
 
+
+function onWindowResize() {
+	 
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+}
+
+
+function onDocumentMouseDown( event ) {
+	 
+    event.preventDefault();
+
+    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    document.addEventListener( 'mouseup', onDocumentMouseUp, false );
+    document.addEventListener( 'mouseout', onDocumentMouseOut, false );
+
+    mouseXOnMouseDown = event.clientX - windowHalfX;
+    targetRotationOnMouseDownX = targetRotationX;
+
+    mouseYOnMouseDown = event.clientY - windowHalfY;
+    targetRotationOnMouseDownY = targetRotationY;
+
+}
+
+
+function onDocumentMouseMove( event ) {
+	 
+    mouseX = event.clientX - windowHalfX;
+    mouseY = event.clientY - windowHalfY;
+
+    targetRotationY = targetRotationOnMouseDownY + (mouseY - mouseYOnMouseDown) * 0.02;
+    targetRotationX = targetRotationOnMouseDownX + (mouseX - mouseXOnMouseDown) * 0.02;
+
+}
+
+function onDocumentMouseUp( event ) {
+	 
+    document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
+    document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
+    document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
+
+}
+
+function onDocumentMouseOut( event ) {
+
+    document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
+    document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
+    document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
+
+}
+
+function onDocumentTouchStart( event ) {
+	 
+    if ( event.touches.length == 1 ) {
+
+            event.preventDefault();
+
+            mouseXOnMouseDown = event.touches[ 0 ].pageX - windowHalfX;
+            targetRotationOnMouseDownX = targetRotationX;
+
+            mouseYOnMouseDown = event.touches[ 0 ].pageY - windowHalfY;
+            targetRotationOnMouseDownY = targetRotationY;
+
+    }
+
+}
+
+function onDocumentTouchMove( event ) {
+	 
+    if ( event.touches.length == 1 ) {
+
+            event.preventDefault();
+
+            mouseX = event.touches[ 0 ].pageX - windowHalfX;
+            targetRotationX = targetRotationOnMouseDownX + ( mouseX - mouseXOnMouseDown ) * 0.05;
+
+            mouseY = event.touches[ 0 ].pageY - windowHalfY;
+            targetRotationY = targetRotationOnMouseDownY + (mouseY - mouseYOnMouseDown) * 0.05;
+
+    }
+
+}
+
+
+
+
 function addSvgObject(){
 	
 	var meshes = [];
 	
 	//meshes.push(transformSVGPath("M360.3,143.2L253.6,129.8L239.5,218.2L352.8,231.8L360.3,143.2z"));
-	meshes.push(transformSVGPath("m-0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0z"));
+	//meshes.push(transformSVGPath("m-0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0z"));
  	//meshes.push(transformSVGPath("m356.73,682.25 0,-334.44"));
-	//meshes.push(transformSVGPath("m356.76909,-0.6820391 0,260.3327391"));
-	console.log(meshes);
+	meshes.push(transformSVGPath("m 27.274119,33.118286 680.337741,-0.505076 2.0203,343.95694 -275.77164,-2.0203 -1.01015,-183.34269 -31.31473,-0.50508 -0.50508,182.83761 L 23.233509,370.00416 19.697975,32.61321 Z"));
+ 	meshes.push(transformSVGPath("m 39.39595,172.01426 0.505076,27.7792 32.829958,0 0,-28.28428 z"));
+ 	meshes.push(transformSVGPath("m 401.03508,44.233775 0.50508,27.7792 32.82996,0 0,-28.28427 z"));
+ 	meshes.push(transformSVGPath("m 603.57067,140.19827 0.50508,27.77919 32.82995,0 0,-28.28427 z"));
+	
+ 	
+	console.log(meshes.length);
 	for(var i=0; i<meshes.length;i++){
 		var material=new THREE.MeshLambertMaterial({
 			color:0xffffff
@@ -319,8 +488,11 @@ function addSvgObject(){
  		console.log(meshes[i]);
 		//var shape= new THREE.Shape(meshes[i]);
 		var shape3d= new THREE.ExtrudeGeometry(meshes[i],{amount:extrude,bevelEnabled:false});
-		
+		if(i>=1){
+			material.color=0x99FF33;
+		}
 		var toAdd=new THREE.Mesh(shape3d,material);
+		group.add(toAdd);
 		toAdd.rotation.x = Math.PI/2;
         toAdd.translateX(-490);
         toAdd.translateZ(100);
@@ -328,11 +500,9 @@ function addSvgObject(){
         
         scene.add(toAdd);
 	}
-	
+	scene.add(group);
 
 }
-
-
 
 
 
@@ -512,23 +682,43 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 		</div>
 		<div id="content">
 			<div id="mapa" class="mapa">
-				<svg id="svg1" height="1000" width="1000" > <g
-					id="mapcontainer" style="fill:none;stroke:#000000"
-					transform="matrix(0.92131341,0,0,0.93511906,35.636145,35.381704)"
-					id="g4">
-					<path style="stroke-width:0.83458px"
-					d="m -0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0 z"
-					id="map_border" /> <path style="stroke-width:1px"
-					d="m 356.73,682.25 0,-334.44" id="path4143" /> <path id="path3339"
-					d="m 356.76909,-0.6820391 0,260.3327391"
-					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.07569587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector1"
-					width="43.491894" height="30.722496" x="8.9151812" y="19.530167" />
-				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector2"
-					width="29.541664" height="15.361248" x="340.43829" y="330.79755" />
-				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector3"
-					width="36.106476" height="24.254602" x="654.72876" y="289.56473" />
-				</g> </svg>
+ 				<svg id="svg1" height="1000" width="1000" > 
+<%-- 						<g --%>
+<!-- 					id="mapcontainer" style="fill:none;stroke:#000000" -->
+<!-- 					transform="matrix(0.92131341,0,0,0.93511906,35.636145,35.381704)" -->
+<!-- 					id="g4"> -->
+<!-- 					<path style="stroke-width:0.83458px" -->
+<!-- 					d="m -0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0 z" -->
+<!-- 					id="map_border" /> <path style="stroke-width:1px" -->
+<!-- 					d="m 356.73,682.25 0,-334.44" id="path4143" /> <path id="path3339" -->
+<!-- 					d="m 356.76909,-0.6820391 0,260.3327391" -->
+<!-- 					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.07569587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" /> -->
+<!-- 				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector1" -->
+<!-- 					width="43.491894" height="30.722496" x="8.9151812" y="19.530167" /> -->
+<!-- 				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector2" -->
+<!-- 					width="29.541664" height="15.361248" x="340.43829" y="330.79755" /> -->
+<!-- 				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector3" -->
+<!-- 					width="36.106476" height="24.254602" x="654.72876" y="289.56473" /> -->
+<%-- 				</g>  --%> 
+					<g 
+					id="mapcontainer"> 
+					<path
+					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="m 27.274119,33.118286 680.337741,-0.505076 2.0203,343.95694 -275.77164,-2.0203 -1.01015,-183.34269 -31.31473,-0.50508 -0.50508,182.83761 L 23.233509,370.00416 19.697975,32.61321 Z"
+					id="map-border" /> 
+					<path
+					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="m 39.39595,172.01426 0.505076,27.7792 32.829958,0 0,-28.28428 z"
+					id="lector1" />
+					<path
+					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="m 401.03508,44.233775 0.50508,27.7792 32.82996,0 0,-28.28427 z"
+					id="lector2"/> 
+					<path
+					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="m 603.57067,140.19827 0.50508,27.77919 32.82995,0 0,-28.28427 z"
+					id="lector3"/> </g>
+				</svg>
 			</div>
 		</div>
 	</div>
