@@ -14,4 +14,9 @@ public class HomeController {
 		return "home";
 	}
 
+	@RequestMapping(value={"/mapa3d"})
+	public String mapa3D(Model model){
+		
+		return "mapa3d";
+	}
 }

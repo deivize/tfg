@@ -667,6 +667,8 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 					<li><a class="home_link"
 						href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo
 							activo</a></li>
+					<li><a class="home_link"
+						href="<s:url value="/mapa3d"/>">Ver mapa 3D</a></li>
 					<li class="last"><a class="home_link"
 						href="<s:url value="/activos/borraractivo"/>">Borrar activos</a></li>
 				</ul>
