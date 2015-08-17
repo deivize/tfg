@@ -135,39 +135,39 @@ function printTrace(paper) {
 
 	<div id="mapa" class="mapa">
 		<svg id="svg1" height="1000" width="1000"> 
-		<g id="mapcontainer"
-			style="fill:none;stroke:#000000"
-			transform="matrix(0.92131341,0,0,0.93511906,35.636145,35.381704)"
-			id="g4"> 
-			<path style="stroke-width:0.83458px"
-			d="m -0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0 z"
-			id="map_border" /> 
-			<path style="stroke-width:1px"
-			d="m 356.73,682.25 0,-334.44" id="path4143" /> 
-			<path id="path3339"
-			d="m 356.76909,-0.6820391 0,260.3327391"
-			style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.07569587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-		<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector1"
-			width="43.491894" height="30.722496" x="8.9151812" y="19.530167" />
-		<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector2"
-			width="29.541664" height="15.361248" x="340.43829" y="330.79755" />
-		<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector3"
-			width="36.106476" height="24.254602" x="654.72876" y="289.56473" />
-			<c:set var="i" value="1"/>
+		<g id="mapcontainer"> 
+					<path
+				style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+				d="m 27.274119,33.118286 680.337741,-0.505076 2.0203,343.95694 -275.77164,-2.0203 -1.01015,-183.34269 -31.31473,-0.50508 -0.50508,182.83761 L 23.233509,370.00416 19.697975,32.61321 Z"
+				id="map-border" /> 
+					<path
+				style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+				d="m 39.39595,172.01426 0.505076,27.7792 32.829958,0 0,-28.28428 z"
+				id="lector1" />
+					<path
+				style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+				d="m 401.03508,44.233775 0.50508,27.7792 32.82996,0 0,-28.28427 z"
+				id="lector2" /> 
+					<path
+				style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+				d="m 603.57067,140.19827 0.50508,27.77919 32.82995,0 0,-28.28427 z"
+				id="lector3" />
+				<c:set var="i" value="1" />
 			<path id="path0" d="">
-    			<animate id="dashAnim0" attributeName="stroke-dashoffset" from="0"
-                                     to="0" dur="0.01s" begin="0s" fill="freeze"
-                               keySplines="0 0.5 0.5 1" calcMode="spline"/>
+    			<animate id="dashAnim0" attributeName="stroke-dashoffset"
+				from="0" to="0" dur="0.01s" begin="0s" fill="freeze"
+				keySplines="0 0.5 0.5 1" calcMode="spline" />
   			</path>
 			<c:forEach var="path" items="${paths}" varStatus="status">
-					<path id="path${i}" d="M${path[0]},${path[1]} L${path[2]},${path[3]}">
-						<animate id="dashAnim${i}" attributeName="stroke-dashoffset" from="0"
-                                     to="0" dur="10s" begin="dashAnim${i-1}.end+1s" fill="freeze"
-                               keySplines="0 0.5 0.5 1" calcMode="spline"/>
+					<path id="path${i}"
+					d="M${path[0]},${path[1]} L${path[2]},${path[3]}">
+						<animate id="dashAnim${i}" attributeName="stroke-dashoffset"
+					from="0" to="0" dur="10s" begin="dashAnim${i-1}.end+1s"
+					fill="freeze" keySplines="0 0.5 0.5 1" calcMode="spline" />
   					</path>
-				<c:set var="i" value="${i+1}"/>
-		</c:forEach>	
-		</g> 
+				<c:set var="i" value="${i+1}" />
+		</c:forEach>
+				 </g>
 		</svg>
 	</div>
 
