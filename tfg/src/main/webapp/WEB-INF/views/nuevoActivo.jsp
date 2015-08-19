@@ -160,7 +160,7 @@ function adjust_textarea(h) {
 					</li>
 					<li>
 						
-						<input name="commit" type="submit" value="Crear activo" />
+						<button type="submit" value="Crear activo">Crear Activo</button>
 					</li>
 				</ul>
 			</fieldset>

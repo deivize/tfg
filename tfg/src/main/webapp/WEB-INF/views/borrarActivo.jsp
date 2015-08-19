@@ -30,7 +30,7 @@
 						<sf:input path="nombre" value="${activos.nombre}"/>
 						<sf:input path="categoria" value="${activos.categoria}"/>	
 					</td>
-					<td><input name="commit" type="submit" value="Borrar activo" /></td>	
+					<td><button type="submit" value="Borrar activo">Borrar Activo</button></td>	
 				</tr>
 				
 			</sf:form>

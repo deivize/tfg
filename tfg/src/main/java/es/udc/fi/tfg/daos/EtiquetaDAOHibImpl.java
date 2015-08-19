@@ -27,6 +27,7 @@ public class EtiquetaDAOHibImpl implements EtiquetaDAO {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Etiqueta> findAll() {
 		List<Etiqueta> etiquetas= (List<Etiqueta>) miSessionFactory.getCurrentSession().
@@ -60,6 +61,8 @@ public class EtiquetaDAOHibImpl implements EtiquetaDAO {
 		miSessionFactory.getCurrentSession().delete(etiqueta);
 		
 	}
+
+	
 	
 	
 	

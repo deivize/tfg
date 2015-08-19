@@ -39,7 +39,7 @@ public class ActivoController {
 	
 	@RequestMapping(method=RequestMethod.GET,value="/nuevoactivo")
 	public String createActivoProfile(Model model){
-		List<Etiqueta> etiquetas=etiquetaService.buscarEtiquetas();
+		List<Etiqueta> etiquetas=etiquetaService.buscarEtiquetasLibres();
 		model.addAttribute("etiquetas", etiquetas);
 		model.addAttribute("activo", new ActivoForm());
 		return "nuevoactivo";

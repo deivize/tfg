@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 
@@ -291,9 +291,8 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 	function init(){
 		var trace=document.getElementById("printTrace");
 		trace.onclick=printTrace;
-		initScene();
- 		addSvgObject();
-		render();
+		
+
 // 		console.log(transformSVGPath("m-0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0z"));
 // 		console.log(transformSVGPath("m356.73,682.25 0,-334.44"));
 // 		console.log(transformSVGPath("m356.76909,-0.6820391 0,260.3327391"));
@@ -418,11 +417,6 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 
 
 
-		<div id="botonera">
-			<input type="button" value="Ver Mapa" onclick="showMap()"
-				class="view_map"><br> <input id="printTrace"
-				type="button" value="Dibujar recorrido"><br>
-		</div>
 		<div id="content">
 			<div id="mapa" class="mapa">
  				<svg id="svg1" height="1000" width="1000" > 
@@ -452,19 +446,35 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 					<path
 					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
 					d="m 39.39595,172.01426 0.505076,27.7792 32.829958,0 0,-28.28428 z"
-					id="lector1" />
+					id="lector1" class="lector" />
 					<path
 					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
 					d="m 401.03508,44.233775 0.50508,27.7792 32.82996,0 0,-28.28427 z"
-					id="lector2"/> 
+					id="lector2" class="lector"/> 
 					<path
 					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
 					d="m 603.57067,140.19827 0.50508,27.77919 32.82995,0 0,-28.28427 z"
-					id="lector3"/> </g>
+					id="lector3" class="lector"/> </g>
 				</svg>
 			</div>
 		</div>
+		<div id="lectores_info">
+		<c:set var="i" value="1" />
+		<c:forEach var="lector" items="${lectores}">
+			<div id="lector${i}_info" class="lector_info">
+				<label for="modelo_lector">Modelo lector:</label>
+				<span>${lector.modelo}</span>
+				<label for="tipo_lector">Tipo lector:</label>
+				<span>${lector.tipo}</span>
+			</div>
+			<c:set var="i" value="${i+1}"/>
+		</c:forEach>
 	</div>
+		
+	</div>
+	
+	
+	
 	<div id="footer"></div>
 </body>
 

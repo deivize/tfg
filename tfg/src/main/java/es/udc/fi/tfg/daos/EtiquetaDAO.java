@@ -11,6 +11,7 @@ public interface EtiquetaDAO {
 	Etiqueta findById(Long id);
 	void update(Etiqueta etiqueta);
 	void remove(Etiqueta etiqueta);
+	 
 	
 
 }

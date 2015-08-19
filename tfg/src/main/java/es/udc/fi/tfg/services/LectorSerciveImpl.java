@@ -60,8 +60,8 @@ public class LectorSerciveImpl implements LectorService {
 	public List<Lector> buscarLectores() {
 		List<Lector> lectores=null;
 		try{
-			lectores=lectorDAO.findAll();
 			log.info("Buscando lectores");
+			lectores=lectorDAO.findAll();
 		}catch(DataAccessException e){
 			log.info("Error al buscar lectores");
 		}

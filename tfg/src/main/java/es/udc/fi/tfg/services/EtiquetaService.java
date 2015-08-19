@@ -14,6 +14,7 @@ public interface EtiquetaService {
 	void borrarEtiqueta(Etiqueta miEtiqueta);
 	List<Etiqueta> buscarEtiquetas();
 	Etiqueta buscarEtiquetaPorId(Long id);
+	List<Etiqueta> buscarEtiquetasLibres();
 	
 	void crearEstandar(Estandar miEstandar);
 	void borrarEstandar(Estandar miEstandar);

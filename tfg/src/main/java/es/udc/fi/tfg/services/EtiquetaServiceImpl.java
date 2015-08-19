@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -8,10 +9,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.udc.fi.tfg.daos.ActivoDAO;
 import es.udc.fi.tfg.daos.EstandarDAO;
 import es.udc.fi.tfg.daos.EtiquetaDAO;
 import es.udc.fi.tfg.daos.ParametroDAO;
 import es.udc.fi.tfg.daos.TecnologiaDAO;
+import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Estandar;
 import es.udc.fi.tfg.model.Etiqueta;
 import es.udc.fi.tfg.model.Parametro;
@@ -24,6 +27,9 @@ public class EtiquetaServiceImpl implements EtiquetaService {
 	
 	@Autowired
 	private EtiquetaDAO etiquetaDAO;
+	
+	@Autowired
+	private ActivoDAO activoDAO;
 	
 	@Autowired 
 	private EstandarDAO estandarDAO;
@@ -167,6 +173,36 @@ public class EtiquetaServiceImpl implements EtiquetaService {
 			log.error("Error al borrar la tecnologia: "+miTecnologia.toString());
 		}
 		
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<Etiqueta> buscarEtiquetasLibres() {
+		List<Etiqueta> etiquetas= null;
+		List<Activo> activos=null;
+		List<Etiqueta> etiquetasLibres=new ArrayList<Etiqueta>();
+		Boolean etiquetaLibre;
+		try{
+			etiquetas=etiquetaDAO.findAll();
+			activos=activoDAO.findAll();
+			for(Etiqueta etiqueta:etiquetas){
+				etiquetaLibre=true;
+				for(Activo activo:activos){
+					if(activo.getEtiqueta().getIdEtiqueta()==etiqueta.getIdEtiqueta()){
+						etiquetaLibre=false;
+						break;
+					}
+				}
+				if(etiquetaLibre){
+					etiquetasLibres.add(etiqueta);
+				}
+			}
+			log.info("Buscando etiquetas libres");
+		}catch(DataAccessException e){
+			log.error("Error al buscar etiquetas libres");
+		}
+		
+		return etiquetasLibres;
 	}
 
 }
