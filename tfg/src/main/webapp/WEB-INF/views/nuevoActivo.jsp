@@ -2,9 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+
 
 <style type="text/css">
 .form-activo{
@@ -125,6 +129,21 @@ function adjust_textarea(h) {
     h.style.height = "20px";
     h.style.height = (h.scrollHeight)+"px";
 }
+
+$(function() {
+    $('#activo_button').hide(); 
+    $('#etiqueta_activo').change(function(){
+        if($('#etiqueta_activo').val() == 'no_etiquetas') {
+            $('#nueva_etiqueta_link').show();
+            $('#activo_button').hide();
+        } else {
+            $('#nueva_etiqueta_link').hide();
+            $('#activo_button').show();
+        } 
+    });
+});
+
+
 </script>
 
 <title>Nuevo activo</title>
@@ -151,16 +170,24 @@ function adjust_textarea(h) {
 					<li>
 						<label for="etiqueta_activo">Etiqueta:</label>
 						<sf:select path="etiqueta" id="etiqueta_activo">
+							<c:choose>
+								<c:when test="${not empty etiquetas}">
 								<c:forEach var="etiqueta" items="${etiquetas}">
 									<option value="${etiqueta.idEtiqueta}">${etiqueta.idEtiqueta}</option>
 								</c:forEach>
+								</c:when>
+								<c:when test="${empty etiquetas}">
+									<option value="no_etiquetas">No hay etiquetas libres</option>
+								</c:when>
+							</c:choose>
 							</sf:select>
 						<span>Escoger una de las etiquetas libres</span>
 
 					</li>
 					<li>
 						
-						<button type="submit" value="Crear activo">Crear Activo</button>
+						<button id="activo_button" type="submit" value="Crear activo">Crear Activo</button>
+						<a id="nueva_etiqueta_link" class="home_link" href="<s:url value="/etiquetas/nuevaetiqueta"/>">Crear Etiqueta</a>
 					</li>
 				</ul>
 			</fieldset>

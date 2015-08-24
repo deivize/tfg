@@ -205,4 +205,48 @@ public class EtiquetaServiceImpl implements EtiquetaService {
 		return etiquetasLibres;
 	}
 
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<Estandar> buscarEstandars() {
+		List<Estandar> estandars=null;
+		try{
+			estandars=estandarDAO.findAll();
+			log.info("Buscando estandares");
+		}catch (DataAccessException e){
+			log.error("Error al buscar estandares");
+		}
+		
+		return estandars;
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<Parametro> buscarParametros() {
+		List<Parametro> parametros=null;
+		
+		try{
+			parametros=parametroDAO.findAll();
+			log.info("Buscando parametros");
+		}catch (DataAccessException e){
+			log.error("Error al buscar parametros");
+		}
+		
+		return parametros;
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<Tecnologia> buscarTecnologias() {
+		List<Tecnologia> tecnologias=null;
+		
+		try{
+			tecnologias=tecnologiaDAO.findAll();
+			log.info("Buscando tecnologias");
+		}catch (DataAccessException e){
+			log.error("Error al buscar tecnologias");
+		}
+		
+		return tecnologias;
+	}
+
 }

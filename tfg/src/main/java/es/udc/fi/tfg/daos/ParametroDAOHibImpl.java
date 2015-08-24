@@ -1,5 +1,8 @@
 package es.udc.fi.tfg.daos;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,6 +32,19 @@ public class ParametroDAOHibImpl implements ParametroDAO {
 		
 		miSessionFactory.getCurrentSession().delete(parametro);
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Parametro> findAll() {
+		
+		Query query= miSessionFactory.getCurrentSession().
+				createQuery("FROM Parametro");
+		
+		
+		List<Parametro> parametros= query.list();
+		
+		return parametros;
 	}
 	
 	

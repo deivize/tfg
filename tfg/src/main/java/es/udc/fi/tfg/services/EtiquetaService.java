@@ -18,11 +18,14 @@ public interface EtiquetaService {
 	
 	void crearEstandar(Estandar miEstandar);
 	void borrarEstandar(Estandar miEstandar);
+	List<Estandar> buscarEstandars();
 	
 	void crearParametro(Parametro miParametro);
 	void borrarParametro(Parametro miParametro);
+	List<Parametro> buscarParametros();
 	
 	void crearTecnologia(Tecnologia miTecnologia);
 	void borrarTecnologia(Tecnologia miTecnologia);
+	List<Tecnologia> buscarTecnologias();
 
 }
