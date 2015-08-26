@@ -12,7 +12,7 @@ public class EtiquetaForm {
 	
 	private String fabricante;
 	
-	private Boolean infoCifrada;
+	private String infoCifrada;
 
 	public Long getParametro() {
 		return parametro;
@@ -54,11 +54,11 @@ public class EtiquetaForm {
 		this.fabricante = fabricante;
 	}
 
-	public Boolean getInfoCifrada() {
+	public String getInfoCifrada() {
 		return infoCifrada;
 	}
 
-	public void setInfoCifrada(Boolean infoCifrada) {
+	public void setInfoCifrada(String infoCifrada) {
 		this.infoCifrada = infoCifrada;
 	}
 

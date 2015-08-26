@@ -133,7 +133,7 @@ function adjust_textarea(h) {
 $(function() {
     $('#activo_button').hide(); 
     $('#etiqueta_activo').change(function(){
-        if($('#etiqueta_activo').val() == 'no_etiquetas') {
+        if(($('#etiqueta_activo').val() == 'no_etiquetas')||($('#etiqueta_activo').val() == 'crear_etiqueta')) {
             $('#nueva_etiqueta_link').show();
             $('#activo_button').hide();
         } else {
@@ -172,8 +172,9 @@ $(function() {
 						<sf:select path="etiqueta" id="etiqueta_activo">
 							<c:choose>
 								<c:when test="${not empty etiquetas}">
+								<option value="crear_etiqueta">Crear nueva etiqueta</option>
 								<c:forEach var="etiqueta" items="${etiquetas}">
-									<option value="${etiqueta.idEtiqueta}">${etiqueta.idEtiqueta}</option>
+									<option value="${etiqueta.idEtiqueta}">${etiqueta.contenido}</option>
 								</c:forEach>
 								</c:when>
 								<c:when test="${empty etiquetas}">

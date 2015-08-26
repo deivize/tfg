@@ -9,4 +9,5 @@ public interface TecnologiaDAO {
 	Long create(Tecnologia tecnologia);
 	void remove(Tecnologia tecnologia);
 	List<Tecnologia> findAll();
+	Tecnologia findById(Long id);
 }

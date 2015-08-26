@@ -8,6 +8,9 @@
 
 <head>
 
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+
+
 <style type="text/css">
 .form-etiqueta{
     max-width:400px;
@@ -121,13 +124,29 @@
 }
 </style>
 
+<script type="text/javascript">
+
+
+</script>
+
 <title>Nueva etiqueta</title>
 </head>
 <body>
-	<div>
+<div id="container">
+
+<div id="header"></div>
+
+<div id="navbar">
+	<a id="nuevo_parametro_link" class="home_link" href="<s:url value="/etiquetas/nuevoparametro"/>">Crear Parametro</a>
+	<a id="nuevo_estandar_link" class="home_link" href="<s:url value="/etiquetas/nuevoestandar"/>">Crear Estandar</a>
+	<a id="nueva_tecnologia_link" class="home_link" href="<s:url value="/etiquetas/nuevatecnologia"/>">Crear Tecnologia</a>
+</div>
+
+	<div id="content">
+	<div id="etiquetaForm">
 		
 
-		<sf:form method="POST" modelAttribute="etiqueta" class="form-etiqueta">
+		<sf:form id="crear_etiqueta_form" method="POST" modelAttribute="etiqueta" class="form-etiqueta">
 			<fieldset>
 			<legend>Crear nueva etiqueta</legend>
 				<ul>
@@ -155,6 +174,7 @@
 						<sf:select path="parametro" id="parametro_etiqueta">
 							<c:choose>
 								<c:when test="${not empty parametros}">
+								<option value=""></option>
 								<c:forEach var="parametro" items="${parametros}">
 									<option value="${parametro.idParametro}">${parametro.nombre}</option>
 								</c:forEach>
@@ -203,12 +223,15 @@
 					</li>
 					<li>
 						
-						<button id="etiqueta_button" type="submit" value="Crear etiqueta">Crear Etiqueta</button>
+						<button id="etiqueta_button" onClick="$('#crear_etiqueta_form').submit();" value="Crear etiqueta">Crear Etiqueta</button>
 						
 					</li>
 				</ul>
 			</fieldset>
 		</sf:form>
+	</div>
+	</div>
+	
 	</div>
 </body>
 </html>

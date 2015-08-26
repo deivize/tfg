@@ -43,6 +43,16 @@ public class TecnologiaDAOHibImpl implements TecnologiaDAO {
 		
 		return tecnologias;
 	}
+
+	@Override
+	public Tecnologia findById(Long id) {
+		Query query= miSessionFactory.getCurrentSession().createQuery("FROM Tecnologia WHERE idTecnologia= :id");
+		query.setParameter("id", id);
+		
+		Tecnologia tecnologia= (Tecnologia) query.uniqueResult();
+		
+		return tecnologia;
+	}
 	
 	
 

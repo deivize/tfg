@@ -249,4 +249,47 @@ public class EtiquetaServiceImpl implements EtiquetaService {
 		return tecnologias;
 	}
 
+	@Override
+	@Transactional(value="miTransactionManager")
+	public Estandar buscarEstandarPorId(Long id) {
+		Estandar estandar= null;
+		
+		try{
+			estandar= estandarDAO.findById(id);
+			log.info("Buscando estandar con id "+id);
+		}catch (DataAccessException e){
+			log.error("Error al buscar estandar con id "+id);
+		}
+		
+		return estandar;
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public Parametro buscarParametroPorId(Long id) {
+		Parametro parametro=null;
+		
+		try{
+			parametro=parametroDAO.findById(id);
+			log.info("Buscando parametro con id "+id);
+		}catch (DataAccessException e){
+			log.error("Error al buscar parametro con id "+id);
+		}
+		return parametro;
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public Tecnologia buscarTecnologiaPorId(Long id) {
+		Tecnologia tecnologia= null;
+		
+		try{
+			tecnologia=tecnologiaDAO.findById(id);
+			log.info("Buscando tecnologia con id "+id);
+		}catch (DataAccessException e){
+			log.error("Error al buscar tecnologia con id "+id);
+		}
+		return tecnologia;
+	}
+
 }

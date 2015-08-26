@@ -46,6 +46,16 @@ public class ParametroDAOHibImpl implements ParametroDAO {
 		
 		return parametros;
 	}
+
+	@Override
+	public Parametro findById(Long id) {
+		Query query= miSessionFactory.getCurrentSession().createQuery("FROM Parametro WHERE idParametro= :id");
+		query.setParameter("id", id);
+		
+		Parametro parametro= (Parametro) query.uniqueResult();
+		
+		return parametro;
+	}
 	
 	
 

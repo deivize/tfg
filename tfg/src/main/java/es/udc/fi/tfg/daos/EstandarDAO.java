@@ -9,4 +9,5 @@ public interface EstandarDAO {
 	Long create(Estandar estandar);
 	void remove(Estandar estandar);
 	List<Estandar> findAll();
+	Estandar findById(Long id);
 }

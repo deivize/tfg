@@ -44,4 +44,15 @@ public class EstandarDAOHibImpl implements EstandarDAO {
 		return estandar;
 	}
 
+	@Override
+	public Estandar findById(Long id) {
+		Query query=miSessionFactory.getCurrentSession().createQuery("FROM Estandar WHERE idEstandar= :id");
+		
+		query.setParameter("id", id);
+		
+		Estandar estandar= (Estandar) query.uniqueResult();
+		
+		return estandar;
+	}
+
 }
