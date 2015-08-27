@@ -126,6 +126,27 @@
 
 <script type="text/javascript">
 
+function validateForm() {
+    var parametro =document.getElementById("parametro_etiqueta").value;
+    var estandar =document.getElementById("estandar_etiqueta").value;
+    var tecnologia =document.getElementById("tecnologia_etiqueta").value;
+    if (parametro == null || parametro == "") {
+        alert("Debe seleccionar un parametro para la etiqueta");
+        return false;
+    }
+    if (estandar == null || estandar == "") {
+        alert("Debe seleccionar un estandar para la etiqueta");
+        return false;
+    }
+    
+    if (tecnologia == null || tecnologia == "") {
+        alert("Debe seleccionar una tecnologia para la etiqueta");
+        return false;
+    }
+    
+    
+}
+
 
 </script>
 
@@ -146,8 +167,9 @@
 	<div id="etiquetaForm">
 		
 
-		<sf:form id="crear_etiqueta_form" method="POST" modelAttribute="etiqueta" class="form-etiqueta">
+		<sf:form id="crear_etiqueta_form" method="POST" modelAttribute="etiqueta" class="form-etiqueta" onsubmit="return validateForm()">
 			<fieldset>
+			<sf:errors path="*"/>
 			<legend>Crear nueva etiqueta</legend>
 				<ul>
 					<li>
@@ -178,6 +200,7 @@
 								<c:forEach var="parametro" items="${parametros}">
 									<option value="${parametro.idParametro}">${parametro.nombre}</option>
 								</c:forEach>
+								<sf:errors path="parametro"/>
 								</c:when>
 								<c:when test="${empty parametros}">
 									<option value="no_parametros">No hay parametros</option>
@@ -192,9 +215,11 @@
 						<sf:select path="estandar" id="estandar_etiqueta">
 							<c:choose>
 								<c:when test="${not empty estandares}">
+								<option value=""></option>
 								<c:forEach var="estandar" items="${estandares}">
 									<option value="${estandar.idEstandar}">${estandar.nombre}</option>
 								</c:forEach>
+								<sf:errors path="estandar"/>
 								</c:when>
 								<c:when test="${empty estandares}">
 									<option value="no_estandares">No hay estandares</option>
@@ -209,9 +234,11 @@
 						<sf:select path="tecnologia" id="tecnologia_etiqueta">
 							<c:choose>
 								<c:when test="${not empty tecnologias}">
+								<option value=""></option>
 								<c:forEach var="tecnologia" items="${tecnologias}">
 									<option value="${tecnologia.idTecnologia}">${tecnologia.tipo}</option>
 								</c:forEach>
+								<sf:errors path="tecnologia"/>
 								</c:when>
 								<c:when test="${empty tecnologias}">
 									<option value="no_tecnologias">No hay tecnologias</option>
@@ -223,7 +250,7 @@
 					</li>
 					<li>
 						
-						<button id="etiqueta_button" onClick="$('#crear_etiqueta_form').submit();" value="Crear etiqueta">Crear Etiqueta</button>
+						<button id="etiqueta_button" type="submit" value="Crear etiqueta">Crear Etiqueta</button>
 						
 					</li>
 				</ul>

@@ -135,11 +135,18 @@
 			<scope>provided</scope>
 		</dependency>
 
-<!-- Dependencia del core jstl -->
+		<!-- Dependencia del core jstl -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
 		</dependency>
 
 

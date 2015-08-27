@@ -2,9 +2,13 @@ package es.udc.fi.tfg.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,6 +21,7 @@ import es.udc.fi.tfg.model.Etiqueta;
 import es.udc.fi.tfg.model.Parametro;
 import es.udc.fi.tfg.model.Tecnologia;
 import es.udc.fi.tfg.services.EtiquetaService;
+import es.udc.fi.tfg.validator.EtiquetaValidator;
 
 
 @Controller
@@ -46,7 +51,25 @@ public class EtiquetaController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/nuevaetiqueta")
-	public String addEtiquetaFromForm(EtiquetaForm etiquetaForm){
+	public String addEtiquetaFromForm(@ModelAttribute("etiqueta") @Valid EtiquetaForm etiquetaForm,BindingResult result,Model model){
+		
+		EtiquetaValidator etiquetaValidator=new EtiquetaValidator();
+		etiquetaValidator.validate(etiquetaForm, result);
+		
+		if(result.hasErrors()){
+			List<Parametro> parametros=etiquetaService.buscarParametros();
+			List<Estandar> estandares=etiquetaService.buscarEstandars();
+			List<Tecnologia> tecnologias=etiquetaService.buscarTecnologias();
+			
+			
+			model.addAttribute("parametros",parametros);
+			model.addAttribute("estandares",estandares);
+			model.addAttribute("tecnologias", tecnologias);
+			model.addAttribute("etiqueta", new EtiquetaForm());
+			return "";
+		}else{
+			
+		
 		
 		Parametro parametro= etiquetaService.buscarParametroPorId(etiquetaForm.getParametro());
 		Tecnologia tecnologia=etiquetaService.buscarTecnologiaPorId(etiquetaForm.getTecnologia());
@@ -63,6 +86,8 @@ public class EtiquetaController {
 		etiquetaService.crearEtiqueta(etiqueta);
 		
 		return "redirect:/activos/nuevoactivo";
+		
+		}
 	}
 	
 	
