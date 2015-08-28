@@ -18,7 +18,7 @@
 <%-- 	<script src="../resources/js/raphael.js" type="text/javascript"></script> --%>
 	
 <%-- 	<script type="text/javascript" src="script_home.js"></script> --%>
-<link rel="stylesheet" type="text/css" href="../resources/css/css_home.css">
+<!-- <link rel="stylesheet" type="text/css" href="../resources/css/css_home.css"> -->
 
 <style type="text/css"> 
 
@@ -419,7 +419,7 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 
 		<div id="content">
 			<div id="mapa" class="mapa">
- 				<svg id="svg1" height="1000" width="1000" > 
+ 				<svg id="svg1" height="500" width="1000" xmlns:xlink="http://www.w3.org/1999/xlink">> 
 <%-- 						<g --%>
 <!-- 					id="mapcontainer" style="fill:none;stroke:#000000" -->
 <!-- 					transform="matrix(0.92131341,0,0,0.93511906,35.636145,35.381704)" -->
