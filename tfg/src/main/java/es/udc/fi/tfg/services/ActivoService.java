@@ -13,5 +13,5 @@ public interface ActivoService {
 	Activo buscarActivoPorId(Long id);
 	List<Localizacion> getLocalizacines(Long id);
 	List<Activo> buscarActivos();
-	
+	Localizacion getLocalizacionActual(Long id);
 }

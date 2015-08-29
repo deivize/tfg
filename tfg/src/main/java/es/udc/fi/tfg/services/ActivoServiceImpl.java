@@ -96,9 +96,24 @@ public class ActivoServiceImpl implements ActivoService {
 			log.info("Buscando localizaciones del activo: "+id);
 			
 		}catch(DataAccessException e){
-			log.error("Error al busca localizaciones del activo: "+id);
+			log.error("Error al buscar localizaciones del activo: "+id);
 		}
 		return localizaciones;
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public Localizacion getLocalizacionActual(Long id) {
+		Localizacion loc=null;
+		
+		try{
+			loc=activoDAO.getLocalizacionActual(id);
+			log.info("Buscando localizacion actual para el activo "+id);
+		}catch (DataAccessException e){
+			log.error("Error al buscar la localizacion actual del actvio "+id);
+		}
+		
+		return loc;
 	}
 	
 

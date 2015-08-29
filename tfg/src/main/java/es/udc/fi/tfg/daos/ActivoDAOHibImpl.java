@@ -77,6 +77,7 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Localizacion> getLocalizacionesActivo(Long id) {
 //		Query query=miSessionFactory.getCurrentSession().createQuery("SELECT b.idlocalizacion,b.coord_x,b.coord_y,b.coord_z,b.edificio,b.planta,b.area,b.zona,b.fecha "
@@ -106,6 +107,25 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		
 //		List<Localizacion> localizaciones=(List<Localizacion>) query.list();
 		return localizaciones;
+	}
+
+	@Override
+	public Localizacion getLocalizacionActual(Long id) {
+		
+		//Query query=miSessionFactory.getCurrentSession().createQuery("FROM Localizacion WHERE idLocalizacion=(SELECT idLocalizacion FROM ActivoLocalizacion WHERE idActivo=:idAct AND fecha>=ALL(SELECT fecha FROM ActivoLocalizacion WHERE idActivo= :idAct))");
+		
+		Query query1=miSessionFactory.getCurrentSession().createQuery("FROM ActivoLocalizacion WHERE idActivo=:idAct AND fecha>=ALL(SELECT fecha FROM ActivoLocalizacion WHERE idActivo= :idAct)");
+		query1.setParameter("idAct", id);
+		ActivoLocalizacion activoLoc=(ActivoLocalizacion) query1.uniqueResult();
+		Long idLoc=activoLoc.getLocalizacion().getIdLocalizacion();
+		
+		Query query2=miSessionFactory.getCurrentSession().createQuery("FROM Localizacion WHERE idLocalizacion= :idLoc");
+		query2.setParameter("idLoc", idLoc);
+		
+		
+		Localizacion loc= (Localizacion) query2.uniqueResult();
+		
+		return loc;
 	}
 
 }

@@ -262,9 +262,11 @@ function init(){
 	    setAnimations(i);
 	  }
 	
-	var trace=document.getElementById("printTrace");
 	
-	trace.onclick=printTrace;
+	
+	
+	
+	
 	
 };
 
@@ -281,6 +283,19 @@ function setAnimations(number) {
 	}
 
 
+function drawLocActual(){
+	
+	var paper= new Raphael(document.getElementById('svg1'), 500, 1000);
+	var locActual="${locActual}";
+	
+	var circle= paper.circle(603.57067,140.19827,10.5);
+	circle.attr("stroke", "#f1f1f1");
+    circle.attr("stroke-width", 2);
+    
+//     var text = paper.text(locActual.coord_x,locActual.coord_y, "Loc Actual");
+//     text.attr({'font-size': 15, 'font-family': 'FranklinGothicFSCondensed-1, FranklinGothicFSCondensed-2'});
+//     text.attr("fill", "#f1f1f1");
+}
 
 
 function printTrace(paper) {
@@ -371,6 +386,9 @@ function printTrace(paper) {
 		}
 	});
 	} )( jQuery );
+	
+	
+	
 
 </script>
 
@@ -381,7 +399,6 @@ function printTrace(paper) {
 
 </head>
 <body onload="init()">
-
 
 <!-- 	<div id="localizaciones"> -->
 <%-- 		<c:forEach var="localizacion" items="${localizaciones}" --%>
@@ -410,7 +427,9 @@ function printTrace(paper) {
 <!-- 	</div> -->
 
 <div id="container">
-<div id="header"></div>
+<div id="header">
+
+</div>
 
 <div id="navbar">
 			<div id="cssmenu" class="menu">
@@ -448,6 +467,7 @@ function printTrace(paper) {
 				style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
 				d="m 603.57067,140.19827 0.50508,27.77919 32.82995,0 0,-28.28427 z"
 				id="lector3" />
+				<circle cx="${locActual.coord_x}" cy="${locActual.coord_y}" r="40" stroke="black" stroke-width="3" fill="none" />
 				<c:set var="i" value="1" />
 			<path id="path0" d="">
     			<animate id="dashAnim0" attributeName="stroke-dashoffset"

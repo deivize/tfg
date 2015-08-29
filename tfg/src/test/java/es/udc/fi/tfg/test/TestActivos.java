@@ -123,7 +123,7 @@ public class TestActivos {
 		
 		List<Localizacion> localizaciones=activoService.getLocalizacines(activo.getIdActivo());
 		
-		assertEquals(localizaciones.size(),2);
+		assertEquals(localizaciones.size(),3);
 		
 		
 	}

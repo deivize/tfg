@@ -12,6 +12,7 @@ public interface ActivoDAO {
 	List<Activo> findAll();
 	Activo findById(Long id);
 	List<Localizacion> getLocalizacionesActivo(Long id);
+	Localizacion getLocalizacionActual(Long id);
 	void update(Activo activo);
 	void remove(Activo activo);
 	
