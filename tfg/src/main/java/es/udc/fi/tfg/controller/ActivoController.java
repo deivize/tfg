@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
 import es.udc.fi.tfg.forms.ActivoForm;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Etiqueta;
@@ -32,6 +33,8 @@ public class ActivoController {
 	public String listActivos(Model model){
 		
 		List<Activo> activos=activoService.buscarActivos();
+		List<ActivoLocalizacionDto> actLoc=activoService.getLocalizacionesActuales();
+		model.addAttribute("localizaciones",actLoc);
 		model.addAttribute("activos", activos);
 		
 		return "listactivos";
@@ -73,6 +76,7 @@ public class ActivoController {
 	@RequestMapping(value="/verRecorrido")
 	public String verRecorrido(Model model, Long id){
 		List<Localizacion> localizaciones_=activoService.getLocalizacines(id);
+		Activo activo=activoService.buscarActivoPorId(id);
 		ArrayList<ArrayList<Double>> coordenadas= new ArrayList<ArrayList<Double>>();
 		int length = localizaciones_.size();
 		for(Localizacion loc:localizaciones_){
@@ -100,6 +104,7 @@ public class ActivoController {
 
 		Localizacion locActual=activoService.getLocalizacionActual(id);
 		
+		model.addAttribute("activo",activo);
 		model.addAttribute("locActual", locActual);
 		model.addAttribute("coordenadas",coordenadas);
 		model.addAttribute("loc_size",length);

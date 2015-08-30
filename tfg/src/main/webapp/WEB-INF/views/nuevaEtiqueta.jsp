@@ -471,7 +471,6 @@ function validateForm() {
 
 		<sf:form id="crear_etiqueta_form" method="POST" modelAttribute="etiqueta" class="form-etiqueta" onsubmit="return validateForm()">
 			<fieldset>
-			<sf:errors path="*"/>
 			<legend>Crear nueva etiqueta</legend>
 				<ul>
 					<li>

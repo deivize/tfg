@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.ActivoLocalizacion;
 import es.udc.fi.tfg.model.Localizacion;
@@ -32,6 +33,7 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		return activoId;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Activo> findByName(String nombre) {
 		Query query= miSessionFactory.getCurrentSession().
@@ -42,6 +44,7 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		return activos;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Activo> findAll() {
 		List<Activo> activos= (List<Activo>) miSessionFactory.getCurrentSession().
@@ -126,6 +129,50 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		Localizacion loc= (Localizacion) query2.uniqueResult();
 		
 		return loc;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ActivoLocalizacionDto> getLocalizacionesActuales() {
+		
+		List<ActivoLocalizacionDto> dtos=new ArrayList<ActivoLocalizacionDto>();
+		
+		
+		
+		
+		Query query1=miSessionFactory.getCurrentSession().createQuery("FROM ActivoLocalizacion WHERE fecha in(SELECT max(fecha) FROM ActivoLocalizacion GROUP BY idActivo) ");
+		List<ActivoLocalizacion> activoLocalizaciones=query1.list();
+		
+		
+		Long idLoc=null;
+		Long idAct=null;
+		for(ActivoLocalizacion actLoc:activoLocalizaciones){
+			idLoc=actLoc.getLocalizacion().getIdLocalizacion();
+			idAct=actLoc.getActivo().getIdActivo();
+			
+			Query query2=miSessionFactory.getCurrentSession().createQuery("FROM Localizacion WHERE idLocalizacion= :idLoc");
+			query2.setParameter("idLoc", idLoc);
+			
+			Query query3=miSessionFactory.getCurrentSession().createQuery("FROM Activo WHERE idActivo= :idAct");
+			query3.setParameter("idAct", idAct);
+			
+			Localizacion loc=(Localizacion) query2.uniqueResult();
+			Activo act=(Activo) query3.uniqueResult();
+			
+			ActivoLocalizacionDto actLocDto=new ActivoLocalizacionDto();
+			
+			actLocDto.setNombreActivo(act.getNombre());
+			actLocDto.setCoord_x(loc.getCoord_x());
+			actLocDto.setCoord_y(loc.getCoord_y());
+			actLocDto.setCoord_z(loc.getCoord_z());
+			
+			dtos.add(actLocDto);
+		
+		}
+		
+		
+		
+		return dtos;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.daos.ActivoDAO;
+import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Localizacion;
 
@@ -114,6 +115,22 @@ public class ActivoServiceImpl implements ActivoService {
 		}
 		
 		return loc;
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<ActivoLocalizacionDto> getLocalizacionesActuales() {
+		
+		List<ActivoLocalizacionDto> dtos=null;
+		
+		try{
+			dtos=activoDAO.getLocalizacionesActuales();
+			log.info("Buscando localizaciones actuales de todos los activos");
+		}catch (DataAccessException e){
+			log.error("Error al buscar localizaciones actules de todos los activos");
+		}
+		
+		return dtos;
 	}
 	
 

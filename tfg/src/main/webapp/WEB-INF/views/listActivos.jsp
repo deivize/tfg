@@ -144,6 +144,15 @@ body{
 	text-align: center;
 }
 
+#lista_activos{
+	margin-top:20px;
+	
+}
+
+#datos_activos{
+	width:400px;
+}
+
 .menu{
 	position: relative
 }
@@ -415,6 +424,43 @@ body{
 </div>
 
 	<div id="content">
+	
+	<fieldset id="localizaciones_actuales">
+	<legend>Localizaciones actuales</legend>
+		<div id="mapa" class="mapa">
+ 				<svg id="svg1" height="500" width="1000">> 
+					<g 
+					id="mapcontainer"> 
+					<path
+					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="m 27.274119,33.118286 680.337741,-0.505076 2.0203,343.95694 -275.77164,-2.0203 -1.01015,-183.34269 -31.31473,-0.50508 -0.50508,182.83761 L 23.233509,370.00416 19.697975,32.61321 Z"
+					id="map-border" /> 
+					<path
+					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="m 39.39595,172.01426 0.505076,27.7792 32.829958,0 0,-28.28428 z"
+					id="lector1" class="lector" name="Lector 1" />
+					<path
+					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="m 401.03508,44.233775 0.50508,27.7792 32.82996,0 0,-28.28427 z"
+					id="lector2" class="lector" name="Lector 2"/> 
+					<path
+					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="m 603.57067,140.19827 0.50508,27.77919 32.82995,0 0,-28.28427 z"
+					id="lector3" class="lector" name="Lector 3"/>
+					
+					<c:forEach var="loc" items="${localizaciones}" varStatus="status">
+						<circle cx="${loc.coord_x}" cy="${loc.coord_y}" r="30"
+						stroke="black" stroke-width="3" fill="none" />
+					</c:forEach>
+					 </g>
+				</svg>
+			</div>
+	
+	</fieldset>
+	
+	<div id="lista_activos">
+	<fieldset id="datos_activos">
+	<legend>Activos</legend>
 	<table cellspacing="0" class="tabla_activos">
 		
 		<thead>
@@ -440,6 +486,8 @@ body{
 		</c:forEach>
 		</tbody>
 	</table>
+	</fieldset>
+	</div>
 	</div>
 	
 </div>	
