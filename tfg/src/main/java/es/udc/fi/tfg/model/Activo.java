@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,8 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -30,6 +29,8 @@ public class Activo {
 	private byte[] icono;
 	private String categoria;
 	private Etiqueta etiqueta;
+	private Timestamp fechaCaducidad;
+	private Integer temperatura;
 	private List<ActivoLocalizacion> ubicacion= new ArrayList<ActivoLocalizacion>();
 	
 	@SuppressWarnings("unused")
@@ -80,6 +81,24 @@ public class Activo {
 		this.categoria = categoria;
 	}
 	
+	@Column(name="fechaCaducidad",nullable=true)
+	public Timestamp getFechaCaducidad() {
+		return fechaCaducidad;
+	}
+
+	public void setFechaCaducidad(Timestamp fechaCaducidad) {
+		this.fechaCaducidad = fechaCaducidad;
+	}
+
+	@Column(name="temperatura",nullable=true)
+	public Integer getTemperatura() {
+		return temperatura;
+	}
+
+	public void setTemperatura(Integer temperatura) {
+		this.temperatura = temperatura;
+	}
+
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idEtiqueta")
 	@Cascade({CascadeType.SAVE_UPDATE})

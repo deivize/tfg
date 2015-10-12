@@ -692,16 +692,21 @@ function addLabel(){
 		<div id="navbar">
 			<div id="cssmenu" class="menu">
 				<ul>
-					<li class='active'><a class="home_link"
-						href="<s:url value="/activos/listactivos"/>">Ver lista de
-							activos</a></li>
-					<li><a class="home_link"
-						href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo
-							activo</a></li>
+					<li class='active has-sub'><a href='#'><span>Activos</span></a>
+						<ul>
+							<li><a class="home_link" href="<s:url value="/activos/listactivos"/>">Ver lista de activos</a></li>
+							<li><a class="home_link" href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo activo</a></li>
+							<li class="last"><a class="home_link" href="<s:url value="/activos/borraractivo"/>">Borrar activos</a></li>
+						</ul>
+					</li>
+					<li class='has-sub'><a href='#'><span>Lectores</span></a>
+						<ul>
+							<li>Ver lectores</li>
+						</ul>
+					</li>
 					<li><a class="home_link"
 						href="<s:url value="/mapa3d"/>">Ver mapa 3D</a></li>
-					<li class="last"><a class="home_link"
-						href="<s:url value="/activos/borraractivo"/>">Borrar activos</a></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -710,24 +715,8 @@ function addLabel(){
 
 		<div id="content">
 			<div id="mapa" class="mapa">
- 				<svg id="svg1" height="500" width="1000">> 
-<!-- 						<g -->
-<!-- 					id="mapcontainer" style="fill:none;stroke:#000000" -->
-<!-- 					transform="matrix(0.92131341,0,0,0.93511906,35.636145,35.381704)" -->
-<!-- 					id="g4"> -->
-<!-- 					<path style="stroke-width:0.83458px" -->
-<!-- 					d="m -0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0 z" -->
-<!-- 					id="map_border" /> <path style="stroke-width:1px" -->
-<!-- 					d="m 356.73,682.25 0,-334.44" id="path4143" /> <path id="path3339" -->
-<!-- 					d="m 356.76909,-0.6820391 0,260.3327391" -->
-<!-- 					style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.07569587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" /> -->
-<!-- 				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector1" -->
-<!-- 					width="43.491894" height="30.722496" x="8.9151812" y="19.530167" /> -->
-<!-- 				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector2" -->
-<!-- 					width="29.541664" height="15.361248" x="340.43829" y="330.79755" /> -->
-<!-- 				<rect style="fill:#f9f9f9;stroke-width:1.07736492" id="lector3" -->
-<!-- 					width="36.106476" height="24.254602" x="654.72876" y="289.56473" /> -->
-<!-- 				</g>   -->
+ 				<svg id="svg1" height="500" width="1000">
+
 					<g 
 					id="mapcontainer"> 
 					<path
