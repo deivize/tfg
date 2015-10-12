@@ -1,6 +1,9 @@
 package es.udc.fi.tfg.daos;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -173,6 +176,26 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		
 		
 		return dtos;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Activo> getActivosAlerta() {
+		
+		List<Activo> activosAlerta=new ArrayList<Activo>();
+		
+		Calendar cal= Calendar.getInstance();
+		Date date= cal.getTime();
+		
+		
+		Timestamp fecha= new Timestamp(date.getTime());
+		
+		Query query= miSessionFactory.getCurrentSession().createQuery("FROM Activo WHERE fechaCaducidad<= :fecha");
+		query.setParameter("fecha", fecha);
+		
+		activosAlerta=query.list();
+		
+		return activosAlerta;
 	}
 
 }

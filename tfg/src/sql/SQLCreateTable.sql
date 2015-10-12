@@ -49,7 +49,7 @@ CREATE TABLE Activo( idActivo BIGSERIAL NOT NULL,
 	categoria VARCHAR(255) NOT NULL,
 	idEtiqueta BIGINT NOT NULL,
 	fechaCaducidad TIMESTAMP,
-	temperatura BIGINT,
+	temperatura DOUBLE PRECISION,
 	CONSTRAINT ActivoPK PRIMARY KEY (idActivo),
 	CONSTRAINT ActivoidEtiquetaFK FOREIGN KEY (idEtiqueta)
 		REFERENCES Etiqueta(idEtiqueta));

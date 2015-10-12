@@ -30,7 +30,7 @@ public class Activo {
 	private String categoria;
 	private Etiqueta etiqueta;
 	private Timestamp fechaCaducidad;
-	private Integer temperatura;
+	private Double temperatura;
 	private List<ActivoLocalizacion> ubicacion= new ArrayList<ActivoLocalizacion>();
 	
 	@SuppressWarnings("unused")
@@ -91,11 +91,11 @@ public class Activo {
 	}
 
 	@Column(name="temperatura",nullable=true)
-	public Integer getTemperatura() {
+	public Double getTemperatura() {
 		return temperatura;
 	}
 
-	public void setTemperatura(Integer temperatura) {
+	public void setTemperatura(Double temperatura) {
 		this.temperatura = temperatura;
 	}
 

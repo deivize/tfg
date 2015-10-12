@@ -132,6 +132,22 @@ public class ActivoServiceImpl implements ActivoService {
 		
 		return dtos;
 	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<Activo> getActivosAlerta() {
+		
+		List<Activo> activosAlerta=null;
+		
+		try{
+			activosAlerta=activoDAO.getActivosAlerta();
+			log.info("Buscando activos para dar una alerta");
+		}catch(DataAccessException e){
+			log.error("Error buscando activos para alertas");
+		}
+		
+		return activosAlerta;
+	}
 	
 
 }

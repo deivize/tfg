@@ -7,7 +7,11 @@
 <html>
 <head>
 
-<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<%-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> --%>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+   
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js" type="text/javascript"></script>
 
 
 <style type="text/css">
@@ -433,8 +437,20 @@ function validateForm() {
 		}
 	});
 	} )( jQuery );
+	
+	
+	
+	$(document).ready(
 
+	/* This is the function that will get executed after the DOM is fully loaded */
+	function() {
+		$("#datepicker").datepicker({
+			changeMonth : true,//this option for allowing user to select month
+			changeYear : true//this option for allowing user to select from year range
+		});
+	}
 
+	);
 </script>
 
 <title>Nuevo activo</title>
@@ -495,6 +511,11 @@ function validateForm() {
 						<span>Escoger una de las etiquetas libres</span>
 
 					</li>
+					<li>
+						<label for="fechaCaducidad">Fecha caducidad:</label>
+						<sf:input path="fechaCaducidad" id="datepicker"/>
+					</li>
+					
 					<li>
 						
 						<button id="activo_button" type="submit" value="Crear activo">Crear Activo</button>

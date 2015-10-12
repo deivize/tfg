@@ -751,6 +751,11 @@ function addLabel(){
 			<c:set var="i" value="${i+1}"/>
 		</c:forEach>
 	</div>
+	
+	<div id="alertasActivos">
+		
+	
+	</div>
 		
 	</div>
 	

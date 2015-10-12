@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,8 @@ public class ActivoController {
 		
 		Etiqueta etiqueta=etiquetaService.buscarEtiquetaPorId(activoForm.getEtiqueta());
 		Activo activo=new Activo(activoForm.getNombre(),null,activoForm.getCategoria(),etiqueta);
+		Timestamp ts= new Timestamp(activoForm.getFechaCaducidad().getTime());
+		activo.setFechaCaducidad(ts);
 		activoService.crearActivo(activo);
 		return "redirect:/home";
 	}

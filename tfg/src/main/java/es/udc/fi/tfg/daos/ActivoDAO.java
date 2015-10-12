@@ -15,6 +15,7 @@ public interface ActivoDAO {
 	List<Localizacion> getLocalizacionesActivo(Long id);
 	Localizacion getLocalizacionActual(Long id);
 	List<ActivoLocalizacionDto> getLocalizacionesActuales();
+	List<Activo> getActivosAlerta();
 	void update(Activo activo);
 	void remove(Activo activo);
 	
