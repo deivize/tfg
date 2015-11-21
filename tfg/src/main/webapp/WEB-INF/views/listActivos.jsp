@@ -263,15 +263,14 @@ body{
 	<fieldset id="localizaciones_actuales">
 	<legend>Localizaciones actuales</legend>
 		<div id="mapa" class="mapa">
- 				<svg id="svg1" height="1000" width="1000">> 
+ 				
 					<jsp:include page="map.jsp"></jsp:include>
+					<c:forEach var="loc" items="${localizaciones}" varStatus="status">
+						<circle cx="${loc.coord_x}" cy="${loc.coord_y}" r="30"
+ 						stroke="black" stroke-width="3" fill="none" />
+					</c:forEach>
 					
-<%-- 					<c:forEach var="loc" items="${localizaciones}" varStatus="status"> --%>
-<%-- 						<circle cx="${loc.coord_x}" cy="${loc.coord_y}" r="30" --%>
-<%-- 						stroke="black" stroke-width="3" fill="none" /> --%>
-<%-- 					</c:forEach> --%>
-					 </g>
-				</svg>
+				
 			</div>
 	
 	</fieldset>

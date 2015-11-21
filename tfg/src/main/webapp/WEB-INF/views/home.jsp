@@ -554,10 +554,9 @@ function addLabel(){
 
 		<div id="content">
 			<div id="mapa" class="mapa">
- 				<svg id="svg1" height="1000" width="1000">
+ 				
 					<jsp:include page="map.jsp"/>
-					
-				</svg>
+				
 			</div>
 		</div>
 		<div id="lectores_info">
