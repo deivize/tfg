@@ -205,10 +205,16 @@ function drawpath( canvas, pathstr, duration, attr, callback )
 
 function init(){
 	
+	
 	for(var i=0; i<=${path_size}; i++) {
 	    setAnimations(i);
 	  }
 	
+	var svg=d3.select("#mapcontainer");
+	
+	
+	
+	console.log(svg);
 	console.log(${paths});
 	console.log(${path_size});
 	
@@ -216,6 +222,20 @@ function init(){
 	
 	
 };
+
+function markPath(i){
+	
+	var path=d3.select("#path"+i);
+// 	console.log(path);
+// 	console.log(path.attr("stroke"));
+	
+	currentColor= path.attr("stroke") == "red" ? "blue" : "red"; 
+	path.attr("stroke",currentColor);
+	
+};
+
+
+
 
 function setAnimations(number) {
 	  path=document.getElementById('path'+number);
@@ -273,6 +293,7 @@ function printTrace(paper) {
 // 	path=[{x:${paths[i+0][0]},y:${paths[i+0][1]}},{x:${paths[i+0][2]},y:${paths[i+0][3]}}];
 // 	recorridos.push(path);
 // }
+
 
 
 
@@ -750,6 +771,9 @@ function printTrace(paper) {
 			       y="879.67218" />
 			       
 			    <c:set var="i" value="1" />
+			    <marker id="arrow" orient="auto" markerWidth="2" markerHeight="4" refX="0.1" refY="2">
+			    	<path d='M0,0 V4 L2,2 Z' fill='black' />
+			    </marker>
 			    <path id="path0" d=""> 
     			<animate id="dashAnim0" attributeName="stroke-dashoffset"
 						from="0" to="0" dur="0.01s" begin="0s" fill="freeze"
@@ -757,7 +781,7 @@ function printTrace(paper) {
   				</path>
 			    			<c:forEach var="path" items="${paths}" varStatus="status">
 					<path id="path${i}"
-							d="M${path[0]},${path[1]} L${path[2]},${path[3]}">
+							d="M${path[0]},${path[1]} L${path[2]},${path[3]}" marker-end="url(#arrow)">
 						<animate id="dashAnim${i}" attributeName="stroke-dashoffset"
 							from="0" to="0" dur="10s" begin="dashAnim${i-1}.end+1s"
 							fill="freeze" keySplines="0 0.5 0.5 1" calcMode="spline" />
@@ -767,8 +791,7 @@ function printTrace(paper) {
 			  </g>
 			  </svg>
 			</fieldset>
-			<div id="texto_loc_actual">*El circulo representa la localizacion actual del activo</div>
-		
+			
 			</div>
 			<div id="ficha_informativa">
 				<fieldset id="datos_localizacion">
@@ -782,10 +805,12 @@ function printTrace(paper) {
 								<th>Area</th>
 								<th>Zona</th>
 								<th>Fecha</th>
+								<th>Ver</th>
 							</tr>
 						</thead>
 
 						<tbody>
+							<c:set var="j" value="1"></c:set>
 							<c:forEach var="localizacion" items="${localizaciones}" varStatus="status">
 
 								<tr>
@@ -794,8 +819,9 @@ function printTrace(paper) {
 									<td>${localizacion.area}</td>
 									<td>${localizacion.zona}</td>
 									<td>${localizacion.fecha}</td>
+									<td><a onClick="markPath(${j});" style="cursor:pointer; cursor:hand;">Ver tramo</a></td>
 								</tr>
-
+								<c:set var="j" value="${j+1}"/>
 							</c:forEach>
 						</tbody>
 					</table>
