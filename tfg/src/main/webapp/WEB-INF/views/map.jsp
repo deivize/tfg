@@ -1,6 +1,7 @@
  <svg xmlns="http://www.w3.org/2000/svg"  id="svg1" height="1000" width="800">
   <g
      id="mapcontainer">
+     
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 29.947433,28.597981 612.509587,-0.530457 -0.65301,101.902856 61.68058,0.41841 -0.41842,869.44548 -613.162594,2e-5 -3.744743,-868.76275 -56.691095,0.41843 z"

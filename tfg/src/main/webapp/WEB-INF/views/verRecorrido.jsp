@@ -788,7 +788,13 @@ function printTrace(paper) {
   					</path>
 				<c:set var="i" value="${i+1}" />
 		</c:forEach>
+		
+				<polygon points="0,0 -25,-50 25,-50" style="fill:lime;stroke:purple;stroke-width:1" transform="translate(219.60323,195.15591)" />
 			  </g>
+			  		  
+			  
+			  		  
+			  		  
 			  </svg>
 			</fieldset>
 			
