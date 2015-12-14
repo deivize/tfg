@@ -15,6 +15,9 @@
 
 <style type="text/css">
 
+
+
+
 table a:link {
 	color: #666;
 	font-weight: bold;
@@ -164,6 +167,11 @@ body {
 	position: relative
 }
 
+.showRow {
+	background:black;
+	
+}
+
 </style>
 
 <script type="text/javascript">
@@ -234,6 +242,14 @@ function markPath(i){
 	
 };
 
+function showRow(j){
+	var tr=document.getElementById("localizaciones"+j);
+	console.log(tr);
+	$(tr).addClass("showRow");
+	$(tr).children("td").each (function(){
+		$(this).addClass("showRow");
+	})	
+};
 
 
 
@@ -265,9 +281,9 @@ function drawLocActual(){
 }
 
 
-function printTrace(paper) {
-	var paper = new Raphael(document.getElementById('mapcontainer'), 1000, 1000);
-	var length=${loc_size};
+// function printTrace(paper) {
+// 	var paper = new Raphael(document.getElementById('mapcontainer'), 1000, 1000);
+// 	var length=${loc_size};
 	
 	
 // 	for(localizacion in ${localizaciones}){
@@ -277,16 +293,16 @@ function printTrace(paper) {
 
 // 	var path= drawpath(paper,"M8.9151812,19.530167 L340.43829,330.79755",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
 
-	for(i=0;i<length+0;i++){
+// 	for(i=0;i<length+0;i++){
 // 		var coord_x1=${coordenadas[i+0][0]};
 // 		var coord_y1=${coordenadas[i+0][1]};
 // 		var coord_x2=${coordenadas[i+1][0]};
 // 		var coord_y2=${coordenadas[i+1][1]};
-		var path=drawpath(paper,"M${coordenadas[i+0][0]},${coordenadas[i+0][1]} L${coordenadas[i+1][0]},${coordenadas[i+1][1]}",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
-		console.log(${coordenadas[i+0][0]});
+// 		var path=drawpath(paper,"M${coordenadas[i+0][0]},${coordenadas[i+0][1]} L${coordenadas[i+1][0]},${coordenadas[i+1][1]}",5000,{fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity': 0});
+// 		console.log(${coordenadas[i+0][0]});
 		
-	}
-};
+// 	}
+// };
 
 // var recorridos=[];
 // for(i=0;i<${paths}.length;i++){
@@ -781,7 +797,7 @@ function printTrace(paper) {
   				</path>
 			    			<c:forEach var="path" items="${paths}" varStatus="status">
 					<path id="path${i}"
-							d="M${path[0]},${path[1]} L${path[2]},${path[3]}" marker-end="url(#arrow)">
+							d="M${path[0]},${path[1]} L${path[2]},${path[3]}" marker-end="url(#arrow)" style="cursor:hand;" onClick="showRow(${i})">
 						<animate id="dashAnim${i}" attributeName="stroke-dashoffset"
 							from="0" to="0" dur="10s" begin="dashAnim${i-1}.end+1s"
 							fill="freeze" keySplines="0 0.5 0.5 1" calcMode="spline" />
@@ -789,7 +805,7 @@ function printTrace(paper) {
 				<c:set var="i" value="${i+1}" />
 		</c:forEach>
 		
-				<polygon points="0,0 -25,-50 25,-50" style="fill:lime;stroke:purple;stroke-width:1" transform="translate(219.60323,195.15591)" />
+				<polygon points="0,0 -15,-25 15,-25" style="fill:lime;stroke:black;stroke-width:1" transform="translate(219.60323,195.15591)" />
 			  </g>
 			  		  
 			  
@@ -819,7 +835,7 @@ function printTrace(paper) {
 							<c:set var="j" value="1"></c:set>
 							<c:forEach var="localizacion" items="${localizaciones}" varStatus="status">
 
-								<tr>
+								<tr id="localizaciones${j}">
 									<td>${localizacion.edificio}</td>
 									<td>${localizacion.planta}</td>
 									<td>${localizacion.area}</td>
