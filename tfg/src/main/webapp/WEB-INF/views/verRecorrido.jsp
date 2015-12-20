@@ -225,6 +225,8 @@ function init(){
 	console.log(svg);
 	console.log(${paths});
 	console.log(${path_size});
+	console.log(${locActualX});
+	console.log(${locActualY});
 	
 	
 	
@@ -233,7 +235,13 @@ function init(){
 
 function markPath(i){
 	
-	var path=d3.select("#path"+i);
+	var j;
+	if((i%2)==0){
+		j=i-1;
+	}else{
+		j=i;
+	}
+	var path=d3.select("#path"+j);
 // 	console.log(path);
 // 	console.log(path.attr("stroke"));
 	
@@ -805,7 +813,7 @@ function drawLocActual(){
 				<c:set var="i" value="${i+1}" />
 		</c:forEach>
 		
-				<polygon points="0,0 -15,-25 15,-25" style="fill:lime;stroke:black;stroke-width:1" transform="translate(219.60323,195.15591)" />
+				<polygon points="0,0 -15,-25 15,-25" style="fill:lime;stroke:black;stroke-width:1" transform="translate(${locActualX},${locActualY})" />
 			  </g>
 			  		  
 			  
