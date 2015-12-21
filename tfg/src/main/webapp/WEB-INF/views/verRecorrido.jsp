@@ -235,13 +235,18 @@ function init(){
 
 function markPath(i){
 	
-	var j;
-	if((i%2)==0){
-		j=i-1;
-	}else{
-		j=i;
+// 	var j;
+// 	console.log(i);
+// 	if((i%2)==0){
+// 		j=i-1;
+// 	}else{
+// 		j=i;
+// 	}
+	if(i>=${path_size}){
+		i=${path_size};
 	}
-	var path=d3.select("#path"+j);
+// 	console.log(i);
+	var path=d3.select("#path"+i);
 // 	console.log(path);
 // 	console.log(path.attr("stroke"));
 	

@@ -21,6 +21,7 @@
 <%-- 	<script type="text/javascript" src="script_home.js"></script> --%>
 <!-- <link rel="stylesheet" type="text/css" href="../resources/css/css_home.css"> -->
 <s:url value="/resources/css/cssMenu.css" var="menuCss" />
+<s:url value="/resources/images/RFID-Tag.jpg" var="rfidTag"/>
 <link rel="stylesheet" type="text/css" href="${menuCss}"/>
 
 
@@ -555,22 +556,11 @@ function addLabel(){
 		<div id="content">
 			<div id="mapa" class="mapa">
  				
-					<jsp:include page="map.jsp"/>
+				<img src="${rfidTag}"/>	
 				
 			</div>
 		</div>
-		<div id="lectores_info">
-		<c:set var="i" value="1" />
-		<c:forEach var="lector" items="${lectores}">
-			<div id="lector${i}_info" class="lector_info">
-				<label for="modelo_lector">Modelo lector:</label>
-				<span>${lector.modelo}</span>
-				<label for="tipo_lector">Tipo lector:</label>
-				<span>${lector.tipo}</span>
-			</div>
-			<c:set var="i" value="${i+1}"/>
-		</c:forEach>
-	</div>
+		
 	
 	<div id="alertasActivos">
 		

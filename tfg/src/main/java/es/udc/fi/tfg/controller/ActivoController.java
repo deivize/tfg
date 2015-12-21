@@ -106,7 +106,6 @@ public class ActivoController {
 		}
 
 		Localizacion locActual=activoService.getLocalizacionActual(id);
-		System.out.println(locActual+"*****************");
 		
 		model.addAttribute("activo",activo);
 		model.addAttribute("locActualX", locActual.getCoord_x());
