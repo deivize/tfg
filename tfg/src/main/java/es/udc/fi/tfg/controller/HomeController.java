@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import es.udc.fi.tfg.model.Lector;
-import es.udc.fi.tfg.services.LectorService;
+import es.udc.fi.tfg.model.Activo;
+import es.udc.fi.tfg.services.ActivoService;
 
 
 @Controller
@@ -17,13 +17,13 @@ public class HomeController {
 	
 	
 	@Autowired
-	private LectorService lectorService;
+	private ActivoService activoService;
 	
 	@RequestMapping(method=RequestMethod.GET,value={"/","/home"})
 	public String mostrarHome(Model model){
 		
-		List<Lector> lectores=lectorService.buscarLectores();
-		model.addAttribute("lectores",lectores);
+		List<Activo> activos= activoService.getActivosAlerta();
+		model.addAttribute("alertas", activos);
 		
 		return "home";
 	}

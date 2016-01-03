@@ -21,8 +21,10 @@
 <%-- 	<script type="text/javascript" src="script_home.js"></script> --%>
 <!-- <link rel="stylesheet" type="text/css" href="../resources/css/css_home.css"> -->
 <s:url value="/resources/css/cssMenu.css" var="menuCss" />
+<s:url value="/resources/css/table.css" var="tableCss"/>
 <s:url value="/resources/images/RFID-Tag.jpg" var="rfidTag"/>
 <link rel="stylesheet" type="text/css" href="${menuCss}"/>
+<link rel="stylesheet" type="text/css" href="${tableCss}"/>
 
 
 <style type="text/css"> 
@@ -61,6 +63,10 @@ body{
 	text-align: center;
 }
 
+#notificaciones{
+	width:400px;
+}
+
 .mapa{
 
 /* display:none;  */
@@ -78,7 +84,9 @@ float:right;
 	float:left
 }
 
-
+.tabla_notificaciones{
+	float:left;
+}
 
 
 
@@ -552,21 +560,41 @@ function addLabel(){
 		</div>
 
 
-
 		<div id="content">
-			<div id="mapa" class="mapa">
- 				
-				<img src="${rfidTag}"/>	
-				
+			<div id="tagRfid" class="tag">
+
+				<img src="${rfidTag}" />
+
 			</div>
+
+			<div id="alertasActivos">
+				<fieldset id="notificaciones">
+					<legend>Notificaciones</legend>
+					<table class="tabla_notificaciones">
+						<thead>
+							<tr>
+								<td>Nombre</td>
+								<td>Categoria</td>
+								<td>Fecha Caducidad</td>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="alerta" items="${alertas}" varStatus="status">
+								<tr>
+									<td>${alerta.nombre}</td>
+									<td>${alerta.categoria}</td>
+									<td>${alerta.fechaCaducidad}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</fieldset>
+
+			</div>
+
+
 		</div>
-		
-	
-	<div id="alertasActivos">
-		
-	
-	</div>
-		
+
 	</div>
 	
 	
