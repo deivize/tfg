@@ -17,4 +17,7 @@ public interface ActivoService {
 	Localizacion getLocalizacionActual(Long id);
 	List<ActivoLocalizacionDto> getLocalizacionesActuales();
 	List<Activo> getActivosAlerta();
+	void crearPdf(Long id);
+		
+	
 }

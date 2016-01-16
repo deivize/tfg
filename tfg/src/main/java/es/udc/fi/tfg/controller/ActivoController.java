@@ -105,6 +105,7 @@ public class ActivoController {
 			paths.add(cood);
 		}
 
+		
 		Localizacion locActual=activoService.getLocalizacionActual(id);
 		
 		model.addAttribute("activo",activo);

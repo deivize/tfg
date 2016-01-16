@@ -51,7 +51,8 @@ public class EtiquetaController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/nuevaetiqueta")
-	public String addEtiquetaFromForm(@ModelAttribute("etiqueta") @Valid EtiquetaForm etiquetaForm,BindingResult result,Model model){
+	public String addEtiquetaFromForm(@ModelAttribute("etiqueta") 
+	@Valid EtiquetaForm etiquetaForm,BindingResult result,Model model){
 		
 		EtiquetaValidator etiquetaValidator=new EtiquetaValidator();
 		etiquetaValidator.validate(etiquetaForm, result);
@@ -82,7 +83,8 @@ public class EtiquetaController {
 		}
 		
 		
-		Etiqueta etiqueta=new Etiqueta(etiquetaForm.getContenido(),etiquetaForm.getFabricante(),infoCifrada,tecnologia,estandar,parametro);
+		Etiqueta etiqueta=new Etiqueta(etiquetaForm.getContenido(),etiquetaForm.getFabricante(),
+				infoCifrada,tecnologia,estandar,parametro);
 		etiquetaService.crearEtiqueta(etiqueta);
 		
 		return "redirect:/activos/nuevoactivo";

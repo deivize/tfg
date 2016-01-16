@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+s<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -39,17 +39,17 @@ body{
 
 
 #content{
-	margin-left:200px;
+	margin-left:20%;
 }
 
 #navbar{
 	float: left;
-	width:200px;
+	width:20%;
 }
 
 #container{
-	width:1000px;
-	height:1000px;
+	width:100%;
+	height:100%;
 	margin-left:auto;
 	margin-right:auto;
 }
@@ -64,19 +64,11 @@ body{
 }
 
 #notificaciones{
-	width:400px;
+	width:40%;
 }
 
-.mapa{
-
-/* display:none;  */
-float:right; 
- } 
-
-
-
 .menu{
-	position: relative
+	position: relative;
 }
 
 
@@ -138,7 +130,7 @@ for(var d,e,f,g,h=O(a.length,b.length),i=[],j=[],k=0;h>k;k++){if(f=a[k]||Na(b[k]
 	};
 	
 	function init(){
-		addLabel();
+		//addLabel();
 		
 
 // 		console.log(transformSVGPath("m-0.082709,-0.082712 735.929999,0 0,682.420002 -735.929999,0z"));
@@ -552,8 +544,8 @@ function addLabel(){
 							<li>Ver lectores</li>
 						</ul>
 					</li>
-					<li><a class="home_link"
-						href="<s:url value="/mapa3d"/>">Ver mapa 3D</a></li>
+<!-- 					<li><a class="home_link" -->
+<%-- 						href="<s:url value="/mapa3d"/>">Ver mapa 3D</a></li> --%>
 					
 				</ul>
 			</div>

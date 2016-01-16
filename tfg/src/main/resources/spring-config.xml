@@ -21,9 +21,6 @@
 	
 	<!--  DATASOURCE BEAN -->
 	
-	<!-- Externalizamos os parámetros da conexión a un ficheiro database.properties -->
-	<!-- <context:property-placeholder location="database.properties" />
- -->
 	<bean id="miDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" 			 value="jdbc:postgresql://localhost:5432/tfg"/>
@@ -49,15 +46,6 @@
 				<prop key="hibernate.c3p0.max_statements">50</prop>
 				<prop key="hibernate.c3p0.idle_test_period">3000</prop>
 				<prop key="hibernate.hbm2ddl.auto">validate</prop>
-				
-				<!-- 
-				hibernate.hbm2ddl.auto
-				So the list of possible options are,
-				validate: validate the schema, makes no changes to the database.
-				update: update the schema.
-				create: creates the schema, destroying previous data.
-				create-drop: drop the schema at the end of the session. 
-				 -->
  
         	</props>            
         </property>

@@ -60,7 +60,6 @@ public class TestActivos {
 	public void testCrearBorrarActivo(){
 		//T1 crear un nuevo activo
 		Activo miActivo= new Activo("activo23",null,"categoria1",testUtils.etiqueta1);
-		//miActivo.getUbicacion().add(testUtils.loc1);
 		assertNull(miActivo.getIdActivo());
 		activoService.crearActivo(miActivo);
 		
@@ -68,18 +67,11 @@ public class TestActivos {
 		//Comprobar que el activo se ha guardado en la BD
 		assertNotNull(miActivo.getIdActivo());
 		Activo activo1=activoService.buscarActivoPorId(miActivo.getIdActivo());
-		//assertEquals(activoService.buscarActivoPorId(miActivo.getIdActivo()),miActivo);
 		assertEquals(activo1.getIdActivo(),miActivo.getIdActivo());
 		assertEquals(activo1.getNombre(),miActivo.getNombre());
 		assertEquals(activo1.getIcono(),miActivo.getIcono());
 		assertEquals(activo1.getCategoria(),miActivo.getCategoria());
-		//assertEquals(activo1.getEtiqueta(),miActivo.getEtiqueta());
-		//assertEquals(activo1.getUbicacion().getClass(),miActivo.getUbicacion().getClass());
-		
-		/*System.out.println(activo1.getUbicacion().getClass()+"-------------------------------------------------------");
-		System.out.println(miActivo.getUbicacion().getClass()+"-------------------------------------------------------");*/
-		
-		
+			
 		//T2 Comprobar el rechazo de duplicados
 		boolean duplicado = true;
 		try{ activoService.crearActivo(miActivo); } catch (Exception e) { duplicado=false; }
