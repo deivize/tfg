@@ -142,8 +142,9 @@ public class ActivoController {
 		}
 		activos= activoService.buscarActivosConsulta(activoForm.getNombre(), activoForm.getCategoria(), ts);
 		model.addAttribute("listaActivos",activos);
+		model.addAttribute("activoForm",new ConsultaActivoForm());
 		
-		return "redirect:/activos/buscaractivos";
+		return "buscarActivos";
 	}
 	
 	

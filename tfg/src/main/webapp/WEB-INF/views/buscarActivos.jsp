@@ -119,8 +119,8 @@ $(document).ready(
 							</tr>
 						</thead>
 						<tbody>
-						<c:if test="${not empty activos}">
-							<c:forEach var="activo" items="${activos}" varStatus="status">
+						<c:if test="${not empty listaActivos}">
+							<c:forEach var="activo" items="${listaActivos}" varStatus="status">
 								<tr>
 									<td>${activo.nombre}</td>
 									<td>${activo.categoria}</td>
