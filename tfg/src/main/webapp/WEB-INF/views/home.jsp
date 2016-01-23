@@ -145,6 +145,7 @@ $(function() {
 						<ul>
 							<li><a class="home_link" href="<s:url value="/activos/listactivos"/>">Ver lista de activos</a></li>
 							<li><a class="home_link" href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo activo</a></li>
+							<li><a class="home_link" href="<s:url value="/activos/buscaractivos"/>">Buscar activos</a></li>
 							<li class="last"><a class="home_link" href="<s:url value="/activos/borraractivo"/>">Borrar activos</a></li>
 						</ul>
 					</li>

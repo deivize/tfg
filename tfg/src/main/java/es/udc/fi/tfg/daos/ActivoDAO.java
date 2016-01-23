@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.daos;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
@@ -16,6 +17,7 @@ public interface ActivoDAO {
 	Localizacion getLocalizacionActual(Long id);
 	List<ActivoLocalizacionDto> getLocalizacionesActuales();
 	List<Activo> getActivosAlerta();
+	List<Activo> buscarActivos(String nombre, String categoria, Timestamp fecha);
 	void update(Activo activo);
 	void remove(Activo activo);
 	

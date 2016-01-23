@@ -6,8 +6,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -196,6 +198,40 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		activosAlerta=query.list();
 		
 		return activosAlerta;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Activo> buscarActivos(String nombre, String categoria,
+			Timestamp fecha) {
+		
+		List<Activo> activos= new ArrayList<Activo>();
+		
+		
+		String query="FROM Activo ";
+		
+		if(nombre!=null && categoria!=null){
+			
+			query= query + " WHERE nombre= :nombre AND categoria= :categoria";
+			
+		}else if(nombre!=null && categoria==null){
+			query=query + " WHERE nombre= :nombre";
+		}else if(nombre==null && categoria!=null){
+			query=query+" WHERE categoria= :categoria";
+		}
+		
+		
+		Query consulta= miSessionFactory.getCurrentSession().createQuery(query);
+		if(nombre!=null){
+			consulta.setParameter("nombre", nombre);
+		}
+		if(categoria!=null){
+			consulta.setParameter("categoria", categoria);
+		}
+		
+		activos=consulta.list();
+		
+		return activos;
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
 import es.udc.fi.tfg.forms.ActivoForm;
+import es.udc.fi.tfg.forms.ConsultaActivoForm;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Etiqueta;
 import es.udc.fi.tfg.model.Localizacion;
@@ -119,4 +120,31 @@ public class ActivoController {
 		
 		return "verrecorrido";
 	}
+	
+	
+	@RequestMapping(method=RequestMethod.GET,value="/buscaractivos")
+	public String createActivoConsultaProfile(Model model){
+		
+		List<Activo> activos= new ArrayList<Activo>();
+		model.addAttribute("listaActivos",activos);
+		model.addAttribute("activoForm",new ConsultaActivoForm());
+		
+		return "buscarActivos";
+	}
+	
+	@RequestMapping(method=RequestMethod.POST,value="/buscaractivos")
+	public String consultarActivos(ConsultaActivoForm activoForm,Model model){
+		
+		List<Activo> activos=new ArrayList<Activo>();
+		Timestamp ts= null;
+		if(activoForm.getFechaCaducidad()!=null){
+			ts= new Timestamp(activoForm.getFechaCaducidad().getTime());
+		}
+		activos= activoService.buscarActivosConsulta(activoForm.getNombre(), activoForm.getCategoria(), ts);
+		model.addAttribute("listaActivos",activos);
+		
+		return "redirect:/activos/buscaractivos";
+	}
+	
+	
 }

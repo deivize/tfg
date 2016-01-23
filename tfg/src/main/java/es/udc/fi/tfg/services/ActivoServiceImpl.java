@@ -1,6 +1,7 @@
 package es.udc.fi.tfg.services;
 
 import java.io.FileOutputStream;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 
@@ -331,6 +332,28 @@ public class ActivoServiceImpl implements ActivoService {
 		
 		
 		
+		
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<Activo> buscarActivosConsulta(String nombre, String categoria,
+			Timestamp fecha) {
+		
+		List<Activo> activos=null;
+		try{
+			if(nombre.equals("")){
+				nombre=null;
+			}
+			if(categoria.equals("")){
+				categoria=null;
+			}
+			activos=activoDAO.buscarActivos(nombre, categoria, fecha);
+			log.info("Buscando activos con parametros "+nombre+" "+categoria+" "+fecha);
+		}catch(DataAccessException e){
+			log.error("Error al buscar activos");
+		}
+		return activos;
 		
 	}
 	

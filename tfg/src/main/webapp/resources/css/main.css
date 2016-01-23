@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+body{
+	background-color: white;	
+/* 	background: grey; */
+/*   	background: linear-gradient(grey, orange); */
+
+}
+
+
+
+#content{
+	margin-left:20%;
+}
+
+#navbar{
+	float: left;
+	width:20%;
+}
+
+#container{
+	width:100%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+
+#footer{
+	clear:both;
+}
+
+#header{
+	text-align: center;
+}
+
+.menu{
+	position: relative;
+}
+
+#cssmenu{
+	display: none;
+}
+
+#menu_button{
+	cursor: pointer;
+}
