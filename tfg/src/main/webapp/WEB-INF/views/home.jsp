@@ -154,6 +154,11 @@ $(function() {
 							<li><a class="home_link" href="<s:url value="/lectores/buscarlectores"/>">Buscar lectores</a></li>
 						</ul>
 					</li>
+					<li class='has-sub'><a href='#'><span>Localizaciones</span></a>
+						<ul>
+							<li><a class="home_link" href="<s:url value="#"/>">Buscar localizaciones</a></li>
+						</ul>
+					</li>
 <!-- 					<li><a class="home_link" -->
 <%-- 						href="<s:url value="/mapa3d"/>">Ver mapa 3D</a></li> --%>
 					

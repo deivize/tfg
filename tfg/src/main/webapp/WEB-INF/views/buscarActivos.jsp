@@ -13,11 +13,13 @@
 		<s:url value="/resources/css/form.css" var="formCss" />
 		<s:url value="/resources/css/main.css" var="mainCss" />
 		<s:url value="/resources/css/table.css" var="tableCss"/>
+		<s:url value="/resources/js/menu.js" var="menuJs"/>
 		<s:url value="/resources/images/menu_button.png" var="menu_button"/>
 		<link rel="stylesheet" type="text/css" href="${menuCss}"/>
 		<link rel="stylesheet" type="text/css" href="${formCss}"/>
 		<link rel="stylesheet" type="text/css" href="${mainCss}"/>
 		<link rel="stylesheet" type="text/css" href="${tableCss}"/>
+		<script src="${menuJs}" type="text/javascript"></script>
 
 
 	</head>
@@ -28,6 +30,7 @@
 	}
  
  	#activos_consulta{
+ 		margin-top:6%;
  		display:block;
  		float:left;
  	}
@@ -88,6 +91,8 @@ $(document).ready(
 		<div id="content">
 			
 			<sf:form id="buscar_activo_form" method="POST" modelAttribute="activoForm" class="form-activo">
+				<fieldset>
+				<legend>Parámetros de búsqueda</legend>
 				<ul>
 					<li>
 						<label for="nombre_activo">Nombre activo:</label>
@@ -106,10 +111,12 @@ $(document).ready(
 						
 					</li>
 				</ul>
+				</fieldset>
 			</sf:form>
 			
 			<div id="activos_consulta">
-			
+				<fieldset>
+				<legend>Resultados de búsqueda</legend>
 				<table class="tabla_notificaciones">
 						<thead>
 							<tr>
@@ -130,7 +137,7 @@ $(document).ready(
 						</c:if>
 						</tbody>
 				</table>
-			
+				</fieldset>
 			
 			</div>
 			
