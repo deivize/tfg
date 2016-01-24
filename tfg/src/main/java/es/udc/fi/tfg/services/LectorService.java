@@ -11,5 +11,6 @@ public interface LectorService {
 	void borrarLector(Lector miLector);
 	List<Lector> buscarLectores();
 	Lector buscarLectorPorId(Long id);
+	List<Lector> buscarLectoresConsulta(String tipo, String modelo);
 
 }

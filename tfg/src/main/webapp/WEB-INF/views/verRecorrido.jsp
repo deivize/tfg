@@ -480,6 +480,12 @@ function drawLocActual(){
 				<ul>
 					<li class='active'><a class="home_link"
 						href="<s:url value="/home"/>">HOME</a></li>
+					<li>
+						<c:url var="descargar" value="descarga">
+							<c:param name="id" value="${idActivo}"/>
+						</c:url>
+						<a href="<c:out value="${descargar}"/>">Descargar informe</a>	
+					</li>	
 					<li><a class="home_link"
 						href="<s:url value="/activos/listactivos"/>">Volver</a></li>
 				</ul>
@@ -890,7 +896,8 @@ function drawLocActual(){
 				</fieldset>
 				
 			</div>
-
+			
+	
 		</div>
 
 	</div>

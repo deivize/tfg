@@ -1,12 +1,12 @@
 package es.udc.fi.tfg.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 
 import es.udc.fi.tfg.model.Lector;
 
@@ -57,6 +57,39 @@ public class LectorDAOHibImpl implements LectorDAO {
 		
 		miSessionFactory.getCurrentSession().delete(lector);
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Lector> buscarLectores(String tipo, String modelo) {
+		
+		List<Lector> lectores= new ArrayList<Lector>();
+		
+		String query="FROM Lector ";
+		
+		if(tipo!=null && modelo!=null){
+			
+			query= query + " WHERE tipo= :tipo AND modelo= :modelo";
+			
+		}else if(tipo!=null && modelo==null){
+			query=query + " WHERE tipo= :tipo";
+		}else if(tipo==null && modelo!=null){
+			query=query+" WHERE modelo= :modelo";
+		}
+		
+		
+		Query consulta= miSessionFactory.getCurrentSession().createQuery(query);
+		if(tipo!=null){
+			consulta.setParameter("tipo", tipo);
+		}
+		if(modelo!=null){
+			consulta.setParameter("modelo", modelo);
+		}
+		
+		lectores=consulta.list();
+		
+		
+		return lectores;
 	}
 	
 	

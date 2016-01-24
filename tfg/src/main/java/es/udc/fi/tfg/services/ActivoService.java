@@ -18,7 +18,7 @@ public interface ActivoService {
 	Localizacion getLocalizacionActual(Long id);
 	List<ActivoLocalizacionDto> getLocalizacionesActuales();
 	List<Activo> getActivosAlerta();
-	void crearPdf(Long id);
+	String crearPdf(Long id);
 	List<Activo> buscarActivosConsulta(String nombre, String categoria,Timestamp fecha);
 		
 	

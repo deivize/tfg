@@ -151,7 +151,7 @@ $(function() {
 					</li>
 					<li class='has-sub'><a href='#'><span>Lectores</span></a>
 						<ul>
-							<li>Ver lectores</li>
+							<li><a class="home_link" href="<s:url value="/lectores/buscarlectores"/>">Buscar lectores</a></li>
 						</ul>
 					</li>
 <!-- 					<li><a class="home_link" -->

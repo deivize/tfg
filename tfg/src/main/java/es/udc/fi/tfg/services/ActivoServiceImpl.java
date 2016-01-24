@@ -161,10 +161,11 @@ public class ActivoServiceImpl implements ActivoService {
 
 	@Override
 	@Transactional(value="miTransactionManager")
-	public void crearPdf(Long id) {
+	public String crearPdf(Long id) {
 		
 		List<Localizacion> localizaciones = null;
 		Activo activo=null;
+		String pdfName="";
 		try{
 			activo=activoDAO.findById(id);
 			log.info("Buscando activo con id: "+id);
@@ -188,7 +189,7 @@ public class ActivoServiceImpl implements ActivoService {
 		
 		try{
 			Calendar cal= Calendar.getInstance();
-			String pdfName=""+cal.get(Calendar.DAY_OF_MONTH)+""+cal.get(Calendar.MONTH)+""
+			pdfName=""+cal.get(Calendar.DAY_OF_MONTH)+""+cal.get(Calendar.MONTH)+""
 			+cal.get(Calendar.YEAR)+""+cal.get(Calendar.HOUR_OF_DAY)+""+cal.get(Calendar.MINUTE)+""+cal.get(Calendar.SECOND);
 			
 			PdfWriter writer = PdfWriter.getInstance(document, 
@@ -326,11 +327,13 @@ public class ActivoServiceImpl implements ActivoService {
 			
 			document.close();
 			writer.close();
+			
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		
+		return pdfName;
 		
 		
 	}

@@ -81,6 +81,28 @@ public class LectorSerciveImpl implements LectorService {
 		return lector;
 		
 	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<Lector> buscarLectoresConsulta(String tipo, String modelo) {
+		
+		List<Lector> lectores=null;
+		
+		try{
+			if(tipo.equals("")){
+				tipo=null;
+			}
+			if(modelo.equals("")){
+				modelo=null;
+			}
+			lectores=lectorDAO.buscarLectores(tipo,modelo);
+			log.info("Buscando lectores con parametros "+tipo+" "+modelo);
+		}catch(DataAccessException e){
+			log.error("Error al buscar lectores");
+		}
+		
+		return lectores;
+	}
 	
 
 }
