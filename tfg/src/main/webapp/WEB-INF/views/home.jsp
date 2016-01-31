@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
 
 
@@ -174,30 +174,34 @@ $(function() {
 
 			</div>
 
-			<div id="alertasActivos">
-				<fieldset id="notificaciones">
-					<legend>Notificaciones</legend>
-					<table class="tabla_notificaciones">
-						<thead>
+			<fieldset id="notificaciones">
+				<legend>Notificaciones</legend>
+				<table class="tabla_notificaciones">
+					<thead>
+						<tr>
+							<td>Nombre</td>
+							<td>Categoria</td>
+							<td>Fecha Caducidad</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="alerta" items="${alertas}" varStatus="status">
 							<tr>
-								<td>Nombre</td>
-								<td>Categoria</td>
-								<td>Fecha Caducidad</td>
+								<td>${alerta.nombre}</td>
+								<td>${alerta.categoria}</td>
+								<td>${alerta.fechaCaducidad}</td>
 							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="alerta" items="${alertas}" varStatus="status">
-								<tr>
-									<td>${alerta.nombre}</td>
-									<td>${alerta.categoria}</td>
-									<td>${alerta.fechaCaducidad}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</fieldset>
-
-			</div>
+						</c:forEach>
+					</tbody>
+				</table>
+			</fieldset>
+			
+			<sf:form method="POST" commandName="file"  enctype="multipart/form-data">
+			        Upload your file please:
+			        <input type="file" name="file" />
+			        <input type="submit" value="upload" />
+			        <sf:errors path="file" cssStyle="color: #ff0000;" />
+			</sf:form>
 
 
 		</div>
