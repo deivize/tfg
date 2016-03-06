@@ -23,6 +23,7 @@
 <s:url value="/resources/css/cssMenu.css" var="menuCss" />
 <s:url value="/resources/css/table.css" var="tableCss"/>
 <s:url value="/resources/css/bootstrap.min.css" var="bootstrapMin"/>
+<s:url value="/resources/css/navbar.css" var="navbar"/>
 <s:url value="/resources/images/RFID-Tag.jpg" var="rfidTag"/>
 <s:url value="/resources/images/menu_button.png" var="menu_button"/>
 <s:url value="/resources/js/tipsy.js" var="tipsy"/>
@@ -31,6 +32,7 @@
 <link rel="stylesheet" type="text/css" href="${menuCss}"/>
 <link rel="stylesheet" type="text/css" href="${tableCss}"/>
 <link rel="stylesheet" type="text/css" href="${bootstrapMin}"/>
+<link rel="stylesheet" type="text/css" href="${navbar}"/>
 <script src="${tipsy}" type="text/javascript"></script>
 <script src="${menuJs}" type="text/javascript"></script>
 <script src="${bootstrapJs}" type="text/javascript"></script>
