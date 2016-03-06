@@ -22,14 +22,18 @@
 <!-- <link rel="stylesheet" type="text/css" href="../resources/css/css_home.css"> -->
 <s:url value="/resources/css/cssMenu.css" var="menuCss" />
 <s:url value="/resources/css/table.css" var="tableCss"/>
+<s:url value="/resources/css/bootstrap.min.css" var="bootstrapMin"/>
 <s:url value="/resources/images/RFID-Tag.jpg" var="rfidTag"/>
 <s:url value="/resources/images/menu_button.png" var="menu_button"/>
 <s:url value="/resources/js/tipsy.js" var="tipsy"/>
 <s:url value="/resources/js/menu.js" var="menuJs"/>
+<s:url value="/resources/js/bootstrap.min.js" var="bootstrapJs"/>
 <link rel="stylesheet" type="text/css" href="${menuCss}"/>
 <link rel="stylesheet" type="text/css" href="${tableCss}"/>
+<link rel="stylesheet" type="text/css" href="${bootstrapMin}"/>
 <script src="${tipsy}" type="text/javascript"></script>
 <script src="${menuJs}" type="text/javascript"></script>
+<script src="${bootstrapJs}" type="text/javascript"></script>
 
 <style type="text/css"> 
 
@@ -135,38 +139,72 @@ $(function() {
 <body>
 	<div id="container">
 		<div id="header"></div>
-		<div id="navbar">
+<!-- 		<div id="navbar"> -->
 			
-			<img id="menu_button" src="${menu_button}" width="40">
+<%-- 			<img id="menu_button" src="${menu_button}" width="40"> --%>
 			
-			<div id="cssmenu" class="menu">
-				<ul>
-					<li class='active has-sub'><a href='#'><span>Activos</span></a>
-						<ul>
-							<li><a class="home_link" href="<s:url value="/activos/listactivos"/>">Ver lista de activos</a></li>
-							<li><a class="home_link" href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo activo</a></li>
-							<li><a class="home_link" href="<s:url value="/activos/buscaractivos"/>">Buscar activos</a></li>
-							<li class="last"><a class="home_link" href="<s:url value="/activos/borraractivo"/>">Borrar activos</a></li>
-						</ul>
-					</li>
-					<li class='has-sub'><a href='#'><span>Lectores</span></a>
-						<ul>
-							<li><a class="home_link" href="<s:url value="/lectores/buscarlectores"/>">Buscar lectores</a></li>
-						</ul>
-					</li>
-					<li class='has-sub'><a href='#'><span>Localizaciones</span></a>
-						<ul>
-							<li><a class="home_link" href="<s:url value="#"/>">Buscar localizaciones</a></li>
-						</ul>
-					</li>
+<!-- 			<div id="cssmenu" class="menu"> -->
+<!-- 				<ul> -->
+<%-- 					<li class='active has-sub'><a href='#'><span>Activos</span></a> --%>
+<!-- 						<ul> -->
+<%-- 							<li><a class="home_link" href="<s:url value="/activos/listactivos"/>">Ver lista de activos</a></li> --%>
+<%-- 							<li><a class="home_link" href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo activo</a></li> --%>
+<%-- 							<li><a class="home_link" href="<s:url value="/activos/buscaractivos"/>">Buscar activos</a></li> --%>
+<%-- 							<li class="last"><a class="home_link" href="<s:url value="/activos/borraractivo"/>">Borrar activos</a></li> --%>
+<!-- 						</ul> -->
+<!-- 					</li> -->
+<%-- 					<li class='has-sub'><a href='#'><span>Lectores</span></a> --%>
+<!-- 						<ul> -->
+<%-- 							<li><a class="home_link" href="<s:url value="/lectores/buscarlectores"/>">Buscar lectores</a></li> --%>
+<!-- 						</ul> -->
+<!-- 					</li> -->
+<%-- 					<li class='has-sub'><a href='#'><span>Localizaciones</span></a> --%>
+<!-- 						<ul> -->
+<%-- 							<li><a class="home_link" href="<s:url value="#"/>">Buscar localizaciones</a></li> --%>
+<!-- 						</ul> -->
+<!-- 					</li> -->
 <!-- 					<li><a class="home_link" -->
 <%-- 						href="<s:url value="/mapa3d"/>">Ver mapa 3D</a></li> --%>
 					
-				</ul>
+<!-- 				</ul> -->
 			</div>
-		</div>
-
-
+<!-- 		</div> -->
+			<nav role="navigation" class="navbar navbar-default">
+				<div class="navbar-header">
+            		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                		<span class="sr-only">Toggle navigation</span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+            		</button>
+            		<a href="#" class="navbar-brand">Menu</a>
+            	</div>	
+            	<div id="navbarCollapse" class="collapse navbar-collapse">
+            		<ul class="nav navbar-nav">
+		                <li class="dropdown">
+		                	<a href="#" data-toggle="dropdown" class="dropdown-toggle">Activos<b class="caret"></b></a>
+		                		<ul role="menu" class="dropdown-menu">
+		                			<li><a href="<s:url value="/activos/listactivos"/>">Ver lista de activos</a></li>
+		                			<li><a href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo activo</a></li>
+		                			<li><a href="<s:url value="/activos/buscaractivos"/>">Buscar activos</a></li>
+		                		</ul>
+		                </li>
+		                <li>
+		                	<a href="#" data-toggle="dropdown" class="dropdown-toggle">Lectores<b class="caret"></b></a>
+		                		<ul role="menu" class="dropdown-menu">
+		                			<li><a href="<s:url value="/lectores/buscarlectores"/>">Buscar lectores</a></li>
+		                		</ul>
+		                </li>
+		                <li>
+		                	<a href="#" data-toggle="dropdown" class="dropdown-toggle">Localizaciones<b class="caret"></b></a>
+		                		<ul role="menu" class="dropdown-menu">
+		                			<li><a href="<s:url value="#"/>">Buscar localizaciones</a></li>
+		                		</ul>
+		                </li>
+            		</ul>
+        		</div>
+			</nav>
+			
 		<div id="content">
 			<div id="tagRfid" class="tag">
 
