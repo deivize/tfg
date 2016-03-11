@@ -37,6 +37,7 @@
 <script src="${menuJs}" type="text/javascript"></script>
 <script src="${bootstrapJs}" type="text/javascript"></script>
 
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <style type="text/css"> 
 
 body{
@@ -169,44 +170,49 @@ $(function() {
 <%-- 						href="<s:url value="/mapa3d"/>">Ver mapa 3D</a></li> --%>
 					
 <!-- 				</ul> -->
-			</div>
+<!-- 			</div> -->
 <!-- 		</div> -->
-			<nav role="navigation" class="navbar navbar-default">
-				<div class="navbar-header">
-            		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                		<span class="sr-only">Toggle navigation</span>
-		                <span class="icon-bar"></span>
-		                <span class="icon-bar"></span>
-		                <span class="icon-bar"></span>
-            		</button>
-            		<a href="#" class="navbar-brand">Menu</a>
-            	</div>	
-            	<div id="navbarCollapse" class="collapse navbar-collapse">
-            		<ul class="nav navbar-nav">
-		                <li class="dropdown">
-		                	<a href="#" data-toggle="dropdown" class="dropdown-toggle">Activos<b class="caret"></b></a>
-		                		<ul role="menu" class="dropdown-menu">
-		                			<li><a href="<s:url value="/activos/listactivos"/>">Ver lista de activos</a></li>
-		                			<li><a href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo activo</a></li>
-		                			<li><a href="<s:url value="/activos/buscaractivos"/>">Buscar activos</a></li>
-		                		</ul>
-		                </li>
-		                <li>
-		                	<a href="#" data-toggle="dropdown" class="dropdown-toggle">Lectores<b class="caret"></b></a>
-		                		<ul role="menu" class="dropdown-menu">
-		                			<li><a href="<s:url value="/lectores/buscarlectores"/>">Buscar lectores</a></li>
-		                		</ul>
-		                </li>
-		                <li>
-		                	<a href="#" data-toggle="dropdown" class="dropdown-toggle">Localizaciones<b class="caret"></b></a>
-		                		<ul role="menu" class="dropdown-menu">
-		                			<li><a href="<s:url value="#"/>">Buscar localizaciones</a></li>
-		                		</ul>
-		                </li>
-            		</ul>
-        		</div>
-			</nav>
-			
+		<div class="nav-side-menu">
+			<div class="brand">Menu</div>
+			<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
+				data-target="#menu-content"></i>
+
+			<div class="menu-list">
+
+				<ul id="menu-content" class="menu-content collapse out">
+
+					<li data-toggle="collapse" data-target="#activos"
+						class="collapsed active"><a href="#"><i
+							class="fa fa-lg"></i> Activos <span class="arrow"></span></a>
+					</li>
+					<ul class="sub-menu collapse" id="activos">
+						<li class="active"><a href="<s:url value="/activos/listactivos"/>">Lista de activos</a></li>
+						<li><a href="<s:url value="/activos/nuevoactivo"/>">Crear nuevo activo</a></li>
+						<li><a href="<s:url value="/activos/buscaractivos"/>">Buscar activos</a></li>
+						<li><a href="<s:url value="/activos/borraractivo"/>">Borrar activos</a></li>
+					</ul>
+
+
+					<li data-toggle="collapse" data-target="#lectores" class="collapsed">
+						<a href="#"><i class="fa fa-lg"></i> Lectores <span
+							class="arrow"></span></a>
+					</li>
+					<ul class="sub-menu collapse" id="lectores">
+						<li class="active"><a href="<s:url value="/lectores/buscarlectores"/>">Buscar lectores</a></li>
+					</ul>
+
+
+					<li data-toggle="collapse" data-target="#localizaciones" class="collapsed">
+						<a href="#"><i class="fa fa-lg"></i> Localizaciones <span
+							class="arrow"></span></a>
+					</li>
+					<ul class="sub-menu collapse" id="localizaciones">
+						<li class="active"><a href="<s:url value="#"/>">Buscar localizaciones</a></li>
+					</ul>
+				</ul>
+			</div>
+		</div>
+
 		<div id="content">
 			<div id="tagRfid" class="tag">
 
