@@ -99,6 +99,10 @@ body{
 	cursor: pointer;
 }
 
+.notificaciones{
+	width: 40%;
+/* 	overflow-x: hidden; */
+}
 
 </style> 
 
@@ -209,6 +213,20 @@ $(function() {
 					<ul class="sub-menu collapse" id="localizaciones">
 						<li class="active"><a href="<s:url value="#"/>">Buscar localizaciones</a></li>
 					</ul>
+					
+					<li data-toggle="collapse" data-target="#mapa" class="collapsed">
+						<a href="#"><i class="fa fa-lg"></i> Cargar nuevo mapa <span
+							class="arrow"></span></a>
+					</li>
+					<ul class="sub-menu collapse" id="mapa">
+						<sf:form method="POST" commandName="file"
+							enctype="multipart/form-data">
+									        Seleccione un archivo:
+									        <input type="file" name="file" />
+							<input type="submit" class="btn btn-primary btn-sm" value="Cargar" />
+							<sf:errors path="file" cssStyle="color: #ff0000;" />
+						</sf:form>
+					</ul>
 				</ul>
 			</div>
 		</div>
@@ -220,9 +238,9 @@ $(function() {
 
 			</div>
 
-			<fieldset id="notificaciones">
-				<legend>Notificaciones</legend>
-				<table class="tabla_notificaciones">
+			
+			<div class="table-responsive notificaciones">
+				<table class="table table-hover table-striped">
 					<thead>
 						<tr>
 							<td>Nombre</td>
@@ -240,14 +258,13 @@ $(function() {
 						</c:forEach>
 					</tbody>
 				</table>
-			</fieldset>
-			
-			<sf:form method="POST" commandName="file"  enctype="multipart/form-data">
-			        Upload your file please:
-			        <input type="file" name="file" />
-			        <input type="submit" value="upload" />
-			        <sf:errors path="file" cssStyle="color: #ff0000;" />
-			</sf:form>
+			</div>
+<%-- 			<sf:form method="POST" commandName="file"  enctype="multipart/form-data"> --%>
+<!-- 			        Upload your file please: -->
+<!-- 			        <input type="file" name="file" /> -->
+<!-- 			        <input type="submit" value="upload" /> -->
+<%-- 			        <sf:errors path="file" cssStyle="color: #ff0000;" /> --%>
+<%-- 			</sf:form> --%>
 
 
 		</div>
