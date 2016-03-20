@@ -43,7 +43,7 @@ public class HomeController {
 		model.addAttribute("alertas", activos);
 		model.addAttribute("file",file);
 		
-		return "home";
+		return "home2";
 	}
 
 	@RequestMapping(value={"/mapa3d"})

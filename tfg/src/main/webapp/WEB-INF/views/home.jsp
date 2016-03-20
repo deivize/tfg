@@ -30,7 +30,7 @@
 <s:url value="/resources/js/menu.js" var="menuJs"/>
 <s:url value="/resources/js/bootstrap.min.js" var="bootstrapJs"/>
 <link rel="stylesheet" type="text/css" href="${menuCss}"/>
-<link rel="stylesheet" type="text/css" href="${tableCss}"/>
+<%-- <link rel="stylesheet" type="text/css" href="${tableCss}"/> --%>
 <link rel="stylesheet" type="text/css" href="${bootstrapMin}"/>
 <link rel="stylesheet" type="text/css" href="${navbar}"/>
 <script src="${tipsy}" type="text/javascript"></script>
@@ -49,43 +49,31 @@ body{
 
 
 
-#content{
-	margin-left:20%;
-}
+/* #content{ */
+/* 	margin-left:20%; */
+/* } */
 
 #navbar{
 	float: left;
 	width:20%;
 }
 
-#container{
-	width:100%;
-	height:100%;
-	margin-left:auto;
-	margin-right:auto;
-}
+/* #container{ */
+/* 	width:100%; */
+/* 	height:100%; */
+/* 	margin-left:auto; */
+/* 	margin-right:auto; */
+/* } */
 
 
-#footer{
-	clear:both;
-}
+/* #footer{ */
+/* 	clear:both; */
+/* } */
 
-#header{
-	text-align: center;
-}
+/* #header{ */
+/* 	text-align: center; */
+/* } */
 
-#notificaciones{
-	width:40%;
-}
-
-.menu{
-	position: relative;
-}
-
-
-.mapa{
-	float:left
-}
 
 .tabla_notificaciones{
 	float:left;
@@ -95,14 +83,11 @@ body{
 	display: none;
 }
 
-#menu_button{
-	cursor: pointer;
-}
 
-.notificaciones{
-	width: 40%;
-/* 	overflow-x: hidden; */
-}
+/* .notificaciones{ */
+/* 	width: 40%; */
+/*  	overflow-x: hidden;  */
+/* } */
 
 </style> 
 
@@ -144,8 +129,7 @@ $(function() {
 </head>
 
 <body>
-	<div id="container">
-		<div id="header"></div>
+	<div id="container" class="container-fluid">
 <!-- 		<div id="navbar"> -->
 			
 <%-- 			<img id="menu_button" src="${menu_button}" width="40"> --%>
@@ -176,6 +160,8 @@ $(function() {
 <!-- 				</ul> -->
 <!-- 			</div> -->
 <!-- 		</div> -->
+	<div class="row">
+		<div class="col-sm-4" style="margin-left:-20px;">
 		<div class="nav-side-menu">
 			<div class="brand">Menu</div>
 			<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
@@ -199,7 +185,7 @@ $(function() {
 
 					<li data-toggle="collapse" data-target="#lectores" class="collapsed">
 						<a href="#"><i class="fa fa-lg"></i> Lectores <span
-							class="arrow"></span></a>
+ 							class="arrow"></span></a> 
 					</li>
 					<ul class="sub-menu collapse" id="lectores">
 						<li class="active"><a href="<s:url value="/lectores/buscarlectores"/>">Buscar lectores</a></li>
@@ -208,7 +194,7 @@ $(function() {
 
 					<li data-toggle="collapse" data-target="#localizaciones" class="collapsed">
 						<a href="#"><i class="fa fa-lg"></i> Localizaciones <span
-							class="arrow"></span></a>
+ 							class="arrow"></span></a> 
 					</li>
 					<ul class="sub-menu collapse" id="localizaciones">
 						<li class="active"><a href="<s:url value="#"/>">Buscar localizaciones</a></li>
@@ -220,26 +206,28 @@ $(function() {
 					</li>
 					<ul class="sub-menu collapse" id="mapa">
 						<sf:form method="POST" commandName="file"
-							enctype="multipart/form-data">
+ 							enctype="multipart/form-data"> 
 									        Seleccione un archivo:
 									        <input type="file" name="file" />
 							<input type="submit" class="btn btn-primary btn-sm" value="Cargar" />
-							<sf:errors path="file" cssStyle="color: #ff0000;" />
-						</sf:form>
+ 							<sf:errors path="file" cssStyle="color: #ff0000;" />
+ 						</sf:form> 
 					</ul>
 				</ul>
 			</div>
 		</div>
+		</div>
+		<div class="col-sm-4">
+			
 
-		<div id="content">
-			<div id="tagRfid" class="tag">
-
-				<img src="${rfidTag}" />
-
-			</div>
+				<img src="${rfidTag}" class="img-responsive" />
 
 			
-			<div class="table-responsive notificaciones">
+		</div>
+		<div class="col-sm-4" >
+
+			
+			<div class="notificaciones" style="margin-right:-20px;">
 				<table class="table table-hover table-striped">
 					<thead>
 						<tr>
@@ -250,7 +238,7 @@ $(function() {
 					</thead>
 					<tbody>
 						<c:forEach var="alerta" items="${alertas}" varStatus="status">
-							<tr>
+							<tr class="info">
 								<td>${alerta.nombre}</td>
 								<td>${alerta.categoria}</td>
 								<td>${alerta.fechaCaducidad}</td>
@@ -268,12 +256,11 @@ $(function() {
 
 
 		</div>
-
+	</div>
 	</div>
 	
 	
 	
-	<div id="footer"></div>
 </body>
 
 </html>
