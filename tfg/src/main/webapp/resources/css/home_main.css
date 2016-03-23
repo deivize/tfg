@@ -2266,7 +2266,8 @@
 		}
 
 			table tbody tr:nth-child(2n + 1) {
-				background-color: #f7f7f7;
+/* 				background-color: #f7f7f7; */
+				background-color: #bddfeb;
 			}
 
 		table td {
@@ -3106,3 +3107,32 @@
 			}
 
 	}
+	
+
+/*Navbar*/
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+.navbar{
+	background-color: transparent; 
+    background: transparent;
+    border-color: transparent;
+}

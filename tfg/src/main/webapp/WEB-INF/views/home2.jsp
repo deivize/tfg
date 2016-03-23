@@ -10,9 +10,16 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<s:url value="/resources/images/01.jpg" var="thumb1"/>
+		<s:url value="/resources/images/011.jpg" var="full1"/>
 		<s:url value="/resources/css/home_main.css" var="homeCss"/>
+		<s:url value="/resources/css/bootstrap.min.css" var="bootstrapMin"/>
+		<s:url value="/resources/js/bootstrap.min.js" var="bootstrapJs"/>
+		<link rel="stylesheet" type="text/css" href="${bootstrapMin}"/>
 		<link rel="stylesheet" href="${homeCss}" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+		<script src="${bootstrapJs}" type="text/javascript"></script>
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]--
 	</head>
 	<body id="top">
 
@@ -21,6 +28,39 @@
 				<h1><strong>I am Strata</strong>, a super simple<br />
 				responsive site template freebie<br />
 				crafted by <a href="http://html5up.net">HTML5 UP</a>.</h1>
+				<div class="sidebar-nav">
+				<div class="navbar navbar-default" role="navigation">
+				  <div class="navbar-header">
+				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+				      <span class="sr-only">Toggle navigation</span>
+				      <span class="icon-bar"></span>
+				      <span class="icon-bar"></span>
+				      <span class="icon-bar"></span>
+				    </button>
+				    <span class="visible-xs navbar-brand">Sidebar menu</span>
+				  </div>
+				  <div class="navbar-collapse collapse sidebar-navbar-collapse">
+				    <ul class="nav navbar-nav">
+				      <li class="active"><a href="#">Menu Item 1</a></li>
+				      <li><a href="#">Menu Item 2</a></li>
+				      <li class="dropdown">
+				        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+				        <ul class="dropdown-menu">
+				          <li><a href="#">Action</a></li>
+				          <li><a href="#">Another action</a></li>
+				          <li><a href="#">Something else here</a></li>
+				          <li class="divider"></li>
+				          <li class="dropdown-header">Nav header</li>
+				          <li><a href="#">Separated link</a></li>
+				          <li><a href="#">One more separated link</a></li>
+				        </ul>
+				      </li>
+				      <li><a href="#">Menu Item 4</a></li>
+				      <li><a href="#">Reviews <span class="badge">1,118</span></a></li>
+				    </ul>
+				  </div><!--/.nav-collapse -->
+				</div>
+				</div>
 			</header>
 
 		<!-- Main -->
@@ -37,13 +77,12 @@
 							<li><a href="#" class="button">Learn More</a></li>
 						</ul>
 					</section>
-
 				<!-- Two -->
 					<section id="two">
 						<h2>Recent Work</h2>
 						<div class="row">
 							<article class="6u 12u$(xsmall) work-item">
-								<a href="" class="image fit thumb"><img src="" alt="" /></a>
+								<a href="${full1}" class="image fit thumb"><img src="${thumb1}" alt="" /></a>
 								<h3>Magna sed consequat tempus</h3>
 								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
 							</article>
@@ -157,7 +196,7 @@ i++;
 
 print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 						</section>
-
+-->
 						<section>
 							<h4>Lists</h4>
 							<div class="row">
@@ -356,7 +395,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 								<li><span class="button disabled">Default</span></li>
 							</ul>
 						</section>
-
+<!--  
 						<section>
 							<h4>Form</h4>
 							<form method="post" action="#">
@@ -463,6 +502,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="${util}"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="${main}"></script>
+			
 
 	</body>
 </html>
