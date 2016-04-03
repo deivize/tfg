@@ -63,7 +63,7 @@ public class HomeController {
 			MultipartFile multipartFile=file.getFile();
 			//String fileName=multipartFile.getOriginalFilename();
 			String fileName="map.jsp";
-			multipartFile.transferTo(new java.io.File("C:\\Users\\David\\git\\tfg\\src\\main\\webapp\\resources\\mapas\\"+fileName));
+			multipartFile.transferTo(new java.io.File("C:\\Users\\David\\git\\tfg\\src\\main\\webapp\\WEB-INF\\views\\"+fileName));
 		}
 		
 		return returnVal;

@@ -1,4 +1,4 @@
- <svg xmlns="http://www.w3.org/2000/svg"  id="svg1" height="1000" width="800">
+ <svg xmlns="http://www.w3.org/2000/svg"  id="svg1" viewBox="0 0 800 1000">
   <g
      id="mapcontainer">
      
