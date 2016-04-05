@@ -55,15 +55,15 @@ public class HomeController {
 	@RequestMapping(method= RequestMethod.POST,value={"/","/home"})
 	public String fileUpload(Model model, @Validated File file, BindingResult result) throws IOException{
 		
-		String returnVal= "home";
+		String returnVal= "home2";
 		
 		if(result.hasErrors()){
-			returnVal="home";
+			returnVal="home2";
 		}else{
 			MultipartFile multipartFile=file.getFile();
 			//String fileName=multipartFile.getOriginalFilename();
 			String fileName="map.jsp";
-			multipartFile.transferTo(new java.io.File("C:\\Users\\David\\git\\tfg\\src\\main\\webapp\\WEB-INF\\views\\"+fileName));
+			multipartFile.transferTo(new java.io.File("C:\\Users\\David\\git\\tfg\\src\\main\\webapp\\resources\\mapas\\"+fileName));
 		}
 		
 		return returnVal;

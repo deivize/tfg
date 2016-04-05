@@ -1,5 +1,4 @@
- <svg xmlns="http://www.w3.org/2000/svg"  id="svg1" viewBox="0 0 800 1000">
-  <g
+ <g
      id="mapcontainer">
      
     <path
@@ -305,4 +304,3 @@
        x="626.40448"
        y="879.67218" />
   </g>
-  </svg>

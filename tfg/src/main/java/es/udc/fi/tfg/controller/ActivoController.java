@@ -53,7 +53,7 @@ public class ActivoController {
 		model.addAttribute("localizaciones",actLoc);
 		model.addAttribute("activos", activos);
 		
-		return "listactivos";
+		return "listactivos2";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET,value="/nuevoactivo")
@@ -133,7 +133,7 @@ public class ActivoController {
 		model.addAttribute("path_size",paths.size());
 		model.addAttribute("idActivo",id);
 		
-		return "verrecorrido";
+		return "verrecorrido2";
 	}
 	
 	
