@@ -15,6 +15,8 @@
 <s:url value="/resources/js/bootstrap.min.js" var="bootstrapJs" />
 <s:url value="/resources/images/RFID-Tag.jpg" var="rfidTag" />
 <s:url value="/resources/css/map.jsp" var="mapaJsp" />
+<s:url value="/resources/js/jquery.min.js" var="jquery" />
+<script src="${jquery}"></script>
 <link rel="stylesheet" type="text/css" href="${bootstrapMin}" />
 <link rel="stylesheet" href="${homeCss}" />
 <script src="http://code.jquery.com/jquery-latest.min.js"
@@ -142,13 +144,11 @@
 <!-- 			</footer> -->
 
 <!-- Scripts -->
-<s:url value="/resources/js/jquery.min.js" var="jquery" />
 <s:url value="/resources/js/jquery.poptrox.min.js" var="jqueryPop" />
 <s:url value="/resources/js/skel.min.js" var="skel" />
 <s:url value="/resources/js/util.js" var="util" />
 <s:url value="/resources/js/main.js" var="main" />
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
-<script src="${jquery}"></script>
 <script src="${jqueryPop}"></script>
 <script src="${skel}"></script>
 <script src="${util}"></script>

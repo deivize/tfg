@@ -47,7 +47,7 @@ public class EtiquetaController {
 		
 		
 		
-		return "nuevaEtiqueta";
+		return "nuevaEtiqueta2";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/nuevaetiqueta")
@@ -98,7 +98,7 @@ public class EtiquetaController {
 
 		model.addAttribute("parametro",new ParametroForm());
 		
-		return "nuevoParametro";
+		return "nuevoParametro2";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/nuevoparametro")
@@ -116,7 +116,7 @@ public class EtiquetaController {
 		
 		model.addAttribute("estandar", new EstandarForm());
 	
-		return "nuevoEstandar";
+		return "nuevoEstandar2";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/nuevoestandar")
@@ -134,7 +134,7 @@ public class EtiquetaController {
 		
 		model.addAttribute("tecnologia", new TecnologiaForm());
 		
-		return "nuevaTecnologia";
+		return "nuevaTecnologia2";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/nuevatecnologia")

@@ -61,7 +61,7 @@ public class ActivoController {
 		List<Etiqueta> etiquetas=etiquetaService.buscarEtiquetasLibres();
 		model.addAttribute("etiquetas", etiquetas);
 		model.addAttribute("activo", new ActivoForm());
-		return "nuevoactivo";
+		return "nuevoactivo2";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/nuevoactivo")
