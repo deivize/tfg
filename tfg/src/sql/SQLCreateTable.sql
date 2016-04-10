@@ -112,7 +112,16 @@ CREATE TABLE LectorLocalizacion(	idLector BIGINT NOT NULL,
 	CONSTRAINT LectorLocalizacionLocalizacionFK FOREIGN KEY (idLocalizacion)
 		REFERENCES Localizacion(idLocalizacion));
 		
-
+-- -----------------LocalizacionInteres--------------------------
+CREATE TABLE LocalizacionInteres ( idLocInteres BIGSERIAL NOT NULL,
+	tipo VARCHAR(255),
+	width BIGINT,
+	height BIGINT,
+	texto VARCHAR(255),
+	idLocalizacion BIGINT,
+	CONSTRAINT LocalizacionInteresPK PRIMARY KEY (idLocInteres),
+	CONSTRAINT LocalizacionInteresLocalizacionFK FOREIGN KEY (idLocalizacion)
+		REFERENCES Localizacion(idLocalizacion));
 
 
 

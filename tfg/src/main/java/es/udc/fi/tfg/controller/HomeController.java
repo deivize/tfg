@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.File;
+import es.udc.fi.tfg.model.LocalizacionInteres;
 import es.udc.fi.tfg.services.ActivoService;
+import es.udc.fi.tfg.services.LocalizacionInteresService;
 import es.udc.fi.tfg.validator.FileValidator;
 
 
@@ -31,6 +33,9 @@ public class HomeController {
 	@Autowired 
 	private FileValidator validator;
 	
+	@Autowired
+	private LocalizacionInteresService locInteresService;
+	
 	@InitBinder
 	private void initBinder(WebDataBinder binder){
 		binder.setValidator(validator);
@@ -40,8 +45,10 @@ public class HomeController {
 	public String mostrarHome(Model model){
 		File file = new File();
 		List<Activo> activos= activoService.getActivosAlerta();
+		List<LocalizacionInteres> locsInteres= locInteresService.buscarLocsInteres();
 		model.addAttribute("alertas", activos);
 		model.addAttribute("file",file);
+		model.addAttribute("locsInteres", locsInteres);
 		
 		return "home2";
 	}
