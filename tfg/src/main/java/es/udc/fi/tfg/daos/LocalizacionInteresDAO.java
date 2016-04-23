@@ -8,6 +8,7 @@ public interface LocalizacionInteresDAO {
 	
 	Long create(LocalizacionInteres locInteres);
 	List<LocalizacionInteres> findAll();
+	List<LocalizacionInteres> findByTipo(String tipo);
 	void update(LocalizacionInteres locInteres);
 	void remove(LocalizacionInteres locInteres);
 

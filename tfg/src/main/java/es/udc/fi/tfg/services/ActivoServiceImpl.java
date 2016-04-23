@@ -19,6 +19,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import es.udc.fi.tfg.daos.ActivoDAO;
+import es.udc.fi.tfg.dtos.ActivoAlertaDto;
 import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Localizacion;
@@ -145,9 +146,9 @@ public class ActivoServiceImpl implements ActivoService {
 
 	@Override
 	@Transactional(value="miTransactionManager")
-	public List<Activo> getActivosAlerta() {
+	public List<ActivoAlertaDto> getActivosAlerta() {
 		
-		List<Activo> activosAlerta=null;
+		List<ActivoAlertaDto> activosAlerta=null;
 		
 		try{
 			activosAlerta=activoDAO.getActivosAlerta();

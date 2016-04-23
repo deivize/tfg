@@ -51,6 +51,7 @@
 						<li><a href="<s:url value="/home"/>">Volver</a></li>
 						<li><a href="<s:url value="/etiquetas/nuevaetiqueta"/>">Crear
 								Etiqueta</a></li>
+					</ul>				
 				</div>
 			</div>
 			<!--/.nav-collapse -->

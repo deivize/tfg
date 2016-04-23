@@ -55,6 +55,7 @@
 								Estandar</a></li>
 						<li><a href="<s:url value="/etiquetas/nuevatecnologia"/>">Crear
 								Tecnologia</a></li>
+					</ul>
 				</div>
 			</div>
 			<!--/.nav-collapse -->

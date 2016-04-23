@@ -10,5 +10,6 @@ public interface LocalizacionInteresService {
 	void modificarLocInteres(LocalizacionInteres locInteres);
 	void borrarLocInteres (LocalizacionInteres locInteres);
 	List<LocalizacionInteres> buscarLocsInteres();
+	List<LocalizacionInteres> buscarPorTipo(String tipo);
 
 }

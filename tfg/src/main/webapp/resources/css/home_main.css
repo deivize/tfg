@@ -3147,3 +3147,12 @@
 form#file{
 	color:white;
 }
+
+.selection{
+  fill-opacity: 0.2;
+  fill:blue;
+}
+
+.oculto{
+	display:none;
+}

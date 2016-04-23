@@ -49,6 +49,7 @@
 					<ul class="nav navbar-nav">
 						<li><a href="<s:url value="/home"/>">HOME</a></li>
 						<li><a href="<s:url value="/etiquetas/nuevaetiqueta"/>">Volver</a></li>
+					</ul>
 				</div>
 			</div>
 			<!--/.nav-collapse -->

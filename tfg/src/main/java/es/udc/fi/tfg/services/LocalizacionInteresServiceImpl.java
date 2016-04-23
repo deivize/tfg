@@ -68,4 +68,19 @@ public class LocalizacionInteresServiceImpl implements LocalizacionInteresServic
 		return locsInteres;
 	}
 
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<LocalizacionInteres> buscarPorTipo(String tipo) {
+		List<LocalizacionInteres> locsInteres = null;
+		
+		try{
+			locsInteres= locInteresDAO.findByTipo(tipo);
+			log.info("Buscando localizaciones de interes con tipo "+tipo);
+		}catch(DataAccessException e){
+			log.error("Error buscando localizaciones de interes con tipo "+tipo);
+		}
+		return locsInteres;
+		
+	}
+
 }

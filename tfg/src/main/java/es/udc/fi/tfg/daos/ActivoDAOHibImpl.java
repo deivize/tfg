@@ -6,13 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import es.udc.fi.tfg.dtos.ActivoAlertaDto;
 import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.ActivoLocalizacion;
@@ -182,8 +181,9 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Activo> getActivosAlerta() {
+	public List<ActivoAlertaDto> getActivosAlerta() {
 		
+		List<ActivoAlertaDto> activosAlertaDto=new ArrayList<ActivoAlertaDto>();
 		List<Activo> activosAlerta=new ArrayList<Activo>();
 		
 		Calendar cal= Calendar.getInstance();
@@ -197,7 +197,33 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		
 		activosAlerta=query.list();
 		
-		return activosAlerta;
+		
+		for(Activo act:activosAlerta){
+			
+			Query query2= miSessionFactory.getCurrentSession().createQuery("FROM ActivoLocalizacion WHERE idActivo = :idAct AND fecha>=ALL(SELECT fecha FROM ActivoLocalizacion WHERE idActivo= :idAct)");
+			query2.setParameter("idAct", act.getIdActivo());
+			ActivoLocalizacion activoLoc= (ActivoLocalizacion) query2.uniqueResult();
+			//System.out.println("**********************************"+activoLoc.getLocalizacion().getIdLocalizacion());
+			
+			if(activoLoc != null){
+
+				Query query3=miSessionFactory.getCurrentSession().createQuery("FROM Localizacion WHERE idLocalizacion= :idLoc");
+				query3.setParameter("idLoc", activoLoc.getLocalizacion().getIdLocalizacion());
+				Localizacion loc=(Localizacion) query3.uniqueResult();
+
+				ActivoAlertaDto actAlerta= new ActivoAlertaDto();
+				actAlerta.setNombre(act.getNombre());
+				actAlerta.setCategoria(act.getCategoria());
+				actAlerta.setCoord_x(loc.getCoord_x());
+				actAlerta.setCoord_y(loc.getCoord_y());
+				actAlerta.setCoord_z(loc.getCoord_z());
+				actAlerta.setFechaCaducidad(act.getFechaCaducidad());
+
+				activosAlertaDto.add(actAlerta);
+			}
+		}
+		
+		return activosAlertaDto;
 	}
 
 	@SuppressWarnings("unchecked")

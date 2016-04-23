@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import es.udc.fi.tfg.model.Activo;
+import es.udc.fi.tfg.dtos.ActivoAlertaDto;
 import es.udc.fi.tfg.model.File;
 import es.udc.fi.tfg.model.LocalizacionInteres;
 import es.udc.fi.tfg.services.ActivoService;
@@ -44,11 +44,11 @@ public class HomeController {
 	@RequestMapping(method=RequestMethod.GET,value={"/","/home"})
 	public String mostrarHome(Model model){
 		File file = new File();
-		List<Activo> activos= activoService.getActivosAlerta();
-		List<LocalizacionInteres> locsInteres= locInteresService.buscarLocsInteres();
+		List<ActivoAlertaDto> activos= activoService.getActivosAlerta();
+		List<LocalizacionInteres> locsInteres= locInteresService.buscarPorTipo("area");
 		model.addAttribute("alertas", activos);
 		model.addAttribute("file",file);
-		model.addAttribute("locsInteres", locsInteres);
+		model.addAttribute("areas", locsInteres);
 		
 		return "home2";
 	}

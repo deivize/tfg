@@ -2,6 +2,9 @@ package es.udc.fi.tfg.daos;
 
 import java.util.List;
 
+
+
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -49,6 +52,20 @@ public class LocalizacionInteresDAOHibImpl implements LocalizacionInteresDAO {
 		
 		miSessionFactory.getCurrentSession().delete(locInteres);
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<LocalizacionInteres> findByTipo(String tipo) {
+		
+		Query query = miSessionFactory.getCurrentSession()
+				.createQuery("FROM LocalizacionInteres WHERE tipo= :tipo ");
+		query.setParameter("tipo", tipo);
+		
+		List<LocalizacionInteres> locsInteres= query.list();
+		
+		
+		return locsInteres;
 	}
 
 }

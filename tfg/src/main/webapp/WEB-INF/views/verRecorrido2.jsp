@@ -62,6 +62,7 @@
 						<a href="<c:out value="${descargar}"/>">Descargar informe</a>
 					</li>
 					<li><a href="<s:url value="/activos/listactivos"/>">Volver</a></li>
+				</ul>
 			</div>
 		</div>
 		<!--/.nav-collapse -->

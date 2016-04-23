@@ -3,6 +3,7 @@ package es.udc.fi.tfg.services;
 import java.sql.Timestamp;
 import java.util.List;
 
+import es.udc.fi.tfg.dtos.ActivoAlertaDto;
 import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Localizacion;
@@ -17,7 +18,7 @@ public interface ActivoService {
 	List<Activo> buscarActivos();
 	Localizacion getLocalizacionActual(Long id);
 	List<ActivoLocalizacionDto> getLocalizacionesActuales();
-	List<Activo> getActivosAlerta();
+	List<ActivoAlertaDto> getActivosAlerta();
 	String crearPdf(Long id);
 	List<Activo> buscarActivosConsulta(String nombre, String categoria,Timestamp fecha);
 		

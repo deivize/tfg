@@ -65,6 +65,7 @@
 							data-toggle="dropdown">Localizaciones<b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="<s:url value="#"/>">Buscar localizaciones</a></li>
+								<li><a href="<s:url value="/localizaciones/areas"/>">Definir áreas de interés</a></li>
 							</ul></li>
 						<div class="form-group" id="mapa">
 							<sf:form method="POST" commandName="file"
@@ -75,6 +76,7 @@
 								<sf:errors path="file" cssStyle="color: #ff0000;" />
 							</sf:form>
 						</div>
+					</ul>
 				</div>
 			</div>
 			<!--/.nav-collapse -->
@@ -125,53 +127,35 @@
 						</svg>
 		</section>
 		<section>
-			<h4>Table</h4>
-			<h5>Default</h5>
+			
+			<h4>Notificaciones</h4>
 			<div class="table-wrapper">
-				<table>
+				<table id="tablaNotificacion" class="alt">
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>Price</th>
+							<th>Nombre</th>
+							<th>Categoria</th>
+							<th style="display:none;">coord_x</th>
+							<th style="display:none;">coord_y</th>
+							<th>Fecha caducidad</th>
+							<th>Ver</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Item One</td>
-							<td>Ante turpis integer aliquet porttitor.</td>
-							<td>29.99</td>
-						</tr>
-						<tr>
-							<td>Item Two</td>
-							<td>Vis ac commodo adipiscing arcu aliquet.</td>
-							<td>19.99</td>
-						</tr>
-						<tr>
-							<td>Item Three</td>
-							<td>Morbi faucibus arcu accumsan lorem.</td>
-							<td>29.99</td>
-						</tr>
-						<tr>
-							<td>Item Four</td>
-							<td>Vitae integer tempus condimentum.</td>
-							<td>19.99</td>
-						</tr>
-						<tr>
-							<td>Item Five</td>
-							<td>Ante turpis integer aliquet porttitor.</td>
-							<td>29.99</td>
-						</tr>
+						<c:forEach var="alerta" items="${alertas}" varStatus="status">
+							<tr class="fila">
+								<td>${alerta.nombre}</td>
+								<td>${alerta.categoria}</td>
+								<td class="coord_x" style="display:none;">${alerta.coord_x}</td>
+								<td class="coord_y" style="display:none;">${alerta.coord_y}</td>
+								<td>${alerta.fechaCaducidad}</td>
+								<td><a class="verLoc" href="#">Ver en mapa</a></td>
+							</tr>
+						</c:forEach>					
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="2"></td>
-							<td>100.00</td>
-						</tr>
-					</tfoot>
 				</table>
 			</div>
-
+			
 			
 		</section>
 
@@ -309,6 +293,8 @@
 	<s:url value="/resources/js/skel.min.js" var="skel" />
 	<s:url value="/resources/js/util.js" var="util" />
 	<s:url value="/resources/js/main.js" var="main" />
+	<s:url value="/resources/js/areas.js" var="area" />
+	<script src="${area}"></script>
 	<script type="text/javascript"
 		src="http://mbostock.github.com/d3/d3.js"></script>
 	<script src="${jqueryPop}"></script>
@@ -317,8 +303,9 @@
 	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="${main}"></script>
 	<script>
-				var localizaciones = [], locObject;
+				var areas = [], areaObject;
 				var svg =d3.select("#svg1");
+				var activeRect;
 			
 				var rect = svg.append("rect").attr("width", "100%").attr(
 						"height", "100%").attr("fill-opacity","0.0").on("click", mouseclick);
@@ -348,10 +335,101 @@
 				
 
 				
-				<c:forEach var="locInteres" items="${locsInteres}">
-					locObject = {tipo: "${locInteres.tipo}", coord_x: "${locInteres.localizacion.coord_x}",coord_y: "${locInteres.localizacion.coord_y}" }
-					localizaciones.push(locObject);
-				</c:forEach>
+				<c:forEach var="area" items="${areas}">
+				areaObject = {tipo: "${area.tipo}", coord_x: "${area.localizacion.coord_x}",coord_y: "${area.localizacion.coord_y}",
+						height:"${area.height}",width:"${area.width}"}
+				areas.push(areaObject);
+			</c:forEach>
+				
+				
+				
+				
+				
+				
+				
+
+				var renderPath = d3.svg.line()
+				    .x(function(d) { return d[0]; })
+				    .y(function(d) { return d[1]; })
+				    .interpolate("basis");
+
+				
+				    svg.call(d3.behavior.drag()
+				      .on("dragstart", dragstarted)
+				      .on("drag", dragged)
+				      .on("dragend", dragended));
+
+				function dragstarted() {
+				  var p = d3.mouse( this);
+				  activeRect = svg.insert("rect",":first-child")
+				    .attr({
+				        rx      : 6,
+				        ry      : 6,
+				        class   : "selection draggable",
+				        x       : p[0],
+				        y       : p[1],
+				        width   : 0,
+				        height  : 0
+				    })
+				}
+
+				function dragged() {
+
+				    if( !activeRect.empty()) {
+				        var p = d3.mouse( this),
+
+				            d = {
+				                x       : parseInt( activeRect.attr( "x"), 10),
+				                y       : parseInt( activeRect.attr( "y"), 10),
+				                width   : parseInt( activeRect.attr( "width"), 10),
+				                height  : parseInt( activeRect.attr( "height"), 10)
+				            },
+				            move = {
+				                x : p[0] - d.x,
+				                y : p[1] - d.y
+				            }
+				        ;
+
+				        if( move.x < 1 || (move.x*2<d.width)) {
+				            d.x = p[0];
+				            d.width -= move.x;
+				        } else {
+				            d.width = move.x;       
+				        }
+
+				        if( move.y < 1 || (move.y*2<d.height)) {
+				            d.y = p[1];
+				            d.height -= move.y;
+				        } else {
+				            d.height = move.y;       
+				        }
+				       
+				        activeRect.attr(d);
+				  
+				}
+				}
+				function dragended() {
+				  activeRect = null;
+				}
+				
+				$(document).ready(function(){
+				
+					$("#tablaNotificacion").find(".fila").each(function(){
+						var coord_x=$(this).find(".coord_x").html();
+						var coord_y=$(this).find(".coord_y").html();
+						$(this).find(".verLoc").click(function(){
+							svg.append("polygon")
+							.attr("points","0,0 -15,-25 15,-25")
+							.attr("transform","translate("+coord_x+","+coord_y+")")
+							.attr("style","fill:lime;stroke:black;stroke-width:1");
+						});
+					})
+					
+					
+				});
+				
+				transform="translate(${locActualX},${locActualY})"
+				
 				
 			</script>
 

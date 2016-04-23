@@ -20,8 +20,8 @@ public class LocalizacionInteres {
 	
 	private Long idLocInteres;
 	private String tipo;
-	private Long width;
-	private Long height;
+	private Double width;
+	private Double height;
 	private String texto;
 	private Localizacion localizacion;
 	
@@ -32,10 +32,9 @@ public class LocalizacionInteres {
 	
 	
 	
-	public LocalizacionInteres(Long idLocInteres, String tipo, Long width,
-			Long height, String texto, Localizacion localizacion) {
+	public LocalizacionInteres(String tipo, Double width,
+			Double height, String texto, Localizacion localizacion) {
 		super();
-		this.idLocInteres = idLocInteres;
 		this.tipo = tipo;
 		this.width = width;
 		this.height = height;
@@ -63,17 +62,17 @@ public class LocalizacionInteres {
 		this.tipo = tipo;
 	}
 	@Column(name="width",nullable=true)
-	public Long getWidth() {
+	public Double getWidth() {
 		return width;
 	}
-	public void setWidth(Long width) {
+	public void setWidth(Double width) {
 		this.width = width;
 	}
 	@Column(name="height",nullable=true)
-	public Long getHeight() {
+	public Double getHeight() {
 		return height;
 	}
-	public void setHeight(Long height) {
+	public void setHeight(Double height) {
 		this.height = height;
 	}
 	@Column(name="texto",nullable=true)
