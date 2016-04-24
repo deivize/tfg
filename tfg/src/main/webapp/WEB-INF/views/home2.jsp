@@ -16,7 +16,9 @@
 <s:url value="/resources/images/RFID-Tag.jpg" var="rfidTag" />
 <s:url value="/resources/css/map.jsp" var="mapaJsp" />
 <s:url value="/resources/js/jquery.min.js" var="jquery" />
+<s:url value="/resources/js/tipsy.js" var="tipsy" />
 <script src="${jquery}"></script>
+<script src="${tipsy}"></script>
 <link rel="stylesheet" type="text/css" href="${bootstrapMin}" />
 <link rel="stylesheet" href="${homeCss}" />
 <%-- 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> --%>
@@ -144,7 +146,7 @@
 					<tbody>
 						<c:forEach var="alerta" items="${alertas}" varStatus="status">
 							<tr class="fila">
-								<td>${alerta.nombre}</td>
+								<td class="nombre">${alerta.nombre}</td>
 								<td>${alerta.categoria}</td>
 								<td class="coord_x" style="display:none;">${alerta.coord_x}</td>
 								<td class="coord_y" style="display:none;">${alerta.coord_y}</td>
@@ -297,6 +299,7 @@
 	<script src="${area}"></script>
 	<script type="text/javascript"
 		src="http://mbostock.github.com/d3/d3.js"></script>
+	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 	<script src="${jqueryPop}"></script>
 	<script src="${skel}"></script>
 	<script src="${util}"></script>
@@ -413,22 +416,40 @@
 				}
 				
 				$(document).ready(function(){
-				
+					
 					$("#tablaNotificacion").find(".fila").each(function(){
 						var coord_x=$(this).find(".coord_x").html();
 						var coord_y=$(this).find(".coord_y").html();
+						var nombre=$(this).find(".nombre").html();
 						$(this).find(".verLoc").click(function(){
+							
+							var tip= d3.tip()
+							.attr('class','d3-tip')
+							.offset([-10, 0])
+							.html(function(){
+								return "<strong>Nombre: </strong><span>"+nombre+"</span>";
+							})
+							svg.call(tip);
+							
+							
 							svg.append("polygon")
+							.attr("class","marker")
 							.attr("points","0,0 -15,-25 15,-25")
 							.attr("transform","translate("+coord_x+","+coord_y+")")
-							.attr("style","fill:lime;stroke:black;stroke-width:1");
+							.attr("style","fill:lime;stroke:black;stroke-width:1")
+							.on('mouseover',tip.show)
+							.on('mouseout',tip.hide);
+							
+							
+							
 						});
 					})
 					
 					
+					
 				});
 				
-				transform="translate(${locActualX},${locActualY})"
+				
 				
 				
 			</script>
