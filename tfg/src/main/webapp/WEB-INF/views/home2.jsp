@@ -342,7 +342,7 @@
 				areaObject = {tipo: "${area.tipo}", coord_x: "${area.localizacion.coord_x}",coord_y: "${area.localizacion.coord_y}",
 						height:"${area.height}",width:"${area.width}"}
 				areas.push(areaObject);
-			</c:forEach>
+				</c:forEach>
 				
 				
 				
