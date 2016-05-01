@@ -22,6 +22,7 @@ public class LectorSerciveImpl implements LectorService {
 	@Override
 	@Transactional(value="miTransactionManager")
 	public void crearLector(Lector miLector) {
+		
 		try{
 			lectorDAO.create(miLector);
 			log.info("Creando el Lector: "+miLector.toString());

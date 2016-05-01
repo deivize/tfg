@@ -62,6 +62,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="<s:url value="/lectores/buscarlectores"/>">Buscar
 										lectores</a></li>
+								<li><a href="<s:url value="/lectores/nuevolector"/>">Nuevo lector</a></li>
 							</ul></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Localizaciones<b class="caret"></b></a>

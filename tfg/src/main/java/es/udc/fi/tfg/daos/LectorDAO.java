@@ -3,6 +3,7 @@ package es.udc.fi.tfg.daos;
 import java.util.List;
 
 import es.udc.fi.tfg.model.Lector;
+import es.udc.fi.tfg.model.LectorLocalizacion;
 
 public interface LectorDAO {
 

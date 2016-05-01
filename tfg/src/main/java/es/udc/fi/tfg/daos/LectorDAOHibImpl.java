@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import es.udc.fi.tfg.model.Lector;
+import es.udc.fi.tfg.model.LectorLocalizacion;
 
 @Repository
 public class LectorDAOHibImpl implements LectorDAO {

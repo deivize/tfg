@@ -74,7 +74,7 @@ CREATE INDEX LocalizacionIndexByidLocalizacion ON Localizacion(idLocalizacion);
 CREATE TABLE Lector( idLector BIGSERIAL NOT NULL,
 	modelo VARCHAR(255) NOT NULL,
 	tipo VARCHAR(255),
-	CONSTRAINT LectorPK PRIMARY KEY (idLector));
+	CONSTRAINT LectorPK PRIMARY KEY (idLector))
 	
 		
 CREATE INDEX LectorIndexByidLector ON Lector(idLector);
