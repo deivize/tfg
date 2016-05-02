@@ -2,6 +2,7 @@ package es.udc.fi.tfg.services;
 
 import java.util.List;
 
+import es.udc.fi.tfg.dtos.LectorDto;
 import es.udc.fi.tfg.model.Lector;
 
 public interface LectorService {
@@ -12,5 +13,6 @@ public interface LectorService {
 	List<Lector> buscarLectores();
 	Lector buscarLectorPorId(Long id);
 	List<Lector> buscarLectoresConsulta(String tipo, String modelo);
+	List<LectorDto> lectorToLectorDto();
 
 }

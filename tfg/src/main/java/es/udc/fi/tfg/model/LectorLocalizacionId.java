@@ -1,6 +1,7 @@
 package es.udc.fi.tfg.model;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 
@@ -13,14 +14,14 @@ public class LectorLocalizacionId implements java.io.Serializable{
 	private Localizacion localizacion;
 	
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	public Lector getLector() {
 		return lector;
 	}
 	public void setLector(Lector lector) {
 		this.lector = lector;
 	}
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	public Localizacion getLocalizacion() {
 		return localizacion;
 	}

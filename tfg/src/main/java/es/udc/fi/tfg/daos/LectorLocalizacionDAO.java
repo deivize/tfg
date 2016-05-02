@@ -5,4 +5,6 @@ import es.udc.fi.tfg.model.LectorLocalizacion;
 public interface LectorLocalizacionDAO {
 
 	void create(LectorLocalizacion lectLoc);
+	LectorLocalizacion getLectorLocalizacionByLectorId(Long id);
+	
 }

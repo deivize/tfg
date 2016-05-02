@@ -30,4 +30,18 @@ public class LectorLocalizacionServiceImpl implements LectorLocalizacionService 
 		
 	}
 
+	@Override
+	@Transactional(value="miTransactionManager")
+	public LectorLocalizacion buscarPorIdLector(Long idLector) {
+		LectorLocalizacion lectLoc=null;
+		try{
+			lectLoc=lectLocDAO.getLectorLocalizacionByLectorId(idLector);
+			log.info("Buscando lectoLocalizacion con idLector: "+idLector);
+		}catch(DataAccessException e){
+			log.error("Error al buscar lectorLocalizacion con idLector: "+idLector);
+		}
+		
+		return lectLoc;
+	}
+
 }

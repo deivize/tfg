@@ -11,13 +11,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.udc.fi.tfg.dtos.LectorDto;
 import es.udc.fi.tfg.forms.ConsultaLectorForm;
 import es.udc.fi.tfg.forms.LectorForm;
 import es.udc.fi.tfg.model.Lector;
 import es.udc.fi.tfg.model.LectorLocalizacion;
 import es.udc.fi.tfg.model.Localizacion;
+import es.udc.fi.tfg.model.LocalizacionInteres;
 import es.udc.fi.tfg.services.LectorLocalizacionService;
 import es.udc.fi.tfg.services.LectorService;
+import es.udc.fi.tfg.services.LocalizacionInteresService;
 import es.udc.fi.tfg.services.LocalizacionService;
 
 @Controller
@@ -33,6 +36,9 @@ public class LectorController {
 	@Autowired
 	private LectorLocalizacionService lectLocService;
 	
+	@Autowired
+	private LocalizacionInteresService locInteresService;
+	
 	
 	@RequestMapping(method=RequestMethod.GET,value="/buscarlectores")
 	public String createLectorProfile(Model model){
@@ -40,6 +46,7 @@ public class LectorController {
 		List<Lector> lectores=new ArrayList<Lector>();
 		model.addAttribute("lectres", lectores);
 		model.addAttribute("lectorForm", new ConsultaLectorForm());
+		
 		
 		return "buscarLectores";
 	}
@@ -59,7 +66,13 @@ public class LectorController {
 	@RequestMapping(method=RequestMethod.GET,value="/nuevolector")
 	public String crearLector(Model model){
 		
+		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
+		List<LocalizacionInteres> locsInteres= locInteresService.buscarPorTipo("area");
+		
+		model.addAttribute("lectores", lectoresDto);
+		model.addAttribute("areas",locsInteres);
 		model.addAttribute("lectorForm", new LectorForm());
+		
 		
 		return "nuevoLector";
 	}

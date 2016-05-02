@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.daos.LectorDAO;
+import es.udc.fi.tfg.dtos.LectorDto;
 import es.udc.fi.tfg.model.Lector;
+import es.udc.fi.tfg.model.LectorLocalizacion;
+import es.udc.fi.tfg.model.Localizacion;
 
 @Service
 public class LectorSerciveImpl implements LectorService {
@@ -18,6 +22,12 @@ public class LectorSerciveImpl implements LectorService {
 	
 	@Autowired
 	private LectorDAO lectorDAO;
+	
+	@Autowired
+	private LocalizacionService localizacionService;
+	
+	@Autowired
+	private LectorLocalizacionService lectLocService;
 	
 	@Override
 	@Transactional(value="miTransactionManager")
@@ -103,6 +113,33 @@ public class LectorSerciveImpl implements LectorService {
 		}
 		
 		return lectores;
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<LectorDto> lectorToLectorDto() {
+		
+		List<Lector> lectores= lectorDAO.findAll();
+		List<LectorDto> lectoresDto= new ArrayList<LectorDto>();
+		
+		for(Lector lector:lectores){
+			LectorDto lectorDto=new LectorDto();
+			LectorLocalizacion lectLoc=null;
+			
+			
+			lectorDto.setTipo(lector.getTipo());
+			lectorDto.setModelo(lector.getModelo());
+			
+			lectLoc=lectLocService.buscarPorIdLector(lector.getIdLector());
+			Localizacion loc=localizacionService.buscarLocalizacionPorId(lectLoc.getLocalizacion().getIdLocalizacion());
+			
+			lectorDto.setCoord_x(loc.getCoord_x());
+			lectorDto.setCoord_y(loc.getCoord_y());
+			
+			lectoresDto.add(lectorDto);
+		}
+		
+		return lectoresDto;
 	}
 	
 

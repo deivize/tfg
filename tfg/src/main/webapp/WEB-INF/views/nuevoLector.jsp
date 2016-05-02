@@ -78,7 +78,7 @@
 		
 		<div style="margin-top:5px">
 		<ul class="actions">
-			<li><a href="#" id="nuevoLector" class="button special">Nuevo lector</a></li>
+			<li><a href="#" id="nuevoLector" class="button special" onClick="return false">Nuevo lector</a></li>
 		</ul>
 		</div>
 		
@@ -126,70 +126,102 @@
 <s:url value="/resources/js/skel.min.js" var="skel" />
 <s:url value="/resources/js/util.js" var="util" />
 <s:url value="/resources/js/main.js" var="main" />
+<s:url value="/resources/js/areas.js" var="area" />
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
 <script src="${jqueryPop}"></script>
+<script src="${area}"></script>
 <script src="${skel}"></script>
 <script src="${util}"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="${main}"></script>
 <script>
 		
-	var svg=d3.select("#svg1");	
+	var lectores=[],lectorObject;
+	var areas=[],areaObject;
 	
-	function fillForm(){
-		var rects=d3.selectAll(".newLect");
-		var form= $("#nuevo_lector_form");
+	<c:forEach var="area" items="${areas}">
+	areaObject = {
+		tipo : "${area.tipo}",
+		coord_x : "${area.localizacion.coord_x}",
+		coord_y : "${area.localizacion.coord_y}",
+		height : "${area.height}",
+		width : "${area.width}"
+	}
+	areas.push(areaObject);
+	</c:forEach>
+	
+	
+	
+	<c:forEach var="lector" items="${lectores}">
+	lectorObject = {
+		tipo : "${lector.tipo}",
+		modelo : "${lector.modelo}",
+		coord_x : "${lector.coord_x}",
+		coord_y : "${lector.coord_y}"
+	}
+	lectores.push(lectorObject);
+	</c:forEach>
+	
+	
+	
+
+	var svg = d3.select("#svg1");
+
+	function fillForm() {
+		var rects = d3.selectAll(".newLect");
+		var form = $("#nuevo_lector_form");
 		var coord_x = $("#coord_x");
 		var coord_y = $("#coord_y");
-// 		var tipo = $("#tipo");
-// 		var modelo = $("#modelo");
-// 		var edificio = $("#edificio");
-// 		var planta = $("#planta");
-// 		var area = $("#area");
-// 		var zona = $("#zona");
-		
-		
+		// 		var tipo = $("#tipo");
+		// 		var modelo = $("#modelo");
+		// 		var edificio = $("#edificio");
+		// 		var planta = $("#planta");
+		// 		var area = $("#area");
+		// 		var zona = $("#zona");
+
 		coord_x.val('');
 		coord_y.val('');
-		
-		
-		for(i=0;i<rects[0].length;i++){
-			coord_x.val(coord_x.val()+"-"+rects[0][i].x.animVal.value);
-			coord_y.val(coord_y.val()+"-"+rects[0][i].y.animVal.value);
+
+		for (i = 0; i < rects[0].length; i++) {
+			coord_x.val(coord_x.val() + "-" + rects[0][i].x.animVal.value);
+			coord_y.val(coord_y.val() + "-" + rects[0][i].y.animVal.value);
 		}
-		
+
 		form.submit();
 	}
-	
-	
-	$(document).ready(function() {
-		$("#nuevoLector").click(function crearLector() {
-			
-			
-			var w=svg.node().getBBox().width;
-			var h=svg.node().getBBox().height;
-			var width=14.932404,
-				height=10.009442;
-			
-			var drag = d3.behavior.drag()
-		    .origin(Object)
-		    .on("drag", dragmove);
-			
-			var dragrect = svg.append("rect").attr("width", width).attr(
-					"height", height).attr("x", "327.1229553222656").attr("y",
-					"483.6956481933594").attr("stroke", "#000000").attr(
-					"stroke-width", "0.84172118").attr("stroke-opacity", "1").attr(
-					"fill", "#36e30e").attr("class", "newLect ").attr("cursor","move").call(drag);
 
-			function dragmove() {
-				dragrect.attr("x", Math.max(0, Math.min(w - width, d3.mouse(this)[0])))
+	$(document).ready(
+			function() {
+				$("#nuevoLector").click(
+						function crearLector() {
 
-				dragrect.attr("y", Math.max(0, Math.min(h - height, d3.mouse(this)[1])));
+							var w = svg.node().getBBox().width;
+							var h = svg.node().getBBox().height;
+							var width = 14.932404, height = 10.009442;
 
-			}						
-		}	
-		);
-	});
+							var drag = d3.behavior.drag().origin(Object).on(
+									"drag", dragmove);
+
+							var dragrect = svg.append("rect").attr("width",
+									width).attr("height", height).attr("x",
+									"327.1229553222656").attr("y",
+									"483.6956481933594").attr("stroke",
+									"#000000").attr("stroke-width",
+									"0.84172118").attr("stroke-opacity", "1")
+									.attr("fill", "#36e30e").attr("class",
+											"newLect ").attr("cursor", "move")
+									.call(drag);
+
+							function dragmove() {
+								dragrect.attr("x", Math.max(0, Math.min(w
+										- width, d3.mouse(this)[0])))
+
+								dragrect.attr("y", Math.max(0, Math.min(h
+										- height, d3.mouse(this)[1])));
+
+							}
+						});
+			});
 </script>
 </body>
 </html>

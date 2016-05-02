@@ -308,6 +308,7 @@
 	<script src="${main}"></script>
 	<script>
 				var areas = [], areaObject;
+				var lectores=[], lectorObject;
 				var svg =d3.select("#svg1");
 				var activeRect;
 			
@@ -339,121 +340,155 @@
 				
 
 				
-				<c:forEach var="area" items="${areas}">
-				areaObject = {tipo: "${area.tipo}", coord_x: "${area.localizacion.coord_x}",coord_y: "${area.localizacion.coord_y}",
-						height:"${area.height}",width:"${area.width}"}
-				areas.push(areaObject);
-				</c:forEach>
 				
-				
-				
-				
-				
-				
-				
+		<c:forEach var="area" items="${areas}">
+		areaObject = {
+			tipo : "${area.tipo}",
+			coord_x : "${area.localizacion.coord_x}",
+			coord_y : "${area.localizacion.coord_y}",
+			height : "${area.height}",
+			width : "${area.width}"
+		}
+		areas.push(areaObject);
+		</c:forEach>
 
-				var renderPath = d3.svg.line()
-				    .x(function(d) { return d[0]; })
-				    .y(function(d) { return d[1]; })
-				    .interpolate("basis");
+		<c:forEach var="lector" items="${lectores}">
+		lectorObject = {
+			tipo : "${lector.tipo}",
+			modelo : "${lector.modelo}",
+			coord_x : "${lector.coord_x}",
+			coord_y : "${lector.coord_y}"
+		}
+		lectores.push(lectorObject);
+		</c:forEach>
 
-				
-				    svg.call(d3.behavior.drag()
-				      .on("dragstart", dragstarted)
-				      .on("drag", dragged)
-				      .on("dragend", dragended));
+		var renderPath = d3.svg.line().x(function(d) {
+			return d[0];
+		}).y(function(d) {
+			return d[1];
+		}).interpolate("basis");
 
-				function dragstarted() {
-				  var p = d3.mouse( this);
-				  activeRect = svg.insert("rect",":first-child")
-				    .attr({
-				        rx      : 6,
-				        ry      : 6,
-				        class   : "selection draggable",
-				        x       : p[0],
-				        y       : p[1],
-				        width   : 0,
-				        height  : 0
-				    })
+		svg.call(d3.behavior.drag().on("dragstart", dragstarted).on("drag",
+				dragged).on("dragend", dragended));
+
+		function dragstarted() {
+			var p = d3.mouse(this);
+			activeRect = svg.insert("rect", ":first-child").attr({
+				rx : 6,
+				ry : 6,
+				class : "selection draggable",
+				x : p[0],
+				y : p[1],
+				width : 0,
+				height : 0
+			})
+		}
+
+		function dragged() {
+
+			if (!activeRect.empty()) {
+				var p = d3.mouse(this),
+
+				d = {
+					x : parseInt(activeRect.attr("x"), 10),
+					y : parseInt(activeRect.attr("y"), 10),
+					width : parseInt(activeRect.attr("width"), 10),
+					height : parseInt(activeRect.attr("height"), 10)
+				}, move = {
+					x : p[0] - d.x,
+					y : p[1] - d.y
+				};
+
+				if (move.x < 1 || (move.x * 2 < d.width)) {
+					d.x = p[0];
+					d.width -= move.x;
+				} else {
+					d.width = move.x;
 				}
 
-				function dragged() {
-
-				    if( !activeRect.empty()) {
-				        var p = d3.mouse( this),
-
-				            d = {
-				                x       : parseInt( activeRect.attr( "x"), 10),
-				                y       : parseInt( activeRect.attr( "y"), 10),
-				                width   : parseInt( activeRect.attr( "width"), 10),
-				                height  : parseInt( activeRect.attr( "height"), 10)
-				            },
-				            move = {
-				                x : p[0] - d.x,
-				                y : p[1] - d.y
-				            }
-				        ;
-
-				        if( move.x < 1 || (move.x*2<d.width)) {
-				            d.x = p[0];
-				            d.width -= move.x;
-				        } else {
-				            d.width = move.x;       
-				        }
-
-				        if( move.y < 1 || (move.y*2<d.height)) {
-				            d.y = p[1];
-				            d.height -= move.y;
-				        } else {
-				            d.height = move.y;       
-				        }
-				       
-				        activeRect.attr(d);
-				  
+				if (move.y < 1 || (move.y * 2 < d.height)) {
+					d.y = p[1];
+					d.height -= move.y;
+				} else {
+					d.height = move.y;
 				}
-				}
-				function dragended() {
-				  activeRect = null;
-				}
-				
-				$(document).ready(function(){
-					
-					$("#tablaNotificacion").find(".fila").each(function(){
-						var coord_x=$(this).find(".coord_x").html();
-						var coord_y=$(this).find(".coord_y").html();
-						var nombre=$(this).find(".nombre").html();
-						$(this).find(".verLoc").click(function(){
-							
-							var tip= d3.tip()
-							.attr('class','d3-tip')
-							.offset([-10, 0])
-							.html(function(){
-								return "<strong>Nombre: </strong><span>"+nombre+"</span>";
-							})
-							svg.call(tip);
-							
-							
-							svg.append("polygon")
-							.attr("class","marker")
-							.attr("points","0,0 -15,-25 15,-25")
-							.attr("transform","translate("+coord_x+","+coord_y+")")
-							.attr("style","fill:lime;stroke:black;stroke-width:1")
-							.on('mouseover',tip.show)
-							.on('mouseout',tip.hide);
-							
-							
-							
+
+				activeRect.attr(d);
+
+			}
+		}
+		function dragended() {
+			activeRect = null;
+		}
+
+		$(document)
+				.ready(
+						function() {
+
+							$("#tablaNotificacion")
+									.find(".fila")
+									.each(
+											function() {
+												var coord_x = $(this).find(
+														".coord_x").html();
+												var coord_y = $(this).find(
+														".coord_y").html();
+												var nombre = $(this).find(
+														".nombre").html();
+												$(this)
+														.find(".verLoc")
+														.click(
+																function() {
+
+																	var tip = d3
+																			.tip()
+																			.attr(
+																					'class',
+																					'd3-tip')
+																			.offset(
+																					[
+																							-10,
+																							0 ])
+																			.html(
+																					function() {
+																						return "<strong>Nombre: </strong><span>"
+																								+ nombre
+																								+ "</span>";
+																					})
+																	svg
+																			.call(tip);
+
+																	svg
+																			.append(
+																					"polygon")
+																			.attr(
+																					"class",
+																					"marker")
+																			.attr(
+																					"points",
+																					"0,0 -15,-25 15,-25")
+																			.attr(
+																					"transform",
+																					"translate("
+																							+ coord_x
+																							+ ","
+																							+ coord_y
+																							+ ")")
+																			.attr(
+																					"style",
+																					"fill:lime;stroke:black;stroke-width:1")
+																			.on(
+																					'mouseover',
+																					tip.show)
+																			.on(
+																					'mouseout',
+																					tip.hide);
+
+																});
+											})
+
 						});
-					})
-					
-					
-					
-				});
-				
-				
-				
-				
-			</script>
+	</script>
 
 </body>
 </html>

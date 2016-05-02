@@ -15,7 +15,8 @@ public class LocalizacionServiceImpl implements LocalizacionService {
 	static Logger log= Logger.getLogger("tfg");
 	
 	@Autowired
-	LocalizacionDAO localizacionDAO;
+	private LocalizacionDAO localizacionDAO;
+	
 	
 	@Override
 	@Transactional(value="miTransactionManager")
@@ -39,6 +40,21 @@ public class LocalizacionServiceImpl implements LocalizacionService {
 			log.error("Error al borrar la localizacion: "+miLocalizacion.toString());
 		}
 		
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public Localizacion buscarLocalizacionPorId(Long idLocalizacion) {
+		
+		Localizacion loc=null;
+		try{
+			loc=localizacionDAO.findById(idLocalizacion);
+			log.info("Buscando localizacion con id: "+idLocalizacion);
+		}catch(DataAccessException e){
+			log.error("Error al buscar localizacion con id: "+idLocalizacion);
+		}
+		
+		return loc;
 	}
 	
 

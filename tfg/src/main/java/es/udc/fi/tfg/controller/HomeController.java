@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.udc.fi.tfg.dtos.ActivoAlertaDto;
+import es.udc.fi.tfg.dtos.LectorDto;
 import es.udc.fi.tfg.model.File;
 import es.udc.fi.tfg.model.LocalizacionInteres;
 import es.udc.fi.tfg.services.ActivoService;
+import es.udc.fi.tfg.services.LectorService;
 import es.udc.fi.tfg.services.LocalizacionInteresService;
 import es.udc.fi.tfg.validator.FileValidator;
 
@@ -26,6 +28,8 @@ import es.udc.fi.tfg.validator.FileValidator;
 @Controller
 public class HomeController {
 	
+	@Autowired
+	private LectorService lectorService;
 	
 	@Autowired
 	private ActivoService activoService;
@@ -46,9 +50,11 @@ public class HomeController {
 		File file = new File();
 		List<ActivoAlertaDto> activos= activoService.getActivosAlerta();
 		List<LocalizacionInteres> locsInteres= locInteresService.buscarPorTipo("area");
+		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
 		model.addAttribute("alertas", activos);
 		model.addAttribute("file",file);
 		model.addAttribute("areas", locsInteres);
+		
 		
 		return "home2";
 	}
