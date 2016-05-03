@@ -172,6 +172,9 @@
 <s:url value="/resources/js/util.js" var="util" />
 <s:url value="/resources/js/main.js" var="main" />
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+<s:url value="/resources/js/areas.js" var="area" />
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="${area}"></script>
 <script src="${jqueryPop}"></script>
 <script src="${skel}"></script>
 <script src="${util}"></script>
@@ -180,6 +183,10 @@
 <script>
 				var localizaciones = [], locObject;
 				var paths = [], pathObject;
+				var areas=[],areaObject;
+				var lectores = [], lectorObject;
+				var dataLocs = [], dataLocObject;
+				
 				
 				<c:forEach var="loc" items="${localizaciones}">
 					locObject = { coord_x: "${loc.coord_x}",coord_y: "${loc.coord_y}" };
@@ -191,7 +198,39 @@
 					paths.push(pathObject);
 				</c:forEach>;
 				
-				var svg =d3.select("#svg1 g");
+				<c:forEach var="area" items="${areas}">
+				areaObject = {
+					tipo : "${area.tipo}",
+					coord_x : "${area.localizacion.coord_x}",
+					coord_y : "${area.localizacion.coord_y}",
+					height : "${area.height}",
+					width : "${area.width}"
+				}
+				areas.push(areaObject);
+				</c:forEach>;
+
+				<c:forEach var="lector" items="${lectores}">
+				lectorObject = {
+					tipo : "${lector.tipo}",
+					modelo : "${lector.modelo}",
+					coord_x : "${lector.coord_x}",
+					coord_y : "${lector.coord_y}"
+				}
+				lectores.push(lectorObject);
+				</c:forEach>;
+				
+				<c:forEach var="dataLoc" items="${localizaciones}">
+				dataLocObject = {
+					edificio : "${dataLoc.edificio}",
+					planta : "${dataLoc.planta}",
+					area : "${dataLoc.area}",
+					zona : "${dataLoc.zona}",
+					fecha : "${dataLoc.fecha}"
+				}
+				dataLocs.push(dataLocObject);
+				</c:forEach>;
+				
+				var svg =d3.select("#svg1");
 				
 				
 				$("#botonCoord").on("click",function(){
@@ -252,11 +291,26 @@
 				
 				for(i=0; i<paths.length; i++){
 					
+					var tip = d3
+					.tip()
+					.attr('class','d3-tip')
+					.offset([-10,0])
+					.html(function() {
+							return "<strong>Area: </strong><span>"+dataLocs[i].area+ "</span><br/>" +
+									"<strong>Edificio: </strong><span>"+dataLocs[i].edificio+ "</span><br/>"+
+									"<strong>Planta: </strong><span>"+dataLocs[i].planta+ "</span><br/>"+
+									"<strong>Zona: </strong><span>"+dataLocs[i].zona+ "</span><br/>"+
+									"<strong>Fecha: </strong><span>"+dataLocs[i].fecha+ "</span>";
+									});
+					svg.call(tip);
+					
 					var path = svg.append("path")
 					.attr("id","path"+i)
 					.data([{source: {x : paths[i].coord_x1, y : paths[i].coord_y1}, target: {x : paths[i].coord_x2, y : paths[i].coord_y2}}])
 					.attr("class","line")
-					.attr("d",lineData);
+					.attr("d",lineData)
+					.on('mouseover',tip.show)
+					.on('mouseout',tip.hide);;
 					
 					var arrow = svg.append("svg:path")
 					.attr("d", d3.svg.symbol().type("triangle-down")(10,1));

@@ -130,11 +130,14 @@ public class LectorSerciveImpl implements LectorService {
 			lectorDto.setTipo(lector.getTipo());
 			lectorDto.setModelo(lector.getModelo());
 			
-			lectLoc=lectLocService.buscarPorIdLector(lector.getIdLector());
-			Localizacion loc=localizacionService.buscarLocalizacionPorId(lectLoc.getLocalizacion().getIdLocalizacion());
+			//lectLoc=lectLocService.buscarPorIdLector(lector.getIdLector());
+			//Localizacion loc=localizacionService.buscarLocalizacionPorId(lectLoc.getLocalizacion().getIdLocalizacion());
 			
-			lectorDto.setCoord_x(loc.getCoord_x());
-			lectorDto.setCoord_y(loc.getCoord_y());
+//			lectorDto.setCoord_x(loc.getCoord_x());
+//			lectorDto.setCoord_y(loc.getCoord_y());
+			
+			lectorDto.setCoord_x(lector.getUbicacion().get(0).getLocalizacion().getCoord_x());
+			lectorDto.setCoord_y(lector.getUbicacion().get(0).getLocalizacion().getCoord_y());
 			
 			lectoresDto.add(lectorDto);
 		}

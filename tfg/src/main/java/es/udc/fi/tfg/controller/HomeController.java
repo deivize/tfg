@@ -51,6 +51,7 @@ public class HomeController {
 		List<ActivoAlertaDto> activos= activoService.getActivosAlerta();
 		List<LocalizacionInteres> locsInteres= locInteresService.buscarPorTipo("area");
 		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
+		model.addAttribute("lectores",lectoresDto);
 		model.addAttribute("alertas", activos);
 		model.addAttribute("file",file);
 		model.addAttribute("areas", locsInteres);

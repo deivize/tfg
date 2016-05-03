@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
+import es.udc.fi.tfg.dtos.LectorDto;
 import es.udc.fi.tfg.forms.ActivoForm;
 import es.udc.fi.tfg.forms.ConsultaActivoForm;
 import es.udc.fi.tfg.model.Activo;
@@ -26,6 +27,7 @@ import es.udc.fi.tfg.model.Etiqueta;
 import es.udc.fi.tfg.model.Localizacion;
 import es.udc.fi.tfg.services.ActivoService;
 import es.udc.fi.tfg.services.EtiquetaService;
+import es.udc.fi.tfg.services.LectorService;
 
 
 
@@ -39,6 +41,9 @@ public class ActivoController {
 	@Autowired
 	private EtiquetaService etiquetaService;
 	
+	@Autowired
+	private LectorService lectorService;
+	
 	
 	private String path="/resources/pdfs/";
 	
@@ -50,6 +55,8 @@ public class ActivoController {
 		
 		List<Activo> activos=activoService.buscarActivos();
 		List<ActivoLocalizacionDto> actLoc=activoService.getLocalizacionesActuales();
+		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
+		model.addAttribute("lectores", lectoresDto);
 		model.addAttribute("localizaciones",actLoc);
 		model.addAttribute("activos", activos);
 		
@@ -94,6 +101,7 @@ public class ActivoController {
 	@RequestMapping(value="/verRecorrido")
 	public String verRecorrido(Model model, Long id){
 		List<Localizacion> localizaciones_=activoService.getLocalizacines(id);
+		List<Localizacion> dataLoc = new ArrayList<Localizacion>();
 		Activo activo=activoService.buscarActivoPorId(id);
 		ArrayList<ArrayList<Double>> coordenadas= new ArrayList<ArrayList<Double>>();
 		int length = localizaciones_.size();
@@ -117,12 +125,17 @@ public class ActivoController {
 			cood.add(1,coord.get(i+1));
 			cood.add(2,coord.get(i+2));
 			cood.add(3,coord.get(i+3));
+			
+			
 			paths.add(cood);
 		}
 
 		
 		Localizacion locActual=activoService.getLocalizacionActual(id);
 		
+		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
+		
+		model.addAttribute("lectores", lectoresDto);
 		model.addAttribute("activo",activo);
 		model.addAttribute("locActualX", locActual.getCoord_x());
 		model.addAttribute("locActualY",locActual.getCoord_y());

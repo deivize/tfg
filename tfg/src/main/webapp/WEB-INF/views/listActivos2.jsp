@@ -149,14 +149,42 @@
 <s:url value="/resources/js/skel.min.js" var="skel" />
 <s:url value="/resources/js/util.js" var="util" />
 <s:url value="/resources/js/main.js" var="main" />
+<s:url value="/resources/js/areas.js" var="area" />
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src="${jqueryPop}"></script>
+<script src="${area}"></script>
 <script src="${skel}"></script>
 <script src="${util}"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="${main}"></script>
 <script>
 				var localizaciones = [], locObject;
+				var lectores=[],lectorObject;
+				var areas=[],areaObject;
+				
+				<c:forEach var="area" items="${areas}">
+				areaObject = {
+					tipo : "${area.tipo}",
+					coord_x : "${area.localizacion.coord_x}",
+					coord_y : "${area.localizacion.coord_y}",
+					height : "${area.height}",
+					width : "${area.width}"
+				}
+				areas.push(areaObject);
+				</c:forEach>
+				
+				
+				
+				<c:forEach var="lector" items="${lectores}">
+				lectorObject = {
+					tipo : "${lector.tipo}",
+					modelo : "${lector.modelo}",
+					coord_x : "${lector.coord_x}",
+					coord_y : "${lector.coord_y}"
+				}
+				lectores.push(lectorObject);
+				</c:forEach>
 				
 				<c:forEach var="loc" items="${localizaciones}">
 					locObject = { coord_x: "${loc.coord_x}",coord_y: "${loc.coord_y}" }
@@ -189,6 +217,10 @@
 					.attr("fill","blue");
 					
 				});
+				
+			
+				
+				
 				
 				$(document).ready(function(){
 					console.log(localizaciones[0].coord_x);

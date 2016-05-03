@@ -152,7 +152,7 @@
 								<td class="coord_x" style="display:none;">${alerta.coord_x}</td>
 								<td class="coord_y" style="display:none;">${alerta.coord_y}</td>
 								<td>${alerta.fechaCaducidad}</td>
-								<td><a class="verLoc" href="#">Ver en mapa</a></td>
+								<td><a class="verLoc" href="#" onClick="return false">Ver en mapa</a></td>
 							</tr>
 						</c:forEach>					
 					</tbody>
@@ -421,13 +421,11 @@
 			activeRect = null;
 		}
 
-		$(document)
-				.ready(
-						function() {
+		
+		$(document).ready(
+				function() {
 
-							$("#tablaNotificacion")
-									.find(".fila")
-									.each(
+					$("#tablaNotificacion").find(".fila").each(
 											function() {
 												var coord_x = $(this).find(
 														".coord_x").html();
