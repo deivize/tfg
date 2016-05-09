@@ -124,7 +124,10 @@ CREATE TABLE LocalizacionInteres ( idLocInteres BIGSERIAL NOT NULL,
 		REFERENCES Localizacion(idLocalizacion));
 
 
-
+-- -----------------Mapa--------------------------------------------
+CREATE TABLE Mapa (idMapa BIGSERIAL NOT NULL,
+	nombre VARCHAR(255),
+	CONSTRAINT MapaPK PRIMARY KEY (idMapa));
 
 
 

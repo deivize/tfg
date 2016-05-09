@@ -14,6 +14,7 @@
 <s:url value="/resources/css/bootstrap.min.css" var="bootstrapMin" />
 <s:url value="/resources/js/bootstrap.min.js" var="bootstrapJs" />
 <s:url value="/resources/images/RFID-Tag.jpg" var="rfidTag" />
+
 <s:url value="/resources/css/map.jsp" var="mapaJsp" />
 <s:url value="/resources/js/jquery.min.js" var="jquery" />
 <s:url value="/resources/js/tipsy.js" var="tipsy" />
@@ -70,15 +71,15 @@
 								<li><a href="<s:url value="#"/>">Buscar localizaciones</a></li>
 								<li><a href="<s:url value="/localizaciones/areas"/>">Definir áreas de interés</a></li>
 							</ul></li>
-						<div class="form-group" id="mapa">
-							<sf:form method="POST" commandName="file"
-								enctype="multipart/form-data"> 
-									        Seleccione un archivo:
-									        <input type="file" class="form-control" name="file" />
-								<input type="submit" class="button special small" value="Cargar" />
-								<sf:errors path="file" cssStyle="color: #ff0000;" />
-							</sf:form>
-						</div>
+<!-- 						<div class="form-group" id="mapa"> -->
+<%-- 							<sf:form method="POST" commandName="file" --%>
+<%-- 								enctype="multipart/form-data">  --%>
+<!-- 									        Seleccione un archivo: -->
+<!-- 									        <input type="file" class="form-control" name="file" /> -->
+<!-- 								<input type="submit" class="button special small" value="Cargar" /> -->
+<%-- 								<sf:errors path="file" cssStyle="color: #ff0000;" /> --%>
+<%-- 							</sf:form> --%>
+<!-- 						</div> -->
 					</ul>
 				</div>
 			</div>
@@ -89,20 +90,33 @@
 	<!-- Main -->
 	<div id="main">
 
-		<!-- One -->
-		<section id="one">
+		<section>
 			<header class="major">
 				<h2>
 					Ipsum lorem dolor aliquam ante commodo<br /> magna sed accumsan
 					arcu neque.
 				</h2>
 			</header>
-			<p>Accumsan orci faucibus id eu lorem semper. Eu ac iaculis ac
-				nunc nisi lorem vulputate lorem neque cubilia ac in adipiscing in
-				curae lobortis tortor primis integer massa adipiscing id nisi
-				accumsan pellentesque commodo blandit enim arcu non at amet id arcu
-				magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem
-				vulputate lorem neque cubilia.</p>
+			<h2>Mapas</h2>
+			<div class="row">
+				<c:forEach var="mapa" items="${mapas}">
+					<s:url value="/resources/svgs/${mapa}" var="map"/>
+					<article class="6u 12u$(xsmall) work-item">
+						<a href="#" class="image fit"><img
+							src="${map}" alt="" /></a>
+						<h3>Magna sed consequat tempus</h3>
+						<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
+						<sf:form id="${mapa}Form" modelAttribute="mapaForm" method="POST" style="display:none;">
+							<sf:input class="nombreMapa" path="nombre"/>
+						</sf:form>
+						<a id="" mapa="${mapa}" href="#" class="button special small botonMapa">Seleccionar</a>
+					</article>
+				</c:forEach>
+			</div>
+		</section>
+
+		<!-- One -->
+		<section id="one">
 			<sf:form>
 				<div class="row uniform 50%">
 					<div class="12u$">
@@ -126,7 +140,7 @@
 			</sf:form>
 			<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
 				viewBox="0 0 800 1000">
-							<jsp:include page="map.jsp"></jsp:include>
+							<jsp:include page="maps/${mapaActivo}.jsp"></jsp:include>
 						</svg>
 		</section>
 		<section>
@@ -484,8 +498,25 @@
 
 																});
 											})
+											
 
 						});
+		
+		
+		
+		$(".botonMapa").each(function(){
+			var nombre=$(this).attr("mapa");
+			var form=document.getElementById(nombre+"Form");
+			nombre=nombre.replace(".svg","");
+			$(form).find("input").first().val(nombre);
+			
+			$(this).click(function(){
+				$(form).submit();
+			})
+		});
+		
+		
+		
 	</script>
 
 </body>

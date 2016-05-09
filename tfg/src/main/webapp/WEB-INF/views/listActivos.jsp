@@ -106,7 +106,7 @@ body{
 	<legend>Localizaciones actuales</legend>
 		<div id="mapa" class="mapa">
  				
-					<jsp:include page="map.jsp"></jsp:include>
+					<jsp:include page="maps/map.jsp"></jsp:include>
 					<c:forEach var="loc" items="${localizaciones}" varStatus="status">
 						<circle cx="${loc.coord_x}" cy="${loc.coord_y}" r="30"
  						stroke="black" stroke-width="3" fill="none" />

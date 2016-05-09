@@ -72,7 +72,7 @@
 			
 			<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
 				viewBox="0 0 800 1000">
-							<jsp:include page="map.jsp"></jsp:include>
+							<jsp:include page="maps/map.jsp"></jsp:include>
 						</svg>
 		</section>
 		
