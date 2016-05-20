@@ -2,13 +2,12 @@ package es.udc.fi.tfg.daos;
 
 import java.util.List;
 
-
-
-import org.hibernate.SessionFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 
 import es.udc.fi.tfg.model.Localizacion;
 
@@ -71,6 +70,69 @@ public class LocalizacionDAOHibImpl implements LocalizacionDAO {
 
 		miSessionFactory.getCurrentSession().delete(edificio);
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Localizacion> findByFiltro(String edificio, Long planta,
+			String area, String zona) {
+		
+		List<Localizacion> localizaciones=null;
+		
+		Criteria cri=miSessionFactory.getCurrentSession().createCriteria(Localizacion.class);
+		
+		if(edificio!=null){
+			cri.add(Restrictions.eq("edificio",edificio));
+		}
+		
+		if(planta!=null){
+			cri.add(Restrictions.eq("planta",planta));
+		}
+		
+		if(area!=null){
+			cri.add(Restrictions.eq("area",area));
+		}
+		
+		if(zona!=null){
+			cri.add(Restrictions.eq("zona",zona));
+		}
+		
+		localizaciones=cri.list();
+		
+//		int nullCount=0;
+//		if(edificio==null){
+//			nullCount++;
+//		}
+//		if(planta==null){
+//			nullCount++;
+//		}
+//		if(area==null){
+//			nullCount++;
+//		}
+//		if(zona==null){
+//			nullCount++;
+//		}
+//		
+//		
+//		String qu="FROM Localizacion";
+//		
+//		String edQuery="edificio=:edificio";
+//		String plQuery="planta=:planta";
+//		String arQuery="area=:area";
+//		String zoQuery="zona=:zona";
+//		
+//		if(edificio==null && planta ==null && area==null && zona==null){
+//			Query query=miSessionFactory.getCurrentSession().createQuery(qu);
+//		}else if(nullCount>1){
+//			
+//			qu=qu+" WHERE ";
+//			
+//			if(edificio!=null){
+//				qu=qu+"";
+//			}
+//		}
+//		
+		return localizaciones;
 	}
 	
 	

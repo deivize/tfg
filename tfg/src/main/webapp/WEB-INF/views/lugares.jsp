@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="${homeCss}" />
 <%-- 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> --%>
 <script src="${bootstrapJs}" type="text/javascript"></script>
+<%-- <script src="https://use.fontawesome.com/350ec7c656.js"></script> --%>
 </head>
 <body id="top">
 
@@ -77,21 +78,25 @@
 		</section>
 		
 		<div class="oculto">
-		<sf:form id="loc_interes_form" method="POST" modelAttribute="locInteresForm">
-			<sf:input id="width" path="width" value=""></sf:input>
-			<sf:input id="height" path="height" value=""></sf:input>
-			<sf:input id="coord_x" path="coord_x" value=""></sf:input>
-			<sf:input id="coor_y" path="coord_y" value=""></sf:input>
-			<sf:select id="tipo" path="tipo">
-				<option value="area" selected>Area</option>
-			</sf:select>
+		<sf:form id="lugar_interes_form" method="POST" modelAttribute="lugaresForm">
+			<sf:input id="escalera_x" path="escalera_coord_x" value=""></sf:input>
+			<sf:input id="escalera_y" path="escalera_coord_y" value=""></sf:input>
+			<sf:input id="ascensor_x" path="ascensor_coord_x" value=""></sf:input>
+			<sf:input id="ascensor_y" path="ascensor_coord_y" value=""></sf:input>
+			<sf:input id="bano_x" path="bano_coord_x" value=""></sf:input>
+			<sf:input id="bano_y" path="bano_coord_y" value=""></sf:input>
+			<sf:input id="despacho_x" path="despacho_coord_x" value=""></sf:input>
+			<sf:input id="despacho_y" path="despacho_coord_y" value=""></sf:input>
 		</sf:form>
 		</div>
 		<div style="margin-top:10px">
-			<a href="#" class="button special" onClick="fillForm()">Guardar</a>
+			<a href="#" onClick="return false" class="button special escaleraButton" >Nueva escalera</a>
+			<a href="#" onClick="return false" class="button special ascensorButton" >Nuevo ascensor</a>
+			<a href="#" onClick="return false" class="button special despachoButton" >Nuevo despacho</a>
+			<a href="#" onClick="return false" class="button special banoButton" >Nuevo baño</a>
 		</div>
 		<div style="margin-top:10px">
-			<a href="#" class="button special lugar" >Nueva</a>
+			<a href="#" class="button special" onClick="fillForm()">Guardar</a>
 		</div>
 	</div>
 
@@ -150,7 +155,6 @@
 				lectores.push(lectorObject);
 				</c:forEach>
 				
-				
 				<c:forEach var="escalera" items="${escaleras}">
 				escaleraObject = {
 					coord_x : "${escalera.width}",
@@ -184,106 +188,176 @@
 				</c:forEach>
 				
 				
-				
-
-				var renderPath = d3.svg.line()
-				    .x(function(d) { return d[0]; })
-				    .y(function(d) { return d[1]; })
-				    .interpolate("basis");
-
-				
-				    svg.call(d3.behavior.drag()
-				      .on("dragstart", dragstarted)
-				      .on("drag", dragged)
-				      .on("dragend", dragended));
-
-				function dragstarted() {
-				  var p = d3.mouse( this);
-				  activeRect = svg.insert("rect",":first-child")
-				    .attr({
-				        rx      : 6,
-				        ry      : 6,
-				        class   : "selection new",
-				        x       : p[0],
-				        y       : p[1],
-				        width   : 0,
-				        height  : 0
-				    })
-				}
-
-				function dragged() {
-
-				    if( !activeRect.empty()) {
-				        var p = d3.mouse( this),
-
-				            d = {
-				                x       : parseInt( activeRect.attr( "x"), 10),
-				                y       : parseInt( activeRect.attr( "y"), 10),
-				                width   : parseInt( activeRect.attr( "width"), 10),
-				                height  : parseInt( activeRect.attr( "height"), 10)
-				            },
-				            move = {
-				                x : p[0] - d.x,
-				                y : p[1] - d.y
-				            }
-				        ;
-
-				        if( move.x < 1 || (move.x*2<d.width)) {
-				            d.x = p[0];
-				            d.width -= move.x;
-				        } else {
-				            d.width = move.x;       
-				        }
-
-				        if( move.y < 1 || (move.y*2<d.height)) {
-				            d.y = p[1];
-				            d.height -= move.y;
-				        } else {
-				            d.height = move.y;       
-				        }
-				       
-				        activeRect.attr(d);
-				  
-				}
-				}
-				function dragended() {
-				  activeRect = null;
-				}
-				
 				function fillForm(){
-					var rects=d3.selectAll(".new");
-					var form= $("#loc_interes_form");
-					var width = $("#width");
-					var height = $("#height");
-					var coord_x = $("#coord_x");
-					var coord_y = $("#coor_y");
-					var tipo = $("#tipo");
+					var lugares=$(".lugar");
+					var form= $("#lugar_interes_form");
+					var escalera_x = $("#escalera_x");
+					var escalera_y = $("#escalera_y");
+					var ascensor_x = $("#ascensor_x");
+					var ascensor_y = $("#ascensor_y");
+					var bano_x = $("#bano_x");
+					var bano_y = $("#bano_y");
+					var despacho_x = $("#despacho_x");
+					var despacho_y = $("#despacho_y");
 					
-					tipo.val("area");
-					width.val('');
-					height.val('');
-					coord_x.val('');
-					coord_y.val('');
+					escalera_x.val('');
+					escalera_y.val('');
+					ascensor_x.val('');
+					ascensor_y.val('');
+					bano_x.val('');
+					bano_y.val('');
+					despacho_x.val('');
+					despacho_y.val('');
 					
-					for(i=0;i<rects[0].length;i++){
-						width.val(width.val()+"-"+rects[0][i].width.animVal.value);
-						height.val(height.val()+"-"+rects[0][i].height.animVal.value);
-						coord_x.val(coord_x.val()+"-"+rects[0][i].x.animVal.value);
-						coord_y.val(coord_y.val()+"-"+rects[0][i].y.animVal.value);
+					for(i=0;i<lugares.length;i++){
+						if($(lugares[i]).attr("tipo")=="escalera"){
+							escalera_x.val(escalera_x.val()+"-"+$(lugares[i]).attr("x"));
+							escalera_y.val(escalera_y.val()+"-"+$(lugares[i]).attr("y"));
+						}
+						if($(lugares[i]).attr("tipo")=="ascensor"){
+							ascensor_x.val(ascensor_x.val()+"-"+$(lugares[i]).attr("x"));
+							ascensor_y.val(ascensor_y.val()+"-"+$(lugares[i]).attr("y"));
+						}
+						if($(lugares[i]).attr("tipo")=="bano"){
+							bano_x.val(bano_x.val()+"-"+$(lugares[i]).attr("x"));
+							bano_y.val(bano_y.val()+"-"+$(lugares[i]).attr("y"));
+						}
+						if($(lugares[i]).attr("tipo")=="despacho"){
+							despacho_x.val(despacho_x.val()+"-"+$(lugares[i]).attr("x"));
+							despacho_y.val(despacho_y.val()+"-"+$(lugares[i]).attr("y"));
+						}
 					}
 					
 					form.submit();
 				}
 				
 				
-				$(".lugar").on("click",function(){
+				
+				$(".escaleraButton").on("click",function(){
 					
-					var path1 = svg.append("path").attr("d","m 66.973475,36.215342 -7.083631,0 c -0.508397,0 -0.486248,0.662958 -0.486248,0.662958 l 0.01002,6.674836 c 0,0 0.02147,0.662485 -0.486593,0.662485 l -4.89881,0.01572 c -0.508742,0 -0.486593,0.662957 -0.486593,0.662957 l 0.01027,6.645602 c 0,0 0.02147,0.662955 -0.486592,0.662955 l -4.942414,0.01505 c -0.508397,0 -0.486595,0.662486 -0.486595,0.662486 l 0.01077,6.645602 c 0,0 0.02147,0.662959 -0.486593,0.662959 l -4.899156,0.0146 c -0.508396,0 -0.486247,0.662957 -0.486247,0.662957 l 0.01027,6.645602 c 0,0 0.0173,0.629953 -0.456829,0.658244 l -4.777333,0 c -0.0093,0 -0.01632,0.0043 -0.02492,0.0051 -0.03113,0.0014 -0.05537,0.0094 -0.08238,0.0146 l -0.04429,0 0.01316,0.0057 c -0.342277,0.08815 -0.331892,0.47859 -0.331892,0.47859 l 0,1.789419 c 0,0.694549 0.471365,0.664373 0.471365,0.664373 l 6.862136,0 c 0.0093,0 0.01632,-0.0043 0.02492,-0.0052 0.0063,-4.71e-4 0.01027,-0.0023 0.01632,-0.0029 l 0.0059,0.0023 c 0.508397,0 0.486594,-0.662956 0.486594,-0.662956 l 0.0063,-6.659275 c 0,0 -0.02147,-0.662488 0.486594,-0.662488 l 4.88185,-0.0014 c 0.508739,0 0.486591,-0.662487 0.486591,-0.662487 l 0.0066,-6.659748 c 0,0 -0.02147,-0.662014 0.486245,-0.662014 l 4.925803,-9.25e-4 c 0.508398,0 0.486593,-0.662958 0.486593,-0.662958 l -0.01573,-6.659477 c 0,0 -0.02147,-0.662485 0.486248,-0.662485 l 4.904,-9.27e-4 c 0.508743,0 0.486594,-0.662957 0.486594,-0.662957 l -0.01553,-6.689423 c 0,0 -0.02144,-0.662484 0.486595,-0.662484 l 4.925456,0.0126 c 0.508744,0 0.486941,-0.500756 0.486941,-0.500756 l 0,-1.782343 c 6.62e-4,-0.693605 -0.485902,-0.664373 -0.485902,-0.664373 z")
-								.attr("transform","translate(359.7316589355469,416.134521484375)")
-								.attr("class","stair")
-								.attr("tipo","stair")
-								.attr("coord_x","359.7316589355469")
-								.attr("coord_y","416.134521484375");
+					var w = svg.node().getBBox().width;
+					var h = svg.node().getBBox().height;
+					var width = 28.9, height = 32.17;
+					
+					var drag = d3.behavior.drag().origin(Object).on(
+							"drag", dragmove);
+					
+					
+					var escalera= svg.append("text")
+									.attr("x","359.7316589355469")
+									.attr("y","416.134521484375")
+									.attr("font-family","FontAwesome")
+									.attr("font-size","20px")
+									.attr("tipo","escalera")
+									.attr("class","lugar")
+									.text(function(d){return "\uf0dc"})
+									.attr("cursor","move")
+									.call(drag);
+					
+					function dragmove() {
+ 						var x= Math.max(0, Math.min(w- width, d3.mouse(this)[0]));
+ 						var y= Math.max(0, Math.min(h- height, d3.mouse(this)[1]));
+						
+						escalera.attr("x", x);
+						escalera.attr("y", y);
+
+					}
+					
+					
+				});
+				
+				$(".ascensorButton").on("click",function(){
+					
+					var w = svg.node().getBBox().width;
+					var h = svg.node().getBBox().height;
+					var width = 30.68, height = 29.09;
+					
+					var drag = d3.behavior.drag().origin(Object).on(
+							"drag", dragmove);
+					
+					var ascensor= svg.append("text")
+									.attr("x","359.7316589355469")
+									.attr("y","416.134521484375")
+									.attr("font-family","FontAwesome")
+									.attr("font-size","20px")
+									.attr("tipo","ascensor")
+									.attr("class","lugar")
+									.text(function(d){return "\uf151"})
+									.attr("cursor","move")
+									.call(drag);
+					
+					function dragmove() {
+ 						var x= Math.max(0, Math.min(w- width, d3.mouse(this)[0]));
+ 						var y= Math.max(0, Math.min(h- height, d3.mouse(this)[1]));
+										
+						ascensor.attr("x", x);
+						ascensor.attr("y", y);
+
+					}
+					
+					
+				});
+				
+				$(".despachoButton").on("click",function(){
+					
+					var w = svg.node().getBBox().width;
+					var h = svg.node().getBBox().height;
+					var width = 30.68, height = 29.09;
+					
+					var drag = d3.behavior.drag().origin(Object).on(
+							"drag", dragmove);
+					
+					var despacho= svg.append("text")
+									.attr("x","359.7316589355469")
+									.attr("y","416.134521484375")
+									.attr("font-family","FontAwesome")
+									.attr("font-size","20px")
+									.attr("tipo","despacho")
+									.attr("class","lugar")
+									.text(function(d){return "\uf108"})
+									.attr("cursor","move")
+									.call(drag);
+					
+					function dragmove() {
+ 						var x= Math.max(0, Math.min(w- width, d3.mouse(this)[0]));
+ 						var y= Math.max(0, Math.min(h- height, d3.mouse(this)[1]));
+										
+						despacho.attr("x", x);
+						despacho.attr("y", y);
+
+					}
+					
+					
+				});
+				
+				$(".banoButton").on("click",function(){
+					
+					var w = svg.node().getBBox().width;
+					var h = svg.node().getBBox().height;
+					var width = 30.68, height = 29.09;
+					
+					var drag = d3.behavior.drag().origin(Object).on(
+							"drag", dragmove);
+					
+					var bano= svg.append("text")
+									.attr("x","359.7316589355469")
+									.attr("y","416.134521484375")
+									.attr("font-family","FontAwesome")
+									.attr("font-size","20px")
+									.attr("tipo","bano")
+									.attr("class","lugar")
+									.text(function(d){return "\uf182"})
+									.attr("cursor","move")
+									.call(drag);
+					
+					function dragmove() {
+ 						var x= Math.max(0, Math.min(w- width, d3.mouse(this)[0]));
+ 						var y= Math.max(0, Math.min(h- height, d3.mouse(this)[1]));
+										
+						bano.attr("x", x);
+						bano.attr("y", y);
+
+					}
 					
 					
 				});

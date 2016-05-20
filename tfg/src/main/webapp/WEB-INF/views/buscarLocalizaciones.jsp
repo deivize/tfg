@@ -6,7 +6,7 @@
 
 <html>
 <head>
-<title>Nuevo lector</title>
+<title>Buscar localizaciones</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -46,6 +46,15 @@
 			<div class="navbar-collapse collapse sidebar-navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="<s:url value="/home"/>">HOME</a></li>
+					<li>
+						<c:url var="descargar" value="descarga">
+							<c:param name="edificio" value="${localizacionForm.edificio}"/>
+							<c:param name="planta" value="${localizacionForm.planta}"/>
+							<c:param name="area" value="${localizacionForm.area}"/>
+							<c:param name="zona" value="${localizacionForm.zona}"/>
+						</c:url>
+						<a href="<c:out value="${descargar}"/>">Descargar informe</a>
+					</li>
 					<li><a href="<s:url value="/home"/>">Volver</a></li>
 				</ul>
 			</div>
@@ -71,40 +80,66 @@
 			accumsan pellentesque commodo blandit enim arcu non at amet id arcu
 			magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem
 			vulputate lorem neque cubilia.</p>
-		<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
-			viewBox="0 0 800 1000">
-							<jsp:include page="maps/map.jsp"></jsp:include>
-		</svg>
 		
-		<div style="margin-top:5px">
-		<ul class="actions">
-			<li><a href="#" id="nuevoLector" class="button special" onClick="return false">Nuevo lector</a></li>
-		</ul>
-		</div>
-		
-		<div>
-		<sf:form id="nuevo_lector_form" method="POST" modelAttribute="lectorForm">
-			<div class="oculto">
-			<sf:input id="coord_x" path="coord_x" value=""></sf:input>
-			<sf:input id="coord_y" path="coord_y" value=""></sf:input>
-			</div>
-			<sf:input id="modelo" path="modelo" value="" placeholder="Modelo"></sf:input>
-			<sf:input id="tipo" path="tipo" value="" placeholder="Tipo"></sf:input>
-			<sf:input id="edificio" path="edificio" value="" placeholder="Edificio"></sf:input>
-			<sf:input id="area" path="area" value="" placeholder="Area"></sf:input>
-			<sf:input id="zona" path="zona" value="" placeholder="Zona"></sf:input>
-			<sf:input type="number" id="planta" path="planta" value="" placeholder="Planta"></sf:input>
-		</sf:form>
-		</div>
-		<div style="margin-top:10px">
-			<a href="#" class="button special" onClick="fillForm()">Guardar</a>
-		</div>
-		
-		
+		<sf:form id="buscar_localizaciones_form" method="POST" modelAttribute="localizacionForm"
+				class="form-lector">
+				<div class="row uniform 50%">
+					<div class="12u$">
+						<sf:input type="text" path="edificio" name="edificio_loc"
+							id="edificio_loc" value="" placeholder="Edificio" />
+					</div>
+					<div class="12u$">
+						<sf:input type="text" path="area" name="area_loc"
+							id="area_loc" value="" placeholder="Area" />
+					</div>
+					<div class="12u$">
+						<sf:input type="text" path="zona" name="zona_loc"
+							id="zona_loc" value="" placeholder="Zona" />
+					</div>
+					<div class="12u$">
+						<sf:input type="number" path="planta" name="planta_loc"
+							id="planta_loc" value="" />
+					</div>
+					<div class="12u$">
+						<ul class="actions">
+							<li><input id="localizacion_button" type="submit"
+								value="Buscar localizaciones" class="special" /></li>
+						</ul>
+					</div>
+				</div>
+			</sf:form>	
 	</section>
 	<section>
-		
-		
+		<div class="table-wrapper">
+			<table class="alt">
+
+				<thead>
+					<tr>
+						<th>Id localizacion</th>
+						<th>Edificio</th>
+						<th>Planta</th>
+						<th>Area</th>
+						<th>Zona</th>
+						<th>Fecha</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<c:forEach var="localizacion" items="${localizaciones}" varStatus="status">
+
+						<tr>
+							<td>${localizacion.idLocalizacion}</td>
+							<td>${localizacion.edificio}</td>
+							<td>${localizacion.planta}</td>
+							<td>${localizacion.area}</td>
+							<td>${localizacion.zona}</td>
+							<td>${localizacion.fecha}</td>
+						</tr>
+
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</section>
 </div>
 
@@ -126,103 +161,21 @@
 <s:url value="/resources/js/skel.min.js" var="skel" />
 <s:url value="/resources/js/util.js" var="util" />
 <s:url value="/resources/js/main.js" var="main" />
-<s:url value="/resources/js/areas.js" var="area" />
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src="${jqueryPop}"></script>
-<script src="${area}"></script>
 <script src="${skel}"></script>
 <script src="${util}"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="${main}"></script>
 <script>
-		
 	var lectores=[],lectorObject;
-	var areas=[],areaObject;
-	
-	<c:forEach var="area" items="${areas}">
-	areaObject = {
-		tipo : "${area.tipo}",
-		coord_x : "${area.localizacion.coord_x}",
-		coord_y : "${area.localizacion.coord_y}",
-		height : "${area.height}",
-		width : "${area.width}"
-	}
-	areas.push(areaObject);
-	</c:forEach>
-	
 	
 	
 	<c:forEach var="lector" items="${lectores}">
-	lectorObject = {
-		tipo : "${lector.tipo}",
-		modelo : "${lector.modelo}",
-		coord_x : "${lector.coord_x}",
-		coord_y : "${lector.coord_y}"
-	}
+	lectorObject = {id:"${lector.idLector}",tipo:"${lector.tipo}",modelo:"${lector.modelo}"};
 	lectores.push(lectorObject);
 	</c:forEach>
-	
-	
-	
-
-	var svg = d3.select("#svg1");
-
-	function fillForm() {
-		var rects = d3.selectAll(".newLect");
-		var form = $("#nuevo_lector_form");
-		var coord_x = $("#coord_x");
-		var coord_y = $("#coord_y");
-		// 		var tipo = $("#tipo");
-		// 		var modelo = $("#modelo");
-		// 		var edificio = $("#edificio");
-		// 		var planta = $("#planta");
-		// 		var area = $("#area");
-		// 		var zona = $("#zona");
-
-		coord_x.val('');
-		coord_y.val('');
-
-		for (i = 0; i < rects[0].length; i++) {
-			coord_x.val(coord_x.val() + "-" + rects[0][i].x.animVal.value);
-			coord_y.val(coord_y.val() + "-" + rects[0][i].y.animVal.value);
-		}
-
-		form.submit();
-	}
-
-	$(document).ready(
-			function() {
-				$("#nuevoLector").click(
-						function crearLector() {
-
-							var w = svg.node().getBBox().width;
-							var h = svg.node().getBBox().height;
-							var width = 14.932404, height = 10.009442;
-
-							var drag = d3.behavior.drag().origin(Object).on(
-									"drag", dragmove);
-
-							var dragrect = svg.append("rect").attr("width",
-									width).attr("height", height).attr("x",
-									"327.1229553222656").attr("y",
-									"483.6956481933594").attr("stroke",
-									"#000000").attr("stroke-width",
-									"0.84172118").attr("stroke-opacity", "1")
-									.attr("fill", "#36e30e").attr("class",
-											"newLect ").attr("cursor", "move")
-									.call(drag);
-
-							function dragmove() {
-								dragrect.attr("x", Math.max(0, Math.min(w
-										- width, d3.mouse(this)[0])))
-
-								dragrect.attr("y", Math.max(0, Math.min(h
-										- height, d3.mouse(this)[1])));
-
-							}
-						});
-			});
+				
 </script>
 </body>
 </html>

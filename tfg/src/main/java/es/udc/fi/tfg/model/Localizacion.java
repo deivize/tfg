@@ -133,7 +133,7 @@ public class Localizacion {
 	}
 	
 	
-	@OneToMany(mappedBy="pkAL.localizacion",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="pkAL.localizacion",fetch=FetchType.LAZY)
 	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
 	public List<ActivoLocalizacion> getActivos() {
 		return activos;
@@ -143,7 +143,7 @@ public class Localizacion {
 		this.activos = activos;
 	}
 	
-	@OneToMany(mappedBy="pkLL.localizacion",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="pkLL.localizacion",fetch=FetchType.LAZY)
 	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE})
 	public List<LectorLocalizacion> getLectores() {
 		return lectores;

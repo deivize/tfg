@@ -68,8 +68,9 @@
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Localizaciones<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="<s:url value="#"/>">Buscar localizaciones</a></li>
+								<li><a href="<s:url value="/localizaciones/buscarlocalizaciones"/>">Buscar localizaciones</a></li>
 								<li><a href="<s:url value="/localizaciones/areas"/>">Definir áreas de interés</a></li>
+								<li><a href="<s:url value="/localizaciones/lugares"/>">Definir lugares de interés</a></li>
 							</ul></li>
 <!-- 						<div class="form-group" id="mapa"> -->
 <%-- 							<sf:form method="POST" commandName="file" --%>
@@ -504,6 +505,7 @@
 		
 		
 		
+		//función que envía el mapa seleccionado al controlador
 		$(".botonMapa").each(function(){
 			var nombre=$(this).attr("mapa");
 			var form=document.getElementById(nombre+"Form");

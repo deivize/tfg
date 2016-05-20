@@ -11,5 +11,4 @@ public interface LocalizacionInteresService {
 	void borrarLocInteres (LocalizacionInteres locInteres);
 	List<LocalizacionInteres> buscarLocsInteres();
 	List<LocalizacionInteres> buscarPorTipo(String tipo);
-
 }

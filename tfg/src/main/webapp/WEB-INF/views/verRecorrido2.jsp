@@ -27,7 +27,7 @@
 <style type="text/css">
 .line {
 	stroke: blue;
-	stroke-width: 2px;
+	stroke-width: 3px;
 	fill: white;
 }
 </style>
@@ -127,7 +127,7 @@
 						<th>Area</th>
 						<th>Zona</th>
 						<th>Fecha</th>
-						<th>Ver</th>
+<!-- 						<th>Ver</th> -->
 					</tr>
 				</thead>
 
@@ -142,8 +142,8 @@
 							<td>${localizacion.area}</td>
 							<td>${localizacion.zona}</td>
 							<td>${localizacion.fecha}</td>
-							<td><a onClick="markPath(${j});"
-								style="cursor: pointer; cursor: hand;">Ver tramo</a></td>
+<%-- 							<td><a onClick="markPath(${j});" --%>
+<!-- 								style="cursor: pointer; cursor: hand;">Ver tramo</a></td> -->
 						</tr>
 						<c:set var="j" value="${j+1}" />
 					</c:forEach>
@@ -233,19 +233,6 @@
 				var svg =d3.select("#svg1");
 				
 				
-				$("#botonCoord").on("click",function(){
-					console.log($("#coordenadaX").val());
-					
-					var text = svg.append("text")
-					.attr("x",$("#coordenadaX").val())
-					.attr("y",$("#coordenadaY").val())
-					.attr("font-family","sans-serif")
-					.text($("#nombreLocalizacion").val())
-					.attr("font-size","20px")
-					.attr("fill","blue");
-					
-				});
-				
 				
 				svg.append("svg:defs")
 				.append("svg:marker")
@@ -310,7 +297,7 @@
 					.attr("class","line")
 					.attr("d",lineData)
 					.on('mouseover',tip.show)
-					.on('mouseout',tip.hide);;
+					.on('mouseout',tip.hide);
 					
 					var arrow = svg.append("svg:path")
 					.attr("d", d3.svg.symbol().type("triangle-down")(10,1));

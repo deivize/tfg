@@ -30,7 +30,7 @@ function dibujarLectores(){
 		var tip = d3
 		.tip()
 		.attr('class','d3-tip')
-		.offset([-10,0])
+		.offset([0,0])
 		.html(function() {
 				return "<strong>Tipo: </strong><span>"+lectores[i].tipo+ "</span><br/>" +
 						"<strong>Modelo: </strong><span>"+lectores[i].modelo+ "</span>";
@@ -56,7 +56,100 @@ function dibujarLectores(){
 	
 }
 
+function dibujarLugares(){
+	
+	for(i=0;i<escaleras.length;i++){
+		var tip = d3
+		.tip()
+		.attr('class','d3-tip')
+		.offset([0,0])
+		.html(function() {
+				return "<strong><span>Escalera</span></strong>"});
+		svg.call(tip);
+		
+		var escalera= svg.append("text")
+						.attr("x",escaleras[i].coord_x)
+						.attr("y",escaleras[i].coord_y)
+						.attr("font-family","FontAwesome")
+						.attr("font-size","20px")
+						.attr("tipo","escalera")
+						.text(function(d){return "\uf0dc"})
+						.attr("cursor","pointer")
+						.on('mouseover',tip.show)
+						.on('mouseout',tip.hide);
+		
+	}
+	
+	for(i=0;i<ascensores.length;i++){
+		var tip = d3
+		.tip()
+		.attr('class','d3-tip')
+		.offset([0,0])
+		.html(function() {
+				return "<strong><span>Ascensor</span></strong>"});
+		svg.call(tip);
+		
+		var ascensor= svg.append("text")
+						.attr("x",ascensores[i].coord_x)
+						.attr("y",ascensores[i].coord_y)
+						.attr("font-family","FontAwesome")
+						.attr("font-size","20px")
+						.attr("tipo","ascensor")
+						.attr("cursor","pointer")
+						.text(function(d){return "\uf151"})
+						.on('mouseover',tip.show)
+						.on('mouseout',tip.hide);
+		
+	}
+	
+	for(i=0;i<banos.length;i++){
+		var tip = d3
+		.tip()
+		.attr('class','d3-tip')
+		.offset([0,0])
+		.html(function() {
+				return "<strong><span>Baño</span></strong>"});
+		svg.call(tip);
+		
+		var bano= svg.append("text")
+						.attr("x",banos[i].coord_x)
+						.attr("y",banos[i].coord_y)
+						.attr("font-family","FontAwesome")
+						.attr("font-size","20px")
+						.attr("tipo","bano")
+						.attr("cursor","pointer")
+						.text(function(d){return "\uf182"})
+						.on('mouseover',tip.show)
+						.on('mouseout',tip.hide);
+		
+	}
+	
+	for(i=0;i<despachos.length;i++){
+		var tip = d3
+		.tip()
+		.attr('class','d3-tip')
+		.offset([0,0])
+		.html(function() {
+				return "<strong><span>Despacho</span></strong>"});
+		svg.call(tip);
+		
+		var despacho= svg.append("text")
+						.attr("x",despachos[i].coord_x)
+						.attr("y",despachos[i].coord_y)
+						.attr("font-family","FontAwesome")
+						.attr("font-size","20px")
+						.attr("tipo","despacho")
+						.attr("cursor","pointer")
+						.text(function(d){return "\uf108"})
+						.on('mouseover',tip.show)
+						.on('mouseout',tip.hide);
+		
+	}
+	
+}
+
 $(document).ready(function(){
 	dibujarLectores();
 	dibujarAreas();
+	dibujarLugares();
 });

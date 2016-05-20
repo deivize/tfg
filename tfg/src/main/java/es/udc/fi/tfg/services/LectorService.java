@@ -14,5 +14,6 @@ public interface LectorService {
 	Lector buscarLectorPorId(Long id);
 	List<Lector> buscarLectoresConsulta(String tipo, String modelo);
 	List<LectorDto> lectorToLectorDto();
+	String crearPdf(String tipo, String modelo);
 
 }
