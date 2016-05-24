@@ -278,26 +278,43 @@
 				
 				for(i=0; i<paths.length; i++){
 					
-					var tip = d3
-					.tip()
-					.attr('class','d3-tip')
-					.offset([-10,0])
-					.html(function() {
-							return "<strong>Area: </strong><span>"+dataLocs[i].area+ "</span><br/>" +
-									"<strong>Edificio: </strong><span>"+dataLocs[i].edificio+ "</span><br/>"+
-									"<strong>Planta: </strong><span>"+dataLocs[i].planta+ "</span><br/>"+
-									"<strong>Zona: </strong><span>"+dataLocs[i].zona+ "</span><br/>"+
-									"<strong>Fecha: </strong><span>"+dataLocs[i].fecha+ "</span>";
-									});
-					svg.call(tip);
+// 					var tip = d3
+// 					.tip()
+// 					.attr('class','d3-tip')
+// 					.offset([-10,0])
+// 					.html(function() {
+// 							return "<strong>Area: </strong><span>"+dataLocs[i].area+ "</span><br/>" +
+// 									"<strong>Edificio: </strong><span>"+dataLocs[i].edificio+ "</span><br/>"+
+// 									"<strong>Planta: </strong><span>"+dataLocs[i].planta+ "</span><br/>"+
+// 									"<strong>Zona: </strong><span>"+dataLocs[i].zona+ "</span><br/>"+
+// 									"<strong>Fecha: </strong><span>"+dataLocs[i].fecha+ "</span>";
+// 									});
+// 					svg.call(tip);
+					
+					var div = d3.select("body").append("div")	
+							    .attr("class", "tooltipPath")				
+							    .style("opacity", 0);
 					
 					var path = svg.append("path")
 					.attr("id","path"+i)
 					.data([{source: {x : paths[i].coord_x1, y : paths[i].coord_y1}, target: {x : paths[i].coord_x2, y : paths[i].coord_y2}}])
 					.attr("class","line")
 					.attr("d",lineData)
-					.on('mouseover',tip.show)
-					.on('mouseout',tip.hide);
+					.on('mouseover',function(d) {		
+				            div.transition()		
+			            	.duration(200)		
+			            	.style("opacity", .9);
+				            div	.html("<strong>Area: </strong><span>"+dataLocs[i].area+ "</span><br/>" +
+ 									"<strong>Edificio: </strong><span>"+dataLocs[i].edificio+ "</span><br/>"+
+									"<strong>Planta: </strong><span>"+dataLocs[i].planta+ "</span><br/>"+
+									"<strong>Zona: </strong><span>"+dataLocs[i].zona+ "</span><br/>"+
+ 									"<strong>Fecha: </strong><span>"+dataLocs[i].fecha+ "</span>")	
+			            		.style("left", (d3.event.pageX) + "px")		
+			            		.style("top", (d3.event.pageY - 28) + "px");})
+						.on('mouseout',function(d) {		
+				            div.transition()		
+			            		.duration(500)		
+			            		.style("opacity", 0);});
 					
 					var arrow = svg.append("svg:path")
 					.attr("d", d3.svg.symbol().type("triangle-down")(10,1));

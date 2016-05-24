@@ -3186,3 +3186,46 @@ form#file{
   left: 0;
 }
 
+div.tooltipLector {	
+    position: absolute;			
+    text-align: center;
+    color:black;			
+    width: 200px;					
+    height: 50px;					
+    padding: 2px;				
+    font: 20px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
+div.tooltipLugar {	
+    position: absolute;			
+    text-align: center;
+    color:black;			
+    width: 200px;					
+    height: 30px;					
+    padding: 2px;				
+    font: 20px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
+div.tooltipPath {	
+    position: absolute;			
+    text-align: center;
+    color:black;			
+    width: 200px;					
+    height: 150px;					
+    padding: 2px;				
+    font: 20px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
+

@@ -388,7 +388,7 @@
 
 		function dragstarted() {
 			var p = d3.mouse(this);
-			activeRect = svg.insert("rect", ":first-child").attr({
+			activeRect = svg.append("rect").attr({
 				rx : 6,
 				ry : 6,
 				class : "selection draggable",

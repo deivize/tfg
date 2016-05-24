@@ -27,15 +27,22 @@ function dibujarLectores(){
 	
 	for(i=0;i<lectores.length;i++){
 		
-		var tip = d3
-		.tip()
-		.attr('class','d3-tip')
-		.offset([0,0])
-		.html(function() {
-				return "<strong>Tipo: </strong><span>"+lectores[i].tipo+ "</span><br/>" +
-						"<strong>Modelo: </strong><span>"+lectores[i].modelo+ "</span>";
-						});
-		svg.call(tip);
+//		var tip = d3
+//		.tip()
+//		.attr('class','d3-tip')
+//		.direction('n')
+//		.offset([-10,0])
+//		.html(function() {
+//				return "<strong>Tipo: </strong><span>"+lectores[i].tipo+ "</span><br/>" +
+//						"<strong>Modelo: </strong><span>"+lectores[i].modelo+ "</span>";
+//						})
+//		.style("left",$(this).attr("x"))
+//		.style("top",$(this).attr("y"));
+//		svg.call(tip);
+		
+		var div = d3.select("body").append("div")	
+				    .attr("class", "tooltipLector")				
+				    .style("opacity", 0);
 		
 		
 		rect=svg.append("rect")
@@ -47,8 +54,18 @@ function dibujarLectores(){
 		.attr("stroke-width","0.84172118")
 		.attr("stroke-opacity", "1")
 		.attr("fill", "#ffffff")
-		.on('mouseover',tip.show)
-		.on('mouseout',tip.hide);
+		.on('mouseover',function(d) {		
+            div.transition()		
+            	.duration(200)		
+            	.style("opacity", .9);
+            div	.html("<strong>Tipo: </strong><span>"+lectores[i].tipo+ "</span><br/>"+
+            		"<strong>Modelo: </strong><span>"+lectores[i].modelo+ "</span>")	
+            	.style("left", (d3.event.pageX) + "px")		
+            	.style("top", (d3.event.pageY - 28) + "px");})
+		.on('mouseout',function(d) {		
+            div.transition()		
+            	.duration(500)		
+            	.style("opacity", 0);});
 		
 		
 		
@@ -59,13 +76,17 @@ function dibujarLectores(){
 function dibujarLugares(){
 	
 	for(i=0;i<escaleras.length;i++){
-		var tip = d3
-		.tip()
-		.attr('class','d3-tip')
-		.offset([0,0])
-		.html(function() {
-				return "<strong><span>Escalera</span></strong>"});
-		svg.call(tip);
+//		var tip = d3
+//		.tip()
+//		.attr('class','d3-tip')
+//		.offset([0,0])
+//		.html(function() {
+//				return "<strong><span>Escalera</span></strong>"});
+//		svg.call(tip);
+		
+		var div = d3.select("body").append("div")	
+	    .attr("class", "tooltipLugar")				
+	    .style("opacity", 0);
 		
 		var escalera= svg.append("text")
 						.attr("x",escaleras[i].coord_x)
@@ -75,19 +96,32 @@ function dibujarLugares(){
 						.attr("tipo","escalera")
 						.text(function(d){return "\uf0dc"})
 						.attr("cursor","pointer")
-						.on('mouseover',tip.show)
-						.on('mouseout',tip.hide);
+						.on('mouseover',function(d) {		
+				            div.transition()		
+			            	.duration(200)		
+			            	.style("opacity", .9);
+				            div	.html("<strong><span>Escalera</span></strong>")	
+			            		.style("left", (d3.event.pageX) + "px")		
+			            		.style("top", (d3.event.pageY - 28) + "px");})
+						.on('mouseout',function(d) {		
+				            div.transition()		
+			            		.duration(500)		
+			            		.style("opacity", 0);});
 		
 	}
 	
 	for(i=0;i<ascensores.length;i++){
-		var tip = d3
-		.tip()
-		.attr('class','d3-tip')
-		.offset([0,0])
-		.html(function() {
-				return "<strong><span>Ascensor</span></strong>"});
-		svg.call(tip);
+//		var tip = d3
+//		.tip()
+//		.attr('class','d3-tip')
+//		.offset([0,0])
+//		.html(function() {
+//				return "<strong><span>Ascensor</span></strong>"});
+//		svg.call(tip);
+		
+		var div = d3.select("body").append("div")	
+				    .attr("class", "tooltipLugar")				
+				    .style("opacity", 0);
 		
 		var ascensor= svg.append("text")
 						.attr("x",ascensores[i].coord_x)
@@ -97,19 +131,32 @@ function dibujarLugares(){
 						.attr("tipo","ascensor")
 						.attr("cursor","pointer")
 						.text(function(d){return "\uf151"})
-						.on('mouseover',tip.show)
-						.on('mouseout',tip.hide);
+						.on('mouseover',function(d) {		
+				            div.transition()		
+			            	.duration(200)		
+			            	.style("opacity", .9);
+				            div	.html("<strong><span>Ascensor</span></strong>")	
+			            		.style("left", (d3.event.pageX) + "px")		
+			            		.style("top", (d3.event.pageY - 28) + "px");})
+						.on('mouseout',function(d) {		
+				            div.transition()		
+			            		.duration(500)		
+			            		.style("opacity", 0);});
 		
 	}
 	
 	for(i=0;i<banos.length;i++){
-		var tip = d3
-		.tip()
-		.attr('class','d3-tip')
-		.offset([0,0])
-		.html(function() {
-				return "<strong><span>Baño</span></strong>"});
-		svg.call(tip);
+//		var tip = d3
+//		.tip()
+//		.attr('class','d3-tip')
+//		.offset([0,0])
+//		.html(function() {
+//				return "<strong><span>Baño</span></strong>"});
+//		svg.call(tip);
+		
+		var div = d3.select("body").append("div")	
+	    .attr("class", "tooltipLugar")				
+	    .style("opacity", 0);
 		
 		var bano= svg.append("text")
 						.attr("x",banos[i].coord_x)
@@ -119,19 +166,32 @@ function dibujarLugares(){
 						.attr("tipo","bano")
 						.attr("cursor","pointer")
 						.text(function(d){return "\uf182"})
-						.on('mouseover',tip.show)
-						.on('mouseout',tip.hide);
+						.on('mouseover',function(d) {		
+				            div.transition()		
+			            	.duration(200)		
+			            	.style("opacity", .9);
+				            div	.html("<strong><span>Baño</span></strong>")	
+			            		.style("left", (d3.event.pageX) + "px")		
+			            		.style("top", (d3.event.pageY - 28) + "px");})
+						.on('mouseout',function(d) {		
+				            div.transition()		
+			            		.duration(500)		
+			            		.style("opacity", 0);});
 		
 	}
 	
 	for(i=0;i<despachos.length;i++){
-		var tip = d3
-		.tip()
-		.attr('class','d3-tip')
-		.offset([0,0])
-		.html(function() {
-				return "<strong><span>Despacho</span></strong>"});
-		svg.call(tip);
+//		var tip = d3
+//		.tip()
+//		.attr('class','d3-tip')
+//		.offset([0,0])
+//		.html(function() {
+//				return "<strong><span>Despacho</span></strong>"});
+//		svg.call(tip);
+		
+		var div = d3.select("body").append("div")	
+				    .attr("class", "tooltipLugar")				
+				    .style("opacity", 0);
 		
 		var despacho= svg.append("text")
 						.attr("x",despachos[i].coord_x)
@@ -141,8 +201,17 @@ function dibujarLugares(){
 						.attr("tipo","despacho")
 						.attr("cursor","pointer")
 						.text(function(d){return "\uf108"})
-						.on('mouseover',tip.show)
-						.on('mouseout',tip.hide);
+						.on('mouseover',function(d) {		
+				            div.transition()		
+			            	.duration(200)		
+			            	.style("opacity", .9);
+				            div	.html("<strong><span>Despacho</span></strong>")	
+			            		.style("left", (d3.event.pageX) + "px")		
+			            		.style("top", (d3.event.pageY - 28) + "px");})
+						.on('mouseout',function(d) {		
+				            div.transition()		
+			            		.duration(500)		
+			            		.style("opacity", 0);});
 		
 	}
 	
