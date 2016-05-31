@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -31,6 +32,7 @@ public class Activo {
 	private Etiqueta etiqueta;
 	private Timestamp fechaCaducidad;
 	private Double temperatura;
+	private Mapa mapa;
 	private List<ActivoLocalizacion> ubicacion= new ArrayList<ActivoLocalizacion>();
 	
 	@SuppressWarnings("unused")
@@ -118,6 +120,16 @@ public class Activo {
 		this.ubicacion = ubicacion;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name="idMapa")
+	public Mapa getMapa() {
+		return mapa;
+	}
+
+	public void setMapa(Mapa mapa) {
+		this.mapa = mapa;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -126,10 +138,15 @@ public class Activo {
 				+ ((categoria == null) ? 0 : categoria.hashCode());
 		result = prime * result
 				+ ((etiqueta == null) ? 0 : etiqueta.hashCode());
+		result = prime * result
+				+ ((fechaCaducidad == null) ? 0 : fechaCaducidad.hashCode());
 		result = prime * result + Arrays.hashCode(icono);
 		result = prime * result
 				+ ((idActivo == null) ? 0 : idActivo.hashCode());
+		result = prime * result + ((mapa == null) ? 0 : mapa.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result
+				+ ((temperatura == null) ? 0 : temperatura.hashCode());
 		result = prime * result
 				+ ((ubicacion == null) ? 0 : ubicacion.hashCode());
 		return result;
@@ -155,6 +172,11 @@ public class Activo {
 				return false;
 		} else if (!etiqueta.equals(other.etiqueta))
 			return false;
+		if (fechaCaducidad == null) {
+			if (other.fechaCaducidad != null)
+				return false;
+		} else if (!fechaCaducidad.equals(other.fechaCaducidad))
+			return false;
 		if (!Arrays.equals(icono, other.icono))
 			return false;
 		if (idActivo == null) {
@@ -162,10 +184,20 @@ public class Activo {
 				return false;
 		} else if (!idActivo.equals(other.idActivo))
 			return false;
+		if (mapa == null) {
+			if (other.mapa != null)
+				return false;
+		} else if (!mapa.equals(other.mapa))
+			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
 		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (temperatura == null) {
+			if (other.temperatura != null)
+				return false;
+		} else if (!temperatura.equals(other.temperatura))
 			return false;
 		if (ubicacion == null) {
 			if (other.ubicacion != null)

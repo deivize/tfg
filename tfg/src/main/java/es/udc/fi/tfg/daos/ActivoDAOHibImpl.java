@@ -192,7 +192,7 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		
 		Timestamp fecha= new Timestamp(date.getTime());
 		
-		Query query= miSessionFactory.getCurrentSession().createQuery("FROM Activo WHERE fechaCaducidad<= :fecha");
+		Query query= miSessionFactory.getCurrentSession().createQuery("SELECT a FROM Activo a inner join a.mapa WHERE fechaCaducidad<= :fecha AND a.mapa.activo=TRUE");
 		query.setParameter("fecha", fecha);
 		
 		activosAlerta=query.list();
@@ -257,6 +257,16 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		
 		activos=consulta.list();
 		
+		return activos;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Activo> findActivosMapa() {
+		
+		List<Activo> activos= (List<Activo>) miSessionFactory.getCurrentSession().
+				createQuery("SELECT a FROM Activo a inner join a.mapa WHERE a.mapa.activo=TRUE").list();
+				
 		return activos;
 	}
 

@@ -227,7 +227,7 @@ public class LectorSerciveImpl implements LectorService {
 	@Transactional(value="miTransactionManager")
 	public List<LectorDto> lectorToLectorDto() {
 		
-		List<Lector> lectores= lectorDAO.findAll();
+		List<Lector> lectores= lectorDAO.findLectoresMapa();
 		List<LectorDto> lectoresDto= new ArrayList<LectorDto>();
 		
 		for(Lector lector:lectores){
@@ -251,6 +251,19 @@ public class LectorSerciveImpl implements LectorService {
 		}
 		
 		return lectoresDto;
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<Lector> buscarLectoresMapa() {
+		List<Lector> lectores=null;
+		try{
+			log.info("Buscando lectores");
+			lectores=lectorDAO.findLectoresMapa();
+		}catch(DataAccessException e){
+			log.info("Error al buscar lectores");
+		}
+		return lectores;
 	}
 	
 

@@ -11,6 +11,7 @@ public interface LectorService {
 	void modificarLector(Lector miLector);
 	void borrarLector(Lector miLector);
 	List<Lector> buscarLectores();
+	List<Lector> buscarLectoresMapa();
 	Lector buscarLectorPorId(Long id);
 	List<Lector> buscarLectoresConsulta(String tipo, String modelo);
 	List<LectorDto> lectorToLectorDto();

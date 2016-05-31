@@ -26,10 +26,13 @@ import es.udc.fi.tfg.model.Lector;
 import es.udc.fi.tfg.model.LectorLocalizacion;
 import es.udc.fi.tfg.model.Localizacion;
 import es.udc.fi.tfg.model.LocalizacionInteres;
+import es.udc.fi.tfg.model.Mapa;
 import es.udc.fi.tfg.services.LectorLocalizacionService;
 import es.udc.fi.tfg.services.LectorService;
 import es.udc.fi.tfg.services.LocalizacionInteresService;
 import es.udc.fi.tfg.services.LocalizacionService;
+import es.udc.fi.tfg.services.MapaService;
+
 
 @Controller
 @RequestMapping(value="/lectores")
@@ -46,6 +49,9 @@ public class LectorController {
 	
 	@Autowired
 	private LocalizacionInteresService locInteresService;
+	
+	@Autowired
+	private MapaService mapaService;
 	
 	private String path="/resources/pdfs/";
 	
@@ -150,12 +156,15 @@ public class LectorController {
 		String[]  coord_x= x.split("-"); 
 		String[]  coord_y= y.split("-");
 		
+		Mapa mapa=mapaService.buscarMapaActivo();
+		
 		for(int i=1;i<coord_x.length;i++){
 			
 			Timestamp ts= new Timestamp(Calendar.getInstance().getTime().getTime());
 			Localizacion loc= new Localizacion(Double.parseDouble(coord_x[i]),Double.parseDouble(coord_y[i]), 0d, lectorForm.getEdificio(), lectorForm.getPlanta(), lectorForm.getArea(), lectorForm.getZona(), ts);
 
 			Lector lector = new Lector(lectorForm.getModelo(),lectorForm.getTipo());
+			lector.setMapa(mapa);
 			
 			lectorService.crearLector(lector);
 			localizacionService.crearLocalizacion(loc);

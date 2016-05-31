@@ -13,6 +13,7 @@ public interface ActivoDAO {
 	Long create(Activo activo);
 	List<Activo> findByName(String nombre);
 	List<Activo> findAll();
+	List<Activo> findActivosMapa();
 	Activo findById(Long id);
 	List<Localizacion> getLocalizacionesActivo(Long id);
 	Localizacion getLocalizacionActual(Long id);

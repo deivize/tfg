@@ -42,6 +42,11 @@ CREATE TABLE Etiqueta( idEtiqueta BIGSERIAL NOT NULL,
 
 CREATE INDEX EtiquetaIndexByidEtiqueta ON Etiqueta(idEtiqueta);
 
+-- -----------------Mapa--------------------------------------------
+CREATE TABLE Mapa (idMapa BIGSERIAL NOT NULL,
+	nombre VARCHAR(255),
+	CONSTRAINT MapaPK PRIMARY KEY (idMapa));
+
 -- -----------Activo-----------------------
 CREATE TABLE Activo( idActivo BIGSERIAL NOT NULL,
 	nombre VARCHAR(255) NOT NULL,
@@ -50,9 +55,12 @@ CREATE TABLE Activo( idActivo BIGSERIAL NOT NULL,
 	idEtiqueta BIGINT NOT NULL,
 	fechaCaducidad TIMESTAMP,
 	temperatura DOUBLE PRECISION,
+	idMapa BIGINT,
 	CONSTRAINT ActivoPK PRIMARY KEY (idActivo),
 	CONSTRAINT ActivoidEtiquetaFK FOREIGN KEY (idEtiqueta)
-		REFERENCES Etiqueta(idEtiqueta));
+		REFERENCES Etiqueta(idEtiqueta)),
+	CONSTRAINT ActivoidMapaFK FOREIGN KEY (idMapa
+		REFERENCES Mapa(idMapa);
 
 CREATE INDEX ActivoIndexByidActivo ON Activo(idActivo);
 
@@ -74,7 +82,10 @@ CREATE INDEX LocalizacionIndexByidLocalizacion ON Localizacion(idLocalizacion);
 CREATE TABLE Lector( idLector BIGSERIAL NOT NULL,
 	modelo VARCHAR(255) NOT NULL,
 	tipo VARCHAR(255),
-	CONSTRAINT LectorPK PRIMARY KEY (idLector))
+	idMapa BIGINT,
+	CONSTRAINT LectorPK PRIMARY KEY (idLector)),
+	CONSTRAINT LectoridMapaFK FOREIGN KEY (idMapa)
+		REFERENCES Mapa(idMapa);
 	
 		
 CREATE INDEX LectorIndexByidLector ON Lector(idLector);
@@ -119,15 +130,15 @@ CREATE TABLE LocalizacionInteres ( idLocInteres BIGSERIAL NOT NULL,
 	height DOUBLE PRECISION,
 	texto VARCHAR(255),
 	idLocalizacion BIGINT,
+	idMapa BIGINT,
 	CONSTRAINT LocalizacionInteresPK PRIMARY KEY (idLocInteres),
 	CONSTRAINT LocalizacionInteresLocalizacionFK FOREIGN KEY (idLocalizacion)
-		REFERENCES Localizacion(idLocalizacion));
+		REFERENCES Localizacion(idLocalizacion))
+	CONSTRAINT LocalizacionInteresidMapaFK FOREIGN KEY (idMapa)
+		REFERENCES Mapa(idMapa);
 
 
--- -----------------Mapa--------------------------------------------
-CREATE TABLE Mapa (idMapa BIGSERIAL NOT NULL,
-	nombre VARCHAR(255),
-	CONSTRAINT MapaPK PRIMARY KEY (idMapa));
+
 
 
 

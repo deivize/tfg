@@ -9,6 +9,7 @@ public interface LectorDAO {
 
 	Long create(Lector lector);
 	List<Lector> findAll();
+	List<Lector> findLectoresMapa();
 	Lector findById(Long id);
 	List<Lector> buscarLectores(String tipo, String modelo);
 	void update(Lector lector);

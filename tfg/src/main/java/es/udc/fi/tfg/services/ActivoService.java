@@ -16,6 +16,7 @@ public interface ActivoService {
 	Activo buscarActivoPorId(Long id);
 	List<Localizacion> getLocalizacines(Long id);
 	List<Activo> buscarActivos();
+	List<Activo> buscarActivosMapa();
 	Localizacion getLocalizacionActual(Long id);
 	List<ActivoLocalizacionDto> getLocalizacionesActuales();
 	List<ActivoAlertaDto> getActivosAlerta();

@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -28,6 +26,7 @@ public class Lector {
 	private Long idLector;
 	private String modelo;
 	private String tipo;
+	private Mapa mapa;
 	private List<EtiquetaLector> etiquetas= new ArrayList<EtiquetaLector>();
 	private List<LectorLocalizacion> ubicacion= new ArrayList<LectorLocalizacion>();
 	
@@ -91,6 +90,18 @@ public class Lector {
 	}
 
 	
+	@ManyToOne
+	@JoinColumn(name="idMapa")
+	public Mapa getMapa() {
+		return mapa;
+	}
+
+
+	public void setMapa(Mapa mapa) {
+		this.mapa = mapa;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,6 +110,7 @@ public class Lector {
 				+ ((etiquetas == null) ? 0 : etiquetas.hashCode());
 		result = prime * result
 				+ ((idLector == null) ? 0 : idLector.hashCode());
+		result = prime * result + ((mapa == null) ? 0 : mapa.hashCode());
 		result = prime * result + ((modelo == null) ? 0 : modelo.hashCode());
 		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		result = prime * result
@@ -125,6 +137,11 @@ public class Lector {
 			if (other.idLector != null)
 				return false;
 		} else if (!idLector.equals(other.idLector))
+			return false;
+		if (mapa == null) {
+			if (other.mapa != null)
+				return false;
+		} else if (!mapa.equals(other.mapa))
 			return false;
 		if (modelo == null) {
 			if (other.modelo != null)

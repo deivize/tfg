@@ -25,9 +25,12 @@ import es.udc.fi.tfg.forms.LocInteresForm;
 import es.udc.fi.tfg.forms.LugarForm;
 import es.udc.fi.tfg.model.Localizacion;
 import es.udc.fi.tfg.model.LocalizacionInteres;
+import es.udc.fi.tfg.model.Mapa;
 import es.udc.fi.tfg.services.LectorService;
 import es.udc.fi.tfg.services.LocalizacionInteresService;
 import es.udc.fi.tfg.services.LocalizacionService;
+import es.udc.fi.tfg.services.MapaService;
+
 
 @Controller
 @RequestMapping(value="/localizaciones")
@@ -41,6 +44,9 @@ public class LocalizacionController {
 	
 	@Autowired
 	private LectorService lectorService;
+	
+	@Autowired
+	private MapaService mapaService;
 	
 	private String path="/resources/pdfs/";
 	
@@ -84,6 +90,7 @@ public class LocalizacionController {
 		
 		LocalizacionInteres locInteres=null;
 		Localizacion loc=null;
+		Mapa mapa=mapaService.buscarMapaActivo();
 		
 		for(int i=1;i<coord_x.length;i++){
 //			System.out.println("********************************************");
@@ -94,6 +101,7 @@ public class LocalizacionController {
 				loc= new Localizacion(Double.parseDouble(coord_x[i]),Double.parseDouble(coord_y[i]),0d,"",0l,"","",ts);
 				
 				locInteres= new LocalizacionInteres(tipo,Double.parseDouble(width[i]),Double.parseDouble(height[i]),"",loc);
+				locInteres.setMapa(mapa);
 				locInteresService.crearLocInteres(locInteres);
 			}
 			
@@ -146,10 +154,12 @@ public class LocalizacionController {
 		String[] des_y=des_coord_y.split("-");
 		
 		LocalizacionInteres locInteres=null;
+		Mapa mapa=mapaService.buscarMapaActivo();
 		
 		if(esc_x.length>=1){
 			for(int i=1;i<esc_x.length;i++){
 				locInteres= new LocalizacionInteres("escalera",Double.parseDouble(esc_x[i]),Double.parseDouble(esc_y[i]),"",null);
+				locInteres.setMapa(mapa);
 				locInteresService.crearLocInteres(locInteres);
 			}
 		}
@@ -157,6 +167,7 @@ public class LocalizacionController {
 		if(asc_x.length>=1){
 			for(int i=1;i<asc_x.length;i++){
 				locInteres= new LocalizacionInteres("ascensor",Double.parseDouble(asc_x[i]),Double.parseDouble(asc_y[i]),"",null);
+				locInteres.setMapa(mapa);
 				locInteresService.crearLocInteres(locInteres);
 			}
 		}
@@ -164,6 +175,7 @@ public class LocalizacionController {
 		if(bano_x.length>=1){
 			for(int i=1;i<bano_x.length;i++){
 				locInteres= new LocalizacionInteres("bano",Double.parseDouble(bano_x[i]),Double.parseDouble(bano_y[i]),"",null);
+				locInteres.setMapa(mapa);
 				locInteresService.crearLocInteres(locInteres);
 			}
 		}
@@ -171,6 +183,7 @@ public class LocalizacionController {
 		if(des_x.length>=1){
 			for(int i=1;i<des_x.length;i++){
 				locInteres= new LocalizacionInteres("despacho",Double.parseDouble(des_x[i]),Double.parseDouble(des_y[i]),"",null);
+				locInteres.setMapa(mapa);
 				locInteresService.crearLocInteres(locInteres);
 			}
 		}

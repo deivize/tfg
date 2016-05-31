@@ -5,7 +5,8 @@
 function dibujarAreas(){
 
 	for(i=0;i<areas.length;i++){
-		rect=svg.insert("rect",":first-child")
+		//rect=svg.insert("rect",":first-child")
+		rect=svg.append("rect")
 		.attr({
 			rx      : 6,
 			ry      : 6,
@@ -218,7 +219,7 @@ function dibujarLugares(){
 }
 
 $(document).ready(function(){
-	dibujarLectores();
 	dibujarAreas();
+	dibujarLectores();
 	dibujarLugares();
 });

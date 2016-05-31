@@ -24,22 +24,11 @@ public class LocalizacionInteres {
 	private Double height;
 	private String texto;
 	private Localizacion localizacion;
+	private Mapa mapa;
 	
 	
 	@SuppressWarnings("unused")
 	private LocalizacionInteres(){
-	}
-	
-	
-	
-	public LocalizacionInteres(String tipo, Double width,
-			Double height, String texto, Localizacion localizacion) {
-		super();
-		this.tipo = tipo;
-		this.width = width;
-		this.height = height;
-		this.texto = texto;
-		this.localizacion = localizacion;
 	}
 
 
@@ -92,7 +81,28 @@ public class LocalizacionInteres {
 	public void setLocalizacion(Localizacion localizacion) {
 		this.localizacion = localizacion;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name="idMapa")
+	public Mapa getMapa() {
+		return mapa;
+	}
 
+
+	public void setMapa(Mapa mapa) {
+		this.mapa = mapa;
+	}
+
+
+	public LocalizacionInteres(String tipo, Double width,
+			Double height, String texto, Localizacion localizacion) {
+		super();
+		this.tipo = tipo;
+		this.width = width;
+		this.height = height;
+		this.texto = texto;
+		this.localizacion = localizacion;
+	}
 
 
 	@Override
@@ -104,6 +114,7 @@ public class LocalizacionInteres {
 				+ ((idLocInteres == null) ? 0 : idLocInteres.hashCode());
 		result = prime * result
 				+ ((localizacion == null) ? 0 : localizacion.hashCode());
+		result = prime * result + ((mapa == null) ? 0 : mapa.hashCode());
 		result = prime * result + ((texto == null) ? 0 : texto.hashCode());
 		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		result = prime * result + ((width == null) ? 0 : width.hashCode());
@@ -135,6 +146,11 @@ public class LocalizacionInteres {
 			if (other.localizacion != null)
 				return false;
 		} else if (!localizacion.equals(other.localizacion))
+			return false;
+		if (mapa == null) {
+			if (other.mapa != null)
+				return false;
+		} else if (!mapa.equals(other.mapa))
 			return false;
 		if (texto == null) {
 			if (other.texto != null)

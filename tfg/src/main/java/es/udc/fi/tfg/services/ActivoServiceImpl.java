@@ -122,7 +122,7 @@ public class ActivoServiceImpl implements ActivoService {
 			loc=activoDAO.getLocalizacionActual(id);
 			log.info("Buscando localizacion actual para el activo "+id);
 		}catch (DataAccessException e){
-			log.error("Error al buscar la localizacion actual del actvio "+id);
+			log.error("Error al buscar la localizacion actual del activo "+id);
 		}
 		
 		return loc;
@@ -359,6 +359,19 @@ public class ActivoServiceImpl implements ActivoService {
 		}
 		return activos;
 		
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<Activo> buscarActivosMapa() {
+		List<Activo> activos=null;
+		try{
+			activos=activoDAO.findActivosMapa();
+			log.info("Buscando activos");
+		}catch(DataAccessException e){
+			log.error("Error al buscar activos");
+		}
+		return activos;
 	}
 	
 

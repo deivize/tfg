@@ -61,20 +61,13 @@
 	<section id="one">
 		<header class="major">
 			<h2>
-				Ipsum lorem dolor aliquam ante commodo<br /> magna sed accumsan
-				arcu neque.
 			</h2>
 		</header>
-		<p>Accumsan orci faucibus id eu lorem semper. Eu ac iaculis ac
-			nunc nisi lorem vulputate lorem neque cubilia ac in adipiscing in
-			curae lobortis tortor primis integer massa adipiscing id nisi
-			accumsan pellentesque commodo blandit enim arcu non at amet id arcu
-			magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem
-			vulputate lorem neque cubilia.</p>
-		<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
-			viewBox="0 0 800 1000">
-							<jsp:include page="maps/map.jsp"></jsp:include>
-						</svg>
+		<p></p>
+<%-- 		<svg xmlns="http://www.w3.org/2000/svg" id="svg1" --%>
+<%-- 			viewBox="0 0 800 1000"> --%>
+<%-- 							<jsp:include page="maps/map.jsp"></jsp:include> --%>
+<%-- 						</svg> --%>
 	</section>
 	<section>
 		<h4>Activos</h4>
@@ -106,28 +99,28 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="table-wrapper">
-			<table class="alt">
+<!-- 		<div class="table-wrapper"> -->
+<!-- 			<table class="alt"> -->
 
-				<thead>
-					<tr>
-						<th>Id activo</th>
-						<th>Nombre activo</th>
-					</tr>
-				</thead>
+<!-- 				<thead> -->
+<!-- 					<tr> -->
+<!-- 						<th>Id activo</th> -->
+<!-- 						<th>Nombre activo</th> -->
+<!-- 					</tr> -->
+<!-- 				</thead> -->
 
-				<tbody>
-					<c:forEach var="loc" items="${localizaciones}" varStatus="status">
+<!-- 				<tbody> -->
+<%-- 					<c:forEach var="loc" items="${localizaciones}" varStatus="status"> --%>
 
-						<tr>
-							<td>${loc.coord_x}</td>
-							<td>${loc.coord_y}</td>
-						</tr>
+<!-- 						<tr> -->
+<%-- 							<td>${loc.coord_x}</td> --%>
+<%-- 							<td>${loc.coord_y}</td> --%>
+<!-- 						</tr> -->
 
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
+<%-- 					</c:forEach> --%>
+<!-- 				</tbody> -->
+<!-- 			</table> -->
+<!-- 		</div> -->
 	</section>
 </div>
 

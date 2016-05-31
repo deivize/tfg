@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,11 +60,20 @@ public class LocalizacionInteresDAOHibImpl implements LocalizacionInteresDAO {
 	public List<LocalizacionInteres> findByTipo(String tipo) {
 		
 		Query query = miSessionFactory.getCurrentSession()
-				.createQuery("FROM LocalizacionInteres WHERE tipo= :tipo ");
+				.createQuery("SELECT l FROM LocalizacionInteres l inner join l.mapa WHERE tipo= :tipo AND l.mapa.activo=TRUE ");
 		query.setParameter("tipo", tipo);
 		
 		List<LocalizacionInteres> locsInteres= query.list();
 		
+		
+		return locsInteres;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<LocalizacionInteres> findLocsInteresMapa() {
+		List<LocalizacionInteres> locsInteres= miSessionFactory.getCurrentSession()
+				.createQuery("SELECT l FROM LocalizacionInteres l inner join l.mapa WHERE l.mapa.activo=TRUE").list();
 		
 		return locsInteres;
 	}

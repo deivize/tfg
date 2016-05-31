@@ -199,7 +199,8 @@
 
 				function dragstarted() {
 				  var p = d3.mouse( this);
-				  activeRect = svg.insert("rect",":first-child")
+				  //activeRect = svg.insert("rect",":first-child")
+				  activeRect = svg.append("rect")
 				    .attr({
 				        rx      : 6,
 				        ry      : 6,

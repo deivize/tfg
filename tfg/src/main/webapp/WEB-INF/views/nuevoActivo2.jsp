@@ -63,16 +63,9 @@
 		<section>
 			<header class="major">
 				<h2>
-					Ipsum lorem dolor aliquam ante commodo<br /> magna sed accumsan
-					arcu neque.
 				</h2>
 			</header>
-			<p>Accumsan orci faucibus id eu lorem semper. Eu ac iaculis ac
-				nunc nisi lorem vulputate lorem neque cubilia ac in adipiscing in
-				curae lobortis tortor primis integer massa adipiscing id nisi
-				accumsan pellentesque commodo blandit enim arcu non at amet id arcu
-				magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem
-				vulputate lorem neque cubilia.</p>
+			<p>Deberá seleccionar una etiqueta antes de poder crear el activo. Si no hay etiquetas libres cree una nueva</p>
 			<h4>Crear nuevo activo</h4>
 			<sf:form id="crear_activo_form" method="POST" modelAttribute="activo"
 				class="form-activo" onsubmit="return validateForm()">

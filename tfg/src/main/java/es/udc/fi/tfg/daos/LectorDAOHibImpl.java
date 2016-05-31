@@ -27,6 +27,7 @@ public class LectorDAOHibImpl implements LectorDAO {
 		return lectorId;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Lector> findAll() {
 		List<Lector> lectores= (List<Lector>) miSessionFactory.getCurrentSession().
@@ -90,6 +91,15 @@ public class LectorDAOHibImpl implements LectorDAO {
 		lectores=consulta.list();
 		
 		
+		return lectores;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Lector> findLectoresMapa() {
+		List<Lector> lectores= (List<Lector>) miSessionFactory.getCurrentSession().
+				createQuery("SELECT l FROM Lector l inner join l.mapa WHERE l.mapa.activo=TRUE").list();
+				
 		return lectores;
 	}
 	

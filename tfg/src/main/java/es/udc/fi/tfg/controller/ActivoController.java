@@ -25,9 +25,11 @@ import es.udc.fi.tfg.forms.ConsultaActivoForm;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Etiqueta;
 import es.udc.fi.tfg.model.Localizacion;
+import es.udc.fi.tfg.model.Mapa;
 import es.udc.fi.tfg.services.ActivoService;
 import es.udc.fi.tfg.services.EtiquetaService;
 import es.udc.fi.tfg.services.LectorService;
+import es.udc.fi.tfg.services.MapaService;
 
 
 
@@ -44,6 +46,9 @@ public class ActivoController {
 	@Autowired
 	private LectorService lectorService;
 	
+	@Autowired
+	private MapaService mapaService;
+	
 	
 	private String path="/resources/pdfs/";
 	
@@ -53,13 +58,13 @@ public class ActivoController {
 	@RequestMapping(value="/listactivos")
 	public String listActivos(Model model){
 		
-		List<Activo> activos=activoService.buscarActivos();
+		List<Activo> activos=activoService.buscarActivosMapa();
 		List<ActivoLocalizacionDto> actLoc=activoService.getLocalizacionesActuales();
 		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
 		model.addAttribute("lectores", lectoresDto);
 		model.addAttribute("localizaciones",actLoc);
 		model.addAttribute("activos", activos);
-		
+				
 		return "listactivos2";
 	}
 	
@@ -74,8 +79,10 @@ public class ActivoController {
 	@RequestMapping(method=RequestMethod.POST,value="/nuevoactivo")
 	public String addActivoFromForm(ActivoForm activoForm){
 		
+		Mapa mapa=mapaService.buscarMapaActivo();
 		Etiqueta etiqueta=etiquetaService.buscarEtiquetaPorId(activoForm.getEtiqueta());
 		Activo activo=new Activo(activoForm.getNombre(),null,activoForm.getCategoria(),etiqueta);
+		activo.setMapa(mapa);
 		Timestamp ts= new Timestamp(activoForm.getFechaCaducidad().getTime());
 		activo.setFechaCaducidad(ts);
 		activoService.crearActivo(activo);
