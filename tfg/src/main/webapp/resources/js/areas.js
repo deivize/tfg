@@ -28,18 +28,6 @@ function dibujarLectores(){
 	
 	for(i=0;i<lectores.length;i++){
 		
-//		var tip = d3
-//		.tip()
-//		.attr('class','d3-tip')
-//		.direction('n')
-//		.offset([-10,0])
-//		.html(function() {
-//				return "<strong>Tipo: </strong><span>"+lectores[i].tipo+ "</span><br/>" +
-//						"<strong>Modelo: </strong><span>"+lectores[i].modelo+ "</span>";
-//						})
-//		.style("left",$(this).attr("x"))
-//		.style("top",$(this).attr("y"));
-//		svg.call(tip);
 		
 		var div = d3.select("body").append("div")	
 				    .attr("class", "tooltipLector")				
@@ -77,13 +65,6 @@ function dibujarLectores(){
 function dibujarLugares(){
 	
 	for(i=0;i<escaleras.length;i++){
-//		var tip = d3
-//		.tip()
-//		.attr('class','d3-tip')
-//		.offset([0,0])
-//		.html(function() {
-//				return "<strong><span>Escalera</span></strong>"});
-//		svg.call(tip);
 		
 		var div = d3.select("body").append("div")	
 	    .attr("class", "tooltipLugar")				
@@ -112,13 +93,6 @@ function dibujarLugares(){
 	}
 	
 	for(i=0;i<ascensores.length;i++){
-//		var tip = d3
-//		.tip()
-//		.attr('class','d3-tip')
-//		.offset([0,0])
-//		.html(function() {
-//				return "<strong><span>Ascensor</span></strong>"});
-//		svg.call(tip);
 		
 		var div = d3.select("body").append("div")	
 				    .attr("class", "tooltipLugar")				
@@ -147,13 +121,6 @@ function dibujarLugares(){
 	}
 	
 	for(i=0;i<banos.length;i++){
-//		var tip = d3
-//		.tip()
-//		.attr('class','d3-tip')
-//		.offset([0,0])
-//		.html(function() {
-//				return "<strong><span>Baño</span></strong>"});
-//		svg.call(tip);
 		
 		var div = d3.select("body").append("div")	
 	    .attr("class", "tooltipLugar")				
@@ -182,13 +149,6 @@ function dibujarLugares(){
 	}
 	
 	for(i=0;i<despachos.length;i++){
-//		var tip = d3
-//		.tip()
-//		.attr('class','d3-tip')
-//		.offset([0,0])
-//		.html(function() {
-//				return "<strong><span>Despacho</span></strong>"});
-//		svg.call(tip);
 		
 		var div = d3.select("body").append("div")	
 				    .attr("class", "tooltipLugar")				

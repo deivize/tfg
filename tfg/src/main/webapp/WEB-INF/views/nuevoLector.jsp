@@ -61,19 +61,12 @@
 	<section id="one">
 		<header class="major">
 			<h2>
-				Ipsum lorem dolor aliquam ante commodo<br /> magna sed accumsan
-				arcu neque.
 			</h2>
 		</header>
-		<p>Accumsan orci faucibus id eu lorem semper. Eu ac iaculis ac
-			nunc nisi lorem vulputate lorem neque cubilia ac in adipiscing in
-			curae lobortis tortor primis integer massa adipiscing id nisi
-			accumsan pellentesque commodo blandit enim arcu non at amet id arcu
-			magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem
-			vulputate lorem neque cubilia.</p>
+		<p>Cree un nuevo lector y desplácelo hasta su posción</p>
 		<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
-			viewBox="0 0 800 1000">
-							<jsp:include page="maps/map.jsp"></jsp:include>
+			viewBox="0 0 800 1100">
+							<jsp:include page="maps/${mapaActivo}.jsp"></jsp:include>
 		</svg>
 		
 		<div style="margin-top:5px">
@@ -139,6 +132,10 @@
 		
 	var lectores=[],lectorObject;
 	var areas=[],areaObject;
+	var escaleras=[],escaleraObject;
+	var ascensores=[],ascensorObject;
+	var banos=[],banoObject;
+	var despachos=[],despachoObject;
 	
 	<c:forEach var="area" items="${areas}">
 	areaObject = {
@@ -163,6 +160,38 @@
 	lectores.push(lectorObject);
 	</c:forEach>
 	
+	<c:forEach var="escalera" items="${escaleras}">
+	escaleraObject = {
+		coord_x : "${escalera.width}",
+		coord_y : "${escalera.height}"
+	}
+	escaleras.push(escaleraObject);
+	</c:forEach>
+	
+	<c:forEach var="ascensor" items="${ascensores}">
+	ascensorObject = {
+		coord_x : "${ascensor.width}",
+		coord_y : "${ascensor.height}"
+	}
+	ascensores.push(ascensorObject);
+	</c:forEach>
+	
+	<c:forEach var="bano" items="${banos}">
+	banoObject = {
+		coord_x : "${bano.width}",
+		coord_y : "${bano.height}"
+	}
+	banos.push(banoObject);
+	</c:forEach>
+	
+	<c:forEach var="despacho" items="${despachos}">
+	despachoObject = {
+		coord_x : "${despacho.width}",
+		coord_y : "${despacho.height}"
+	}
+	despachos.push(despachoObject);
+	</c:forEach>
+	
 	
 	
 
@@ -173,12 +202,6 @@
 		var form = $("#nuevo_lector_form");
 		var coord_x = $("#coord_x");
 		var coord_y = $("#coord_y");
-		// 		var tipo = $("#tipo");
-		// 		var modelo = $("#modelo");
-		// 		var edificio = $("#edificio");
-		// 		var planta = $("#planta");
-		// 		var area = $("#area");
-		// 		var zona = $("#zona");
 
 		coord_x.val('');
 		coord_y.val('');

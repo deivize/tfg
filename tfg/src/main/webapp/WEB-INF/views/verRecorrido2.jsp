@@ -76,19 +76,12 @@
 	<section id="one">
 		<header class="major">
 			<h2>
-				Ipsum lorem dolor aliquam ante commodo<br /> magna sed accumsan
-				arcu neque.
 			</h2>
 		</header>
-		<p>Accumsan orci faucibus id eu lorem semper. Eu ac iaculis ac
-			nunc nisi lorem vulputate lorem neque cubilia ac in adipiscing in
-			curae lobortis tortor primis integer massa adipiscing id nisi
-			accumsan pellentesque commodo blandit enim arcu non at amet id arcu
-			magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem
-			vulputate lorem neque cubilia.</p>
+		<p></p>
 		<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
-			viewBox="0 0 800 1000">
-							<jsp:include page="maps/map.jsp"></jsp:include>
+			viewBox="0 0 800 1100">
+							<jsp:include page="maps/${mapaActivo}.jsp"></jsp:include>
 						</svg>
 	</section>
 	<section>
@@ -186,6 +179,10 @@
 				var areas=[],areaObject;
 				var lectores = [], lectorObject;
 				var dataLocs = [], dataLocObject;
+				var escaleras=[],escaleraObject;
+				var ascensores=[],ascensorObject;
+				var banos=[],banoObject;
+				var despachos=[],despachoObject
 				
 				
 				<c:forEach var="loc" items="${localizaciones}">
@@ -230,28 +227,46 @@
 				dataLocs.push(dataLocObject);
 				</c:forEach>;
 				
+				<c:forEach var="escalera" items="${escaleras}">
+				escaleraObject = {
+					coord_x : "${escalera.width}",
+					coord_y : "${escalera.height}"
+				}
+				escaleras.push(escaleraObject);
+				</c:forEach>;
+				
+				<c:forEach var="ascensor" items="${ascensores}">
+				ascensorObject = {
+					coord_x : "${ascensor.width}",
+					coord_y : "${ascensor.height}"
+				}
+				ascensores.push(ascensorObject);
+				</c:forEach>;
+				
+				<c:forEach var="bano" items="${banos}">
+				banoObject = {
+					coord_x : "${bano.width}",
+					coord_y : "${bano.height}"
+				}
+				banos.push(banoObject);
+				</c:forEach>;
+				
+				<c:forEach var="despacho" items="${despachos}">
+				despachoObject = {
+					coord_x : "${despacho.width}",
+					coord_y : "${despacho.height}"
+				}
+				despachos.push(despachoObject);
+				</c:forEach>;
+				
 				var svg =d3.select("#svg1");
 				
-				
-				
-				svg.append("svg:defs")
-				.append("svg:marker")
-				.attr("id", "arrow")	
-				.attr("refX", 2)
-				.attr("refY", 6)
-				.attr("markerWidth", 13)
-				.attr("markerHeight", 13)
-				.attr("orient", "auto")
-				.append("svg:path")
-				.attr("d", "M2,2 L2,11 L10,6 L2,2");
 				
 				var line = d3.svg.line()
                 .x( function(point) { return point.lx; })
                 .y( function(point) { return point.ly; });
 
 				function lineData(d){
-				   // i'm assuming here that supplied datum 
-				   // is a link between 'source' and 'target'
 				   var points = [
 				       {lx: d.source.x, ly: d.source.y},
 				       {lx: d.target.x, ly: d.target.y}
@@ -276,70 +291,57 @@
 					}
 
 				
-				for(i=0; i<paths.length; i++){
-					
-// 					var tip = d3
-// 					.tip()
-// 					.attr('class','d3-tip')
-// 					.offset([-10,0])
-// 					.html(function() {
-// 							return "<strong>Area: </strong><span>"+dataLocs[i].area+ "</span><br/>" +
-// 									"<strong>Edificio: </strong><span>"+dataLocs[i].edificio+ "</span><br/>"+
-// 									"<strong>Planta: </strong><span>"+dataLocs[i].planta+ "</span><br/>"+
-// 									"<strong>Zona: </strong><span>"+dataLocs[i].zona+ "</span><br/>"+
-// 									"<strong>Fecha: </strong><span>"+dataLocs[i].fecha+ "</span>";
-// 									});
-// 					svg.call(tip);
-					
-					var div = d3.select("body").append("div")	
-							    .attr("class", "tooltipPath")				
-							    .style("opacity", 0);
-					
-					var path = svg.append("path")
-					.attr("id","path"+i)
-					.data([{source: {x : paths[i].coord_x1, y : paths[i].coord_y1}, target: {x : paths[i].coord_x2, y : paths[i].coord_y2}}])
-					.attr("class","line")
-					.attr("d",lineData)
-					.on('mouseover',function(d) {		
-				            div.transition()		
-			            	.duration(200)		
-			            	.style("opacity", .9);
-				            div	.html("<strong>Area: </strong><span>"+dataLocs[i].area+ "</span><br/>" +
- 									"<strong>Edificio: </strong><span>"+dataLocs[i].edificio+ "</span><br/>"+
-									"<strong>Planta: </strong><span>"+dataLocs[i].planta+ "</span><br/>"+
-									"<strong>Zona: </strong><span>"+dataLocs[i].zona+ "</span><br/>"+
- 									"<strong>Fecha: </strong><span>"+dataLocs[i].fecha+ "</span>")	
-			            		.style("left", (d3.event.pageX) + "px")		
-			            		.style("top", (d3.event.pageY - 28) + "px");})
-						.on('mouseout',function(d) {		
-				            div.transition()		
-			            		.duration(500)		
-			            		.style("opacity", 0);});
-					
-					var arrow = svg.append("svg:path")
-					.attr("d", d3.svg.symbol().type("triangle-down")(10,1));
-					
-					arrow.transition()
-				      .duration(2000)
-				      .ease("linear")
-				      .attrTween("transform", translateAlong(path.node()));
-				      
-				    var totalLength = path.node().getTotalLength();
-
-				    path
-				      .attr("stroke-dasharray", totalLength + " " + totalLength)
-				      .attr("stroke-dashoffset", totalLength)
-				      .transition()
-				        .duration(2000)        
-				        .ease("linear")
-				        .attr("stroke-dashoffset", 0);  
-				};
+				
 				
 				
 
 				
 				$(document).ready(function(){
-					
+					for(i=0; i<paths.length; i++){
+						var div = d3.select("body").append("div")	
+								    .attr("class", "tooltipPath")				
+								    .style("opacity", 0);
+						
+						var path = svg.append("path")
+						.attr("id","path"+i)
+						.data([{source: {x : paths[i].coord_x1, y : paths[i].coord_y1}, 
+							target: {x : paths[i].coord_x2, y : paths[i].coord_y2}}])
+						.attr("class","line")
+						.attr("d",lineData)
+						.attr("numero",i)
+						.on('mouseover',function(d) {		
+					            div.transition()		
+				            	.duration(200)		
+				            	.style("opacity", .9);
+					            div.html("<strong>Area: </strong><span>"+dataLocs[$(this).attr("numero")].area+ "</span><br/>" +
+	 									"<strong>Edificio: </strong><span>"+dataLocs[$(this).attr("numero")].edificio+ "</span><br/>"+
+										"<strong>Planta: </strong><span>"+dataLocs[$(this).attr("numero")].planta+ "</span><br/>"+
+										"<strong>Zona: </strong><span>"+dataLocs[$(this).attr("numero")].zona+ "</span><br/>"+
+	 									"<strong>Fecha: </strong><span>"+dataLocs[$(this).attr("numero")].fecha+ "</span>")	
+				            		.style("left", (d3.event.pageX) + "px")		
+				            		.style("top", (d3.event.pageY - 28) + "px");})
+							.on('mouseout',function(d) {		
+					            div.transition()		
+				            		.duration(500)		
+				            		.style("opacity", 0);});
+						
+						var arrow = svg.append("svg:path")
+						.attr("d", d3.svg.symbol().type("triangle-down")(10,1));
+						
+						arrow.transition()
+					      .duration(2000)
+					      .ease("linear")
+					      .attrTween("transform", translateAlong(path.node()));
+					      
+					    var totalLength = path.node().getTotalLength();
+					    path
+					      .attr("stroke-dasharray", totalLength + " " + totalLength)
+					      .attr("stroke-dashoffset", totalLength)
+					      .transition()
+					        .duration(2000)        
+					        .ease("linear")
+					        .attr("stroke-dashoffset", 0);  
+					};
 				});
 				
 			</script>

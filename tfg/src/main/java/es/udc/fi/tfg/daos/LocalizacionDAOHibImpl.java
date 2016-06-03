@@ -99,39 +99,6 @@ public class LocalizacionDAOHibImpl implements LocalizacionDAO {
 		
 		localizaciones=cri.list();
 		
-//		int nullCount=0;
-//		if(edificio==null){
-//			nullCount++;
-//		}
-//		if(planta==null){
-//			nullCount++;
-//		}
-//		if(area==null){
-//			nullCount++;
-//		}
-//		if(zona==null){
-//			nullCount++;
-//		}
-//		
-//		
-//		String qu="FROM Localizacion";
-//		
-//		String edQuery="edificio=:edificio";
-//		String plQuery="planta=:planta";
-//		String arQuery="area=:area";
-//		String zoQuery="zona=:zona";
-//		
-//		if(edificio==null && planta ==null && area==null && zona==null){
-//			Query query=miSessionFactory.getCurrentSession().createQuery(qu);
-//		}else if(nullCount>1){
-//			
-//			qu=qu+" WHERE ";
-//			
-//			if(edificio!=null){
-//				qu=qu+"";
-//			}
-//		}
-//		
 		return localizaciones;
 	}
 	

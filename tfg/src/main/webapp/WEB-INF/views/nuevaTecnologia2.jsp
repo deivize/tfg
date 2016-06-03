@@ -61,17 +61,10 @@
 		<section>
 			<header class="major">
 				<h2>
-					Ipsum lorem dolor aliquam ante commodo<br /> magna sed accumsan
-					arcu neque.
 				</h2>
 			</header>
-			<p>Accumsan orci faucibus id eu lorem semper. Eu ac iaculis ac
-				nunc nisi lorem vulputate lorem neque cubilia ac in adipiscing in
-				curae lobortis tortor primis integer massa adipiscing id nisi
-				accumsan pellentesque commodo blandit enim arcu non at amet id arcu
-				magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem
-				vulputate lorem neque cubilia.</p>
-			<h4>Crear nuevo parametro</h4>
+			<p></p>
+			<h4>Crear nueva tecnología</h4>
 			<sf:form id="crear_tecnologia_form" method="POST"
 				modelAttribute="tecnologia" class="form-tecnologia"
 				onsubmit="return validateForm()">

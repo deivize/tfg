@@ -87,13 +87,9 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Localizacion> getLocalizacionesActivo(Long id) {
-//		Query query=miSessionFactory.getCurrentSession().createQuery("SELECT b.idlocalizacion,b.coord_x,b.coord_y,b.coord_z,b.edificio,b.planta,b.area,b.zona,b.fecha "
-//				+ "FROM ActivoLocalizacion a JOIN localizacion b "
-//				+ "ON a.idlocalizacion=b.idlocalizacion "
-//				+ "WHERE a.pkAL.activo.idactivo= :id ORDER BY a.fecha ASC");
-//		query.setParameter("id", id);
 		
-		Query query1=miSessionFactory.getCurrentSession().createQuery("FROM ActivoLocalizacion WHERE idactivo= :id ORDER BY fecha ASC");
+		Query query1=miSessionFactory.getCurrentSession().
+				createQuery("FROM ActivoLocalizacion WHERE idactivo= :id ORDER BY fecha ASC");
 		query1.setParameter("id",id);
 		List<ActivoLocalizacion> activoLocalizaciones= (List<ActivoLocalizacion>) query1.list();
 		
@@ -105,7 +101,8 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		
 		List<Localizacion> localizaciones=new ArrayList<Localizacion>();
 		for(Long idLoc:idLocalizaciones){
-			Query query2 = miSessionFactory.getCurrentSession().createQuery("FROM Localizacion WHERE idLocalizacion= :idLoc");
+			Query query2 = miSessionFactory.getCurrentSession().
+					createQuery("FROM Localizacion WHERE idLocalizacion= :idLoc");
 			query2.setParameter("idLoc", idLoc);
 			Localizacion auxLoc =(Localizacion) query2.uniqueResult();
 			localizaciones.add(auxLoc);

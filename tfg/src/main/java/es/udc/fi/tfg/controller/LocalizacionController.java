@@ -62,6 +62,7 @@ public class LocalizacionController {
 		List<LocalizacionInteres> ascensores= locInteresService.buscarPorTipo("ascensor");
 		List<LocalizacionInteres> banos= locInteresService.buscarPorTipo("bano");
 		List<LocalizacionInteres> despachos= locInteresService.buscarPorTipo("despacho");
+		String mapaActivo=mapaService.buscarMapaActivo().getNombre();
 		
 		model.addAttribute("areas",locsInteres);
 		model.addAttribute("lectores",lectoresDto);
@@ -69,6 +70,7 @@ public class LocalizacionController {
 		model.addAttribute("ascensores",ascensores);
 		model.addAttribute("banos", banos);
 		model.addAttribute("despachos", despachos);
+		model.addAttribute("mapaActivo", mapaActivo);
 		model.addAttribute("locInteresForm",new LocInteresForm());
 		
 		return "localizacionesInteres";
@@ -120,6 +122,7 @@ public class LocalizacionController {
 		List<LocalizacionInteres> ascensores= locInteresService.buscarPorTipo("ascensor");
 		List<LocalizacionInteres> banos= locInteresService.buscarPorTipo("bano");
 		List<LocalizacionInteres> despachos= locInteresService.buscarPorTipo("despacho");
+		String mapaActivo=mapaService.buscarMapaActivo().getNombre();
 		
 		model.addAttribute("areas",locsInteres);
 		model.addAttribute("lectores",lectoresDto);
@@ -127,6 +130,7 @@ public class LocalizacionController {
 		model.addAttribute("ascensores",ascensores);
 		model.addAttribute("banos", banos);
 		model.addAttribute("despachos", despachos);
+		model.addAttribute("mapaActivo",mapaActivo);
 		model.addAttribute("lugaresForm",new LugarForm());
 		
 		return "lugares";
@@ -216,7 +220,8 @@ public class LocalizacionController {
 	
 	@RequestMapping(method=RequestMethod.GET,value="/descarga")
 	public void descargarInforme(HttpServletRequest request,
-            HttpServletResponse response,String edificio,Long planta,String area,String zona) throws IOException{
+            HttpServletResponse response,String edificio,Long planta,String area,String zona) 
+            		throws IOException{
 		
 			String fileName=locService.crearPdf(edificio,planta,area,zona);
 
@@ -232,36 +237,30 @@ public class LocalizacionController {
 
 			String mimeType = context.getMimeType(fullPath);
 			if (mimeType == null) {
-				// set to binary type if MIME mapping not found
 				mimeType = "application/octet-stream";
 			}
 			System.out.println("MIME type: " + mimeType);
 
-			// set content attributes for the response
+			
 			response.setContentType(mimeType);
 			response.setContentLength((int) downloadFile.length());
 
-			// set headers for the response
 			String headerKey = "Content-Disposition";
 			String headerValue = String.format("attachment; filename=\"%s\"",
 					downloadFile.getName());
 			response.setHeader(headerKey, headerValue);
 
-			// get output stream of the response
 			OutputStream outStream = response.getOutputStream();
 
 			byte[] buffer = new byte[BUFFER_SIZE];
 			int bytesRead = -1;
 
-			// write bytes read from the input stream into the output stream
 			while ((bytesRead = inputStream.read(buffer)) != -1) {
 				outStream.write(buffer, 0, bytesRead);
 			}
 
 			inputStream.close();
 			outStream.close();
-
-		
 	}
 	
 }

@@ -25,10 +25,12 @@ import es.udc.fi.tfg.forms.ConsultaActivoForm;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Etiqueta;
 import es.udc.fi.tfg.model.Localizacion;
+import es.udc.fi.tfg.model.LocalizacionInteres;
 import es.udc.fi.tfg.model.Mapa;
 import es.udc.fi.tfg.services.ActivoService;
 import es.udc.fi.tfg.services.EtiquetaService;
 import es.udc.fi.tfg.services.LectorService;
+import es.udc.fi.tfg.services.LocalizacionInteresService;
 import es.udc.fi.tfg.services.MapaService;
 
 
@@ -48,6 +50,9 @@ public class ActivoController {
 	
 	@Autowired
 	private MapaService mapaService;
+	
+	@Autowired
+	private LocalizacionInteresService locInteresService;
 	
 	
 	private String path="/resources/pdfs/";
@@ -108,23 +113,26 @@ public class ActivoController {
 	@RequestMapping(value="/verRecorrido")
 	public String verRecorrido(Model model, Long id){
 		List<Localizacion> localizaciones_=activoService.getLocalizacines(id);
-		List<Localizacion> dataLoc = new ArrayList<Localizacion>();
 		Activo activo=activoService.buscarActivoPorId(id);
+		String mapaActivo=mapaService.buscarMapaActivo().getNombre();
 		ArrayList<ArrayList<Double>> coordenadas= new ArrayList<ArrayList<Double>>();
-		int length = localizaciones_.size();
+		List<LocalizacionInteres> locsInteres= locInteresService.buscarPorTipo("area");
+		List<LocalizacionInteres> escaleras= locInteresService.buscarPorTipo("escalera");
+		List<LocalizacionInteres> ascensores= locInteresService.buscarPorTipo("ascensor");
+		List<LocalizacionInteres> banos= locInteresService.buscarPorTipo("bano");
+		List<LocalizacionInteres> despachos= locInteresService.buscarPorTipo("despacho");
+		
 		for(Localizacion loc:localizaciones_){
 			ArrayList<Double> cood=new ArrayList<Double>();
 			cood.add(0,loc.getCoord_x());
 			cood.add(1,loc.getCoord_y());
 			coordenadas.add(cood);
 		}
-		
 		ArrayList<Double> coord= new ArrayList<Double>();
 		for(Localizacion loc:localizaciones_){
 			coord.add(loc.getCoord_x());
 			coord.add(loc.getCoord_y());
 		}
-		
 		ArrayList<ArrayList<Double>> paths=new ArrayList<ArrayList<Double>>();
 		for(int i=0;i<coord.size()-2;i=i+2){
 			ArrayList<Double> cood=new ArrayList<Double>();
@@ -136,22 +144,22 @@ public class ActivoController {
 			
 			paths.add(cood);
 		}
-
-		
 		Localizacion locActual=activoService.getLocalizacionActual(id);
-		
 		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
-		
 		model.addAttribute("lectores", lectoresDto);
 		model.addAttribute("activo",activo);
-		model.addAttribute("locActualX", locActual.getCoord_x());
-		model.addAttribute("locActualY",locActual.getCoord_y());
 		model.addAttribute("coordenadas",coordenadas);
-		model.addAttribute("loc_size",length);
 		model.addAttribute("localizaciones", localizaciones_);
 		model.addAttribute("paths", paths);
 		model.addAttribute("path_size",paths.size());
 		model.addAttribute("idActivo",id);
+		model.addAttribute("mapaActivo",mapaActivo);
+		
+		model.addAttribute("areas",locsInteres);
+		model.addAttribute("escaleras",escaleras);
+		model.addAttribute("ascensores",ascensores);
+		model.addAttribute("banos", banos);
+		model.addAttribute("despachos", despachos);
 		
 		return "verrecorrido2";
 	}
