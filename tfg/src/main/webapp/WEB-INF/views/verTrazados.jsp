@@ -6,22 +6,28 @@
 
 <html>
 <head>
-<title>Ver recorrido</title>
+<title>Ver trazados</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 <s:url value="/resources/css/home_main.css" var="homeCss" />
 <s:url value="/resources/css/bootstrap.min.css" var="bootstrapMin" />
+<s:url value="/resources/css/dateTimePicker.css" var="dateTimePickerCss" />
 <s:url value="/resources/js/bootstrap.min.js" var="bootstrapJs" />
 <s:url value="/resources/images/RFID-Tag.jpg" var="rfidTag" />
 <s:url value="/resources/css/map.jsp" var="mapaJsp" />
 <s:url value="/resources/js/jquery.min.js" var="jquery" />
 <script src="${jquery}"></script>
 <link rel="stylesheet" type="text/css" href="${bootstrapMin}" />
+<link rel="stylesheet" type="text/css" href="${dateTimePickerCss}" />
 <link rel="stylesheet" href="${homeCss}" />
 <script src="http://code.jquery.com/jquery-latest.min.js"
 	type="text/javascript"></script>
 <script src="${bootstrapJs}" type="text/javascript"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"
+	type="text/javascript"></script>
 
 
 <style type="text/css">
@@ -55,13 +61,7 @@
 			<div class="navbar-collapse collapse sidebar-navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="<s:url value="/home"/>">HOME</a></li>
-					<li>
-						<c:url var="descargar" value="descarga">
-							<c:param name="id" value="${idActivo}"/>
-						</c:url>
-						<a href="<c:out value="${descargar}"/>">Descargar informe</a>
-					</li>
-					<li><a href="<s:url value="/activos/listactivos"/>">Volver</a></li>
+					<li><a href="<s:url value="/home"/>">Volver</a></li>
 				</ul>
 			</div>
 		</div>
@@ -78,71 +78,29 @@
 			<h2>
 			</h2>
 		</header>
-		<h4>Datos del activo</h4>
-		<div class="table-wrapper">
-			<table class="alt">
-
-				<thead>
-					<tr>
-						<th>Nombre</th>
-						<th>Categoria</th>
-						<th>Informacion etiqueta</th>
-						<th>Tecnologia etiqueta</th>
-					</tr>
-				</thead>
-
-				<tbody>
-					<tr>
-						<td>${activo.nombre}</td>
-						<td>${activo.categoria}</td>
-						<td>${activo.etiqueta.contenido}</td>
-						<td>${activo.etiqueta.tecnologia.tipo}</td>
-
-					</tr>
-				</tbody>
-			</table>
-		</div>
 		<p></p>
+		<sf:form id="trazado_form" method="POST" modelAttribute="trazadoForm">
+			<div class="12u$">
+				<sf:input path="fechaDesde" name="fecha_desde"
+					id="datepicker1" value="" placeholder="Fecha desde" readonly="true"/>
+			</div>
+			<div class="12u$">
+				<sf:input path="fechaHasta" name="fecha_hasta"
+					id="datepicker2" value="" placeholder="Fecha hasta" readonly="true" />
+			</div>
+			<div class="12u$">
+				<ul class="actions">
+					<li><input id="trazado_button" type="submit"
+						value="Buscar" class="special" /></li>
+				</ul>
+			</div>
+		</sf:form>
+		
+		
 		<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
 			viewBox="0 0 800 1100">
 							<jsp:include page="maps/${mapaActivo}.jsp"></jsp:include>
 						</svg>
-	</section>
-	<section>
-		<h4>Localizaciones</h4>
-		<div class="table-wrapper">
-			<table class="alt">
-
-				<thead>
-					<tr>
-						<th>Edificio</th>
-						<th>Planta</th>
-						<th>Area</th>
-						<th>Zona</th>
-						<th>Fecha</th>
-<!-- 						<th>Ver</th> -->
-					</tr>
-				</thead>
-
-				<tbody>
-					<c:set var="j" value="1"></c:set>
-					<c:forEach var="localizacion" items="${localizaciones}"
-						varStatus="status">
-
-						<tr id="localizaciones${j}">
-							<td>${localizacion.edificio}</td>
-							<td>${localizacion.planta}</td>
-							<td>${localizacion.area}</td>
-							<td>${localizacion.zona}</td>
-							<td>${localizacion.fecha}</td>
-<%-- 							<td><a onClick="markPath(${j});" --%>
-<!-- 								style="cursor: pointer; cursor: hand;">Ver tramo</a></td> -->
-						</tr>
-						<c:set var="j" value="${j+1}" />
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
 	</section>
 </div>
 
@@ -164,6 +122,7 @@
 <s:url value="/resources/js/skel.min.js" var="skel" />
 <s:url value="/resources/js/util.js" var="util" />
 <s:url value="/resources/js/main.js" var="main" />
+<s:url value="/resources/js/dateTimePicker.js" var="dateTimePicker" />
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
 <s:url value="/resources/js/areas.js" var="area" />
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
@@ -173,8 +132,8 @@
 <script src="${util}"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="${main}"></script>
+<script src="${dateTimePicker}"></script>
 <script>
-				var activo="${activo}";
 				var localizaciones = [], locObject;
 				var paths = [], pathObject;
 				var areas=[],areaObject;
@@ -263,33 +222,6 @@
 				var svg =d3.select("#svg1");
 				
 				
-				var line = d3.svg.line()
-                .x( function(point) { return point.lx; })
-                .y( function(point) { return point.ly; });
-
-				function lineData(d){
-				   var points = [
-				       {lx: d.source.x, ly: d.source.y},
-				       {lx: d.target.x, ly: d.target.y}
-				   ];
-				   return line(points);
-				}
-				
-				function translateAlong(path) {
-					  var l = path.getTotalLength();
-					    var ps = path.getPointAtLength(0);
-					    var pe = path.getPointAtLength(l);
-					    var angl = Math.atan2(pe.y - ps.y, pe.x - ps.x) * (180 / Math.PI) - 90;
-					    var rot_tran = "rotate(" + angl + ")";
-					  return function(d, i, a) {
-					    console.log(d);
-					    
-					    return function(t) {
-					      var p = path.getPointAtLength(t * l);
-					      return "translate(" + p.x + "," + p.y + ") " + rot_tran;
-					    };
-					  };
-					}
 
 				
 				
@@ -298,51 +230,15 @@
 
 				
 				$(document).ready(function(){
-					for(i=0; i<paths.length; i++){
-						var div = d3.select("body").append("div")	
-								    .attr("class", "tooltipPath")				
-								    .style("opacity", 0);
-						
-						var path = svg.append("path")
-						.attr("id","path"+i)
-						.data([{source: {x : paths[i].coord_x1, y : paths[i].coord_y1}, 
-							target: {x : paths[i].coord_x2, y : paths[i].coord_y2}}])
-						.attr("class","line")
-						.attr("d",lineData)
-						.attr("numero",i)
-						.on('mouseover',function(d) {		
-					            div.transition()		
-				            	.duration(200)		
-				            	.style("opacity", .9);
-					            div.html("<strong>Area: </strong><span>"+dataLocs[$(this).attr("numero")].area+ "</span><br/>" +
-	 									"<strong>Edificio: </strong><span>"+dataLocs[$(this).attr("numero")].edificio+ "</span><br/>"+
-										"<strong>Planta: </strong><span>"+dataLocs[$(this).attr("numero")].planta+ "</span><br/>"+
-										"<strong>Zona: </strong><span>"+dataLocs[$(this).attr("numero")].zona+ "</span><br/>"+
-	 									"<strong>Fecha: </strong><span>"+dataLocs[$(this).attr("numero")].fecha+ "</span>")	
-				            		.style("left", (d3.event.pageX) + "px")		
-				            		.style("top", (d3.event.pageY - 28) + "px");})
-							.on('mouseout',function(d) {		
-					            div.transition()		
-				            		.duration(500)		
-				            		.style("opacity", 0);});
-						
-						var arrow = svg.append("svg:path")
-						.attr("d", d3.svg.symbol().type("triangle-down")(10,1));
-						
-						arrow.transition()
-					      .duration(2000)
-					      .ease("linear")
-					      .attrTween("transform", translateAlong(path.node()));
-					      
-					    var totalLength = path.node().getTotalLength();
-					    path
-					      .attr("stroke-dasharray", totalLength + " " + totalLength)
-					      .attr("stroke-dashoffset", totalLength)
-					      .transition()
-					        .duration(2000)        
-					        .ease("linear")
-					        .attr("stroke-dashoffset", 0);  
-					};
+					$("#datepicker1").datetimepicker({
+						changeMonth : true,
+						changeYear : true
+					});
+					$("#datepicker2").datetimepicker({
+						changeMonth : true,
+						changeYear : true
+					});
+	
 				});
 				
 			</script>

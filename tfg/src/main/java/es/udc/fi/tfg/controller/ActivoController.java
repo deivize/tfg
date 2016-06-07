@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
 import es.udc.fi.tfg.dtos.LectorDto;
+import es.udc.fi.tfg.dtos.TrazadoDto;
 import es.udc.fi.tfg.forms.ActivoForm;
 import es.udc.fi.tfg.forms.ConsultaActivoForm;
+import es.udc.fi.tfg.forms.TrazadoForm;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Etiqueta;
 import es.udc.fi.tfg.model.Localizacion;
@@ -238,6 +240,43 @@ public class ActivoController {
         outStream.close();
         
 		
+	}
+	
+	@RequestMapping(value="/vertrazados")
+	public String verTrazados(Model model){
+		
+		Mapa mapaActivo=mapaService.buscarMapaActivo();
+		ArrayList<TrazadoDto> trazados=new ArrayList<TrazadoDto>();
+		
+		model.addAttribute("trazadoForm",new TrazadoForm());
+		model.addAttribute("mapaActivo", mapaActivo.getNombre());
+		model.addAttribute("trazados",trazados);
+		
+		return "verTrazados";
+	}
+	
+	@RequestMapping(value="/vertrazados",method=RequestMethod.POST)
+	public String consultarTrazados(Model model,TrazadoForm trazadoForm){
+		
+		Mapa mapaActivo=mapaService.buscarMapaActivo();
+		Timestamp fechaDesde=null;
+		Timestamp fechaHasta=null;
+		
+		if(trazadoForm.getFechaDesde()!=null){
+			fechaDesde=new Timestamp(trazadoForm.getFechaDesde().getTime());
+		}
+		
+		if(trazadoForm.getFechaHasta()!=null){
+			fechaHasta=new Timestamp(trazadoForm.getFechaHasta().getTime());
+		}
+		activoService.buscarTrazados(fechaDesde, fechaHasta);
+		
+		
+		model.addAttribute("trazadoForm",new TrazadoForm());
+		model.addAttribute("mapaActivo", mapaActivo.getNombre());
+		
+		
+		return "verTrazados";
 	}
 	
 	

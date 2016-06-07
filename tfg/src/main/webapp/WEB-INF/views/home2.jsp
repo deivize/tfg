@@ -51,6 +51,8 @@
 							<ul class="dropdown-menu">
 								<li><a href="<s:url value="/activos/listactivos"/>">Lista
 										de activos</a></li>
+								<li><a href="<s:url value="/activos/vertrazados"/>">Buscar 
+											trazados</a></li>		
 								<li><a href="<s:url value="/activos/nuevoactivo"/>">Crear
 										nuevo activo</a></li>
 								<li><a href="<s:url value="/activos/buscaractivos"/>">Buscar

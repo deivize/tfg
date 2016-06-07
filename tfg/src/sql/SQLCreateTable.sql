@@ -45,6 +45,7 @@ CREATE INDEX EtiquetaIndexByidEtiqueta ON Etiqueta(idEtiqueta);
 -- -----------------Mapa--------------------------------------------
 CREATE TABLE Mapa (idMapa BIGSERIAL NOT NULL,
 	nombre VARCHAR(255),
+	activo BOOLEAN,
 	CONSTRAINT MapaPK PRIMARY KEY (idMapa));
 
 -- -----------Activo-----------------------
@@ -58,9 +59,9 @@ CREATE TABLE Activo( idActivo BIGSERIAL NOT NULL,
 	idMapa BIGINT,
 	CONSTRAINT ActivoPK PRIMARY KEY (idActivo),
 	CONSTRAINT ActivoidEtiquetaFK FOREIGN KEY (idEtiqueta)
-		REFERENCES Etiqueta(idEtiqueta)),
-	CONSTRAINT ActivoidMapaFK FOREIGN KEY (idMapa
-		REFERENCES Mapa(idMapa);
+		REFERENCES Etiqueta(idEtiqueta)
+	CONSTRAINT ActivoidMapaFK FOREIGN KEY (idMapa)
+		REFERENCES Mapa(idMapa));
 
 CREATE INDEX ActivoIndexByidActivo ON Activo(idActivo);
 
@@ -83,9 +84,9 @@ CREATE TABLE Lector( idLector BIGSERIAL NOT NULL,
 	modelo VARCHAR(255) NOT NULL,
 	tipo VARCHAR(255),
 	idMapa BIGINT,
-	CONSTRAINT LectorPK PRIMARY KEY (idLector)),
+	CONSTRAINT LectorPK PRIMARY KEY (idLector),
 	CONSTRAINT LectoridMapaFK FOREIGN KEY (idMapa)
-		REFERENCES Mapa(idMapa);
+		REFERENCES Mapa(idMapa));
 	
 		
 CREATE INDEX LectorIndexByidLector ON Lector(idLector);
@@ -133,9 +134,9 @@ CREATE TABLE LocalizacionInteres ( idLocInteres BIGSERIAL NOT NULL,
 	idMapa BIGINT,
 	CONSTRAINT LocalizacionInteresPK PRIMARY KEY (idLocInteres),
 	CONSTRAINT LocalizacionInteresLocalizacionFK FOREIGN KEY (idLocalizacion)
-		REFERENCES Localizacion(idLocalizacion))
+		REFERENCES Localizacion(idLocalizacion),
 	CONSTRAINT LocalizacionInteresidMapaFK FOREIGN KEY (idMapa)
-		REFERENCES Mapa(idMapa);
+		REFERENCES Mapa(idMapa));
 
 
 

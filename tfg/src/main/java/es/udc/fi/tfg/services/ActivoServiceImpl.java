@@ -21,8 +21,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 import es.udc.fi.tfg.daos.ActivoDAO;
 import es.udc.fi.tfg.dtos.ActivoAlertaDto;
 import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
+import es.udc.fi.tfg.dtos.TrazadoDto;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Localizacion;
+import es.udc.fi.tfg.model.Mapa;
 
 @Service
 public class ActivoServiceImpl implements ActivoService {
@@ -372,6 +374,23 @@ public class ActivoServiceImpl implements ActivoService {
 			log.error("Error al buscar activos");
 		}
 		return activos;
+	}
+
+	@Override
+	@Transactional(value="miTransactionManager")
+	public List<TrazadoDto> buscarTrazados(Timestamp fechaDesde,
+			Timestamp fechaHasta) {
+		List<TrazadoDto> trazados=null;
+
+		try{
+			trazados=activoDAO.getTrazados(fechaDesde, fechaHasta);
+			log.info("Buscando trazado de activos con fechas "+fechaDesde+" y "+fechaHasta);
+		}catch(DataAccessException e){
+			log.error("Error al buscar trazados de activos");
+		}
+		
+		
+		return trazados;
 	}
 	
 

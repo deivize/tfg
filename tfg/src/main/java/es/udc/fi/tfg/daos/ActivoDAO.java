@@ -5,8 +5,10 @@ import java.util.List;
 
 import es.udc.fi.tfg.dtos.ActivoAlertaDto;
 import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
+import es.udc.fi.tfg.dtos.TrazadoDto;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.Localizacion;
+import es.udc.fi.tfg.model.Mapa;
 
 public interface ActivoDAO {
 	
@@ -19,6 +21,7 @@ public interface ActivoDAO {
 	Localizacion getLocalizacionActual(Long id);
 	List<ActivoLocalizacionDto> getLocalizacionesActuales();
 	List<ActivoAlertaDto> getActivosAlerta();
+	List<TrazadoDto> getTrazados(Timestamp fechaDesde,Timestamp fechaHasta);
 	List<Activo> buscarActivos(String nombre, String categoria, Timestamp fecha);
 	void update(Activo activo);
 	void remove(Activo activo);

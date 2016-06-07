@@ -13,9 +13,11 @@ import org.springframework.stereotype.Repository;
 
 import es.udc.fi.tfg.dtos.ActivoAlertaDto;
 import es.udc.fi.tfg.dtos.ActivoLocalizacionDto;
+import es.udc.fi.tfg.dtos.TrazadoDto;
 import es.udc.fi.tfg.model.Activo;
 import es.udc.fi.tfg.model.ActivoLocalizacion;
 import es.udc.fi.tfg.model.Localizacion;
+import es.udc.fi.tfg.model.Mapa;
 
 @Repository
 public class ActivoDAOHibImpl implements ActivoDAO {
@@ -265,6 +267,128 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 				createQuery("SELECT a FROM Activo a inner join a.mapa WHERE a.mapa.activo=TRUE").list();
 				
 		return activos;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TrazadoDto> getTrazados(Timestamp fechaDesde,
+			Timestamp fechaHasta) {
+		
+		List<TrazadoDto> trazados=new ArrayList<TrazadoDto>();
+		List<Activo> idActivos=null ;
+		
+		String query1="SELECT distinct pkAL.activo FROM ActivoLocalizacion";
+		
+		if(fechaDesde!=null && fechaHasta==null){
+			query1=query1+" WHERE fecha>:fechaDesde";
+			
+		}else if(fechaDesde==null && fechaHasta!=null){
+			query1=query1+" WHERE fecha<:fechaHasta";
+		}else if(fechaDesde!=null && fechaHasta!=null){
+			query1=query1+" WHERE fecha> :fechaDesde AND fecha< :fechaHasta";
+		}
+	
+		Query query2=miSessionFactory.getCurrentSession().createQuery(query1);
+		
+		if(fechaDesde!=null){
+			query2.setParameter("fechaDesde", fechaDesde);
+		}
+		if(fechaHasta!=null){
+			query2.setParameter("fechaHasta", fechaHasta);
+		}
+		
+		idActivos=(List<Activo>) query2.list();
+		
+//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+//		System.out.println(idActivos);
+		
+		
+		List<Activo> idActivosMapa=new ArrayList<Activo>();;
+		
+		for(Activo activo:idActivos){
+			if(activo.getMapa()!=null && activo.getMapa().getActivo()){
+				idActivosMapa.add(activo);
+			}
+		}
+		
+//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+//		System.out.println(idActivosMapa);
+		
+		
+		String query3="FROM ActivoLocalizacion WHERE idActivo= :idAct";
+		
+		if(fechaDesde!=null && fechaHasta==null){
+			query3=query3+" AND fecha>:fechaDesde";
+			
+		}else if(fechaDesde==null && fechaHasta!=null){
+			query3=query3+" AND fecha<:fechaHasta";
+		}else if(fechaDesde!=null && fechaHasta!=null){
+			query3=query3+" AND fecha> :fechaDesde AND fecha< :fechaHasta";
+		}
+		
+		Query query4=miSessionFactory.getCurrentSession().createQuery(query3);
+		
+		if(fechaDesde!=null){
+			query4.setParameter("fechaDesde", fechaDesde);
+		}
+		if(fechaHasta!=null){
+			query4.setParameter("fechaHasta", fechaHasta);
+		}
+		
+		TrazadoDto trazado=new TrazadoDto();
+		
+		for(Activo activo:idActivosMapa){
+			
+			query4.setParameter("idAct", activo.getIdActivo());
+			
+			trazado.setIdActivo(activo.getIdActivo());
+			trazado.setEtiqueta(activo.getEtiqueta());
+			trazado.setNombre(activo.getNombre());
+			
+			List<ActivoLocalizacion> activoLocs=(List<ActivoLocalizacion>) query4.list();
+			
+			List<Long> idLocalizaciones= new ArrayList<Long>();
+			for(ActivoLocalizacion actLoc:activoLocs){
+				idLocalizaciones.add(actLoc.getLocalizacion().getIdLocalizacion());
+			}
+			
+			List<Localizacion> localizaciones=new ArrayList<Localizacion>();
+			for(Long idLoc:idLocalizaciones){
+				Query query5 = miSessionFactory.getCurrentSession().
+						createQuery("FROM Localizacion WHERE idLocalizacion= :idLoc");
+				query5.setParameter("idLoc", idLoc);
+				Localizacion auxLoc =(Localizacion) query5.uniqueResult();
+				localizaciones.add(auxLoc);
+			}
+			
+			ArrayList<Double> coord= new ArrayList<Double>();
+			for(Localizacion loc:localizaciones){
+				coord.add(loc.getCoord_x());
+				coord.add(loc.getCoord_y());
+			}
+			
+			ArrayList<ArrayList<Double>> paths=new ArrayList<ArrayList<Double>>();
+			for(int i=0;i<coord.size()-2;i=i+2){
+				ArrayList<Double> cood=new ArrayList<Double>();
+				cood.add(0,coord.get(i));
+				cood.add(1,coord.get(i+1));
+				cood.add(2,coord.get(i+2));
+				cood.add(3,coord.get(i+3));
+				
+				
+				paths.add(cood);
+			}
+			
+			trazado.setCoordenadas(paths);
+			
+			trazados.add(trazado);
+		}
+		
+		System.out.println("+++++++++++++++++++++++++++");
+		System.out.println(trazados.get(0).getCoordenadas());
+		
+		
+		return trazados;
 	}
 
 }
