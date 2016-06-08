@@ -248,10 +248,24 @@ public class ActivoController {
 		
 		Mapa mapaActivo=mapaService.buscarMapaActivo();
 		ArrayList<TrazadoDto> trazados=new ArrayList<TrazadoDto>();
+		List<LocalizacionInteres> locsInteres= locInteresService.buscarPorTipo("area");
+		List<LocalizacionInteres> escaleras= locInteresService.buscarPorTipo("escalera");
+		List<LocalizacionInteres> ascensores= locInteresService.buscarPorTipo("ascensor");
+		List<LocalizacionInteres> banos= locInteresService.buscarPorTipo("bano");
+		List<LocalizacionInteres> despachos= locInteresService.buscarPorTipo("despacho");
+		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
 		
+		
+		model.addAttribute("lectores", lectoresDto);
 		model.addAttribute("trazadoForm",new TrazadoForm());
 		model.addAttribute("mapaActivo", mapaActivo.getNombre());
 		model.addAttribute("trazados",trazados);
+		
+		model.addAttribute("areas",locsInteres);
+		model.addAttribute("escaleras",escaleras);
+		model.addAttribute("ascensores",ascensores);
+		model.addAttribute("banos", banos);
+		model.addAttribute("despachos", despachos);
 		
 		return "verTrazados";
 	}
@@ -260,6 +274,13 @@ public class ActivoController {
 	public String consultarTrazados(Model model,TrazadoForm trazadoForm){
 		
 		Mapa mapaActivo=mapaService.buscarMapaActivo();
+		List<LocalizacionInteres> locsInteres= locInteresService.buscarPorTipo("area");
+		List<LocalizacionInteres> escaleras= locInteresService.buscarPorTipo("escalera");
+		List<LocalizacionInteres> ascensores= locInteresService.buscarPorTipo("ascensor");
+		List<LocalizacionInteres> banos= locInteresService.buscarPorTipo("bano");
+		List<LocalizacionInteres> despachos= locInteresService.buscarPorTipo("despacho");
+		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
+		
 		Timestamp fechaDesde=null;
 		Timestamp fechaHasta=null;
 		
@@ -281,9 +302,16 @@ public class ActivoController {
 		List<TrazadoDto> trazados=activoService.buscarTrazados(fechaDesde, fechaHasta);
 		
 		
+		model.addAttribute("lectores", lectoresDto);
 		model.addAttribute("trazadoForm",new TrazadoForm());
 		model.addAttribute("mapaActivo", mapaActivo.getNombre());
 		model.addAttribute("trazados",trazados);
+		
+		model.addAttribute("areas",locsInteres);
+		model.addAttribute("escaleras",escaleras);
+		model.addAttribute("ascensores",ascensores);
+		model.addAttribute("banos", banos);
+		model.addAttribute("despachos", despachos);
 		
 		
 		return "verTrazados";

@@ -385,12 +385,12 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 			trazados.add(trazado);
 		}
 		
-		System.out.println("+++++++++++++++++++++++++++");
-		System.out.println(trazados.size());
-		System.out.println(trazados.get(0).getIdActivo());
-		System.out.println(trazados.get(1).getIdActivo());
-		System.out.println(trazados.get(0).getCoordenadas());
-		System.out.println(trazados.get(1).getCoordenadas());
+//		System.out.println("+++++++++++++++++++++++++++");
+//		System.out.println(trazados.size());
+//		System.out.println(trazados.get(0).getIdActivo());
+//		System.out.println(trazados.get(1).getIdActivo());
+//		System.out.println(trazados.get(0).getCoordenadas());
+//		System.out.println(trazados.get(1).getCoordenadas());
 		
 		
 		return trazados;
