@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -263,17 +264,26 @@ public class ActivoController {
 		Timestamp fechaHasta=null;
 		
 		if(trazadoForm.getFechaDesde()!=null){
-			fechaDesde=new Timestamp(trazadoForm.getFechaDesde().getTime());
+			Calendar cal= Calendar.getInstance();
+			cal.setTime(trazadoForm.getFechaDesde());
+			if(cal.get(Calendar.YEAR)!=2200){
+				fechaDesde=new Timestamp(trazadoForm.getFechaDesde().getTime());
+			}
 		}
 		
 		if(trazadoForm.getFechaHasta()!=null){
-			fechaHasta=new Timestamp(trazadoForm.getFechaHasta().getTime());
+			Calendar cal= Calendar.getInstance();
+			cal.setTime(trazadoForm.getFechaHasta());
+			if(cal.get(Calendar.YEAR)!=2200){
+				fechaHasta=new Timestamp(trazadoForm.getFechaHasta().getTime());
+			}
 		}
-		activoService.buscarTrazados(fechaDesde, fechaHasta);
+		List<TrazadoDto> trazados=activoService.buscarTrazados(fechaDesde, fechaHasta);
 		
 		
 		model.addAttribute("trazadoForm",new TrazadoForm());
 		model.addAttribute("mapaActivo", mapaActivo.getNombre());
+		model.addAttribute("trazados",trazados);
 		
 		
 		return "verTrazados";

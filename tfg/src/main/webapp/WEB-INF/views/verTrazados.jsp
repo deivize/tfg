@@ -32,7 +32,6 @@
 
 <style type="text/css">
 .line {
-	stroke: blue;
 	stroke-width: 3px;
 	fill: white;
 }
@@ -82,19 +81,16 @@
 		<sf:form id="trazado_form" method="POST" modelAttribute="trazadoForm">
 			<div class="12u$">
 				<sf:input path="fechaDesde" name="fecha_desde"
-					id="datepicker1" value="" placeholder="Fecha desde" readonly="true"/>
+					id="datepicker1" value="" placeholder="Fecha desde"/>
 			</div>
 			<div class="12u$">
 				<sf:input path="fechaHasta" name="fecha_hasta"
-					id="datepicker2" value="" placeholder="Fecha hasta" readonly="true" />
+					id="datepicker2" value="" placeholder="Fecha hasta"/>
 			</div>
-			<div class="12u$">
-				<ul class="actions">
-					<li><input id="trazado_button" type="submit"
-						value="Buscar" class="special" /></li>
-				</ul>
-			</div>
-		</sf:form>
+		</sf:form>	
+		<div style="margin-top:2px">
+			<a href="#" class="button special" onClick="fillForm()">Buscar</a>
+		</div>
 		
 		
 		<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
@@ -125,6 +121,7 @@
 <s:url value="/resources/js/dateTimePicker.js" var="dateTimePicker" />
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
 <s:url value="/resources/js/areas.js" var="area" />
+<s:url value="/resources/js/randomColor.js" var="randomColor" />
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src="${area}"></script>
 <script src="${jqueryPop}"></script>
@@ -133,6 +130,7 @@
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="${main}"></script>
 <script src="${dateTimePicker}"></script>
+<script src="${randomColor}"></script>
 <script>
 				var localizaciones = [], locObject;
 				var paths = [], pathObject;
@@ -143,6 +141,20 @@
 				var ascensores=[],ascensorObject;
 				var banos=[],banoObject;
 				var despachos=[],despachoObject
+				var trazados=[], trazadoObject;
+				var coordenadas=[], coordObject;
+				
+				
+				<c:forEach var="traz" items="${trazados}">
+					coordenadas=[];
+					coordObject={};
+					<c:forEach var="coord" items="${traz.coordenadas}">
+						coordObject = { coord_x1: "${coord[0]}",coord_y1: "${coord[1]}", coord_x2: "${coord[2]}", coord_y2: "${coord[3]}" };
+						coordenadas.push(coordObject);
+					</c:forEach>;
+					trazadoObject={idActivo:"${traz.idActivo}",etiqueta:"${traz.etiqueta.idEtiqueta}",contenidoEtq:"${traz.etiqueta.contenido}",nombre:"${traz.nombre}",coord:coordenadas};
+					trazados.push(trazadoObject);
+				</c:forEach>
 				
 				
 				<c:forEach var="loc" items="${localizaciones}">
@@ -221,8 +233,51 @@
 				
 				var svg =d3.select("#svg1");
 				
-				
+				var line = d3.svg.line()
+                .x( function(point) { return point.lx; })
+                .y( function(point) { return point.ly; });
 
+				function lineData(d){
+				   var points = [
+				       {lx: d.source.x, ly: d.source.y},
+				       {lx: d.target.x, ly: d.target.y}
+				   ];
+				   return line(points);
+				}
+				
+				function translateAlong(path) {
+					  var l = path.getTotalLength();
+					    var ps = path.getPointAtLength(0);
+					    var pe = path.getPointAtLength(l);
+					    var angl = Math.atan2(pe.y - ps.y, pe.x - ps.x) * (180 / Math.PI) - 90;
+					    var rot_tran = "rotate(" + angl + ")";
+					  return function(d, i, a) {
+					    console.log(d);
+					    
+					    return function(t) {
+					      var p = path.getPointAtLength(t * l);
+					      return "translate(" + p.x + "," + p.y + ") " + rot_tran;
+					    };
+					  };
+					}
+				
+				
+				
+				
+				function fillForm(){
+					var form=$("#trazado_form");
+					
+					
+					if($("#datepicker1").val()==""){
+						$("#datepicker1").val('12/20/2200 11:07');	
+					}
+					
+					if($("#datepicker2").val()==""){
+						$("#datepicker2").val('06/03/2200 11:22');	
+					}
+					
+					form.submit();
+				}
 				
 				
 				
@@ -239,6 +294,68 @@
 						changeYear : true
 					});
 	
+					
+					
+					for(i=0; i<trazados.length; i++){
+						var strokePath=randomColor();
+						
+						for(j=0;j<trazados[i].coord.length;j++){
+						var div = d3.select("body").append("div")	
+								    .attr("class", "tooltipPath")				
+								    .style("opacity", 0);
+						
+						var path = svg.append("path")
+						.attr("id","path"+i+""+j)
+						.data([{source: {x : trazados[i].coord[j].coord_x1, y : trazados[i].coord[j].coord_y1}, 
+							target: {x :trazados[i].coord[j].coord_x2, y : trazados[i].coord[j].coord_y2}}])
+						.attr("class","line")
+						.attr("d",lineData)
+						.attr("numero",i)
+						.attr("stroke",strokePath)
+						.on('mouseover',function(d) {		
+					            div.transition()		
+				            	.duration(200)		
+				            	.style("opacity", .9);
+					            div.html("<strong>Activo id: </strong><span>"+trazados[$(this).attr("numero")].idActivo+ "</span><br/>" +
+	 									"<strong>Nombre: </strong><span>"+trazados[$(this).attr("numero")].nombre+ "</span><br/>"+
+										"<strong>Etiqueta id: </strong><span>"+trazados[$(this).attr("numero")].etiqueta+ "</span><br/>"+
+										"<strong>Contenido etq: </strong><span>"+trazados[$(this).attr("numero")].contenidoEtq+ "</span><br/>")	
+				            		.style("left", (d3.event.pageX) + "px")		
+				            		.style("top", (d3.event.pageY - 28) + "px");})
+							.on('mouseout',function(d) {		
+					            div.transition()		
+				            		.duration(500)		
+				            		.style("opacity", 0);});
+						
+// 						var arrow = svg.append("svg:path")
+// 						.attr("d", d3.svg.symbol().type("triangle-down")(10,1));
+						
+// 						arrow.transition()
+// 					      .duration(2000)
+// 					      .ease("linear")
+// 					      .attrTween("transform", translateAlong(path.node()));
+
+						var marker = svg.append("circle")
+						 				.attr("r", 7)
+						 				.attr("fill","red");
+						transition();    
+						
+						function transition() {
+						    marker.transition()
+						        .duration(7500)
+						        .attrTween("transform", translateAlong(path.node()))
+						  }
+					      
+					    var totalLength = path.node().getTotalLength();
+					    path
+					      .attr("stroke-dasharray", totalLength + " " + totalLength)
+					      .attr("stroke-dashoffset", totalLength)
+					      .transition()
+					        .duration(2000)        
+					        .ease("linear")
+					        .attr("stroke-dashoffset", 0);  
+					}
+					};
 				});
 				
 			</script>

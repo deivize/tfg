@@ -326,14 +326,26 @@
 				            		.duration(500)		
 				            		.style("opacity", 0);});
 						
-						var arrow = svg.append("svg:path")
-						.attr("d", d3.svg.symbol().type("triangle-down")(10,1));
+// 						var arrow = svg.append("svg:path")
+// 						.attr("d", d3.svg.symbol().type("triangle-down")(10,1));
 						
-						arrow.transition()
-					      .duration(2000)
-					      .ease("linear")
-					      .attrTween("transform", translateAlong(path.node()));
+// 						arrow.transition()
+// 					      .duration(2000)
+// 					      .ease("linear")
+// 					      .attrTween("transform", translateAlong(path.node()));
 					      
+
+						var marker = svg.append("circle")
+						 				.attr("r", 7)
+						 				.attr("fill","red");
+						transition();    
+						
+						function transition() {
+						    marker.transition()
+						        .duration(7500)
+						        .attrTween("transform", translateAlong(path.node()))
+						  }
+						
 					    var totalLength = path.node().getTotalLength();
 					    path
 					      .attr("stroke-dasharray", totalLength + " " + totalLength)
@@ -341,7 +353,7 @@
 					      .transition()
 					        .duration(2000)        
 					        .ease("linear")
-					        .attr("stroke-dashoffset", 0);  
+					        .attr("stroke-dashoffset", 0); 
 					};
 				});
 				

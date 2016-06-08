@@ -335,10 +335,11 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 			query4.setParameter("fechaHasta", fechaHasta);
 		}
 		
-		TrazadoDto trazado=new TrazadoDto();
+		
 		
 		for(Activo activo:idActivosMapa){
-			
+			TrazadoDto trazado=new TrazadoDto();
+		
 			query4.setParameter("idAct", activo.getIdActivo());
 			
 			trazado.setIdActivo(activo.getIdActivo());
@@ -385,7 +386,11 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		}
 		
 		System.out.println("+++++++++++++++++++++++++++");
+		System.out.println(trazados.size());
+		System.out.println(trazados.get(0).getIdActivo());
+		System.out.println(trazados.get(1).getIdActivo());
 		System.out.println(trazados.get(0).getCoordenadas());
+		System.out.println(trazados.get(1).getCoordenadas());
 		
 		
 		return trazados;
