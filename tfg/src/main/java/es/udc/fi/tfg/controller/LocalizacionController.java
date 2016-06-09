@@ -122,6 +122,7 @@ public class LocalizacionController {
 		List<LocalizacionInteres> ascensores= locInteresService.buscarPorTipo("ascensor");
 		List<LocalizacionInteres> banos= locInteresService.buscarPorTipo("bano");
 		List<LocalizacionInteres> despachos= locInteresService.buscarPorTipo("despacho");
+		List<LocalizacionInteres> textos= locInteresService.buscarPorTipo("texto");
 		String mapaActivo=mapaService.buscarMapaActivo().getNombre();
 		
 		model.addAttribute("areas",locsInteres);
@@ -130,6 +131,7 @@ public class LocalizacionController {
 		model.addAttribute("ascensores",ascensores);
 		model.addAttribute("banos", banos);
 		model.addAttribute("despachos", despachos);
+		model.addAttribute("textosLugares",textos);
 		model.addAttribute("mapaActivo",mapaActivo);
 		model.addAttribute("lugaresForm",new LugarForm());
 		
@@ -147,6 +149,9 @@ public class LocalizacionController {
 		String bano_coord_y=lugarForm.getBano_coord_y();
 		String des_coord_x=lugarForm.getDespacho_coord_x();
 		String des_coord_y=lugarForm.getDespacho_coord_y();
+		String textos= lugarForm.getTextos();
+		String coord_textosX= lugarForm.getCoord_textosX();
+		String coord_textosY= lugarForm.getCoord_textosY();
 		
 		String[] esc_x=esc_coord_x.split("-");
 		String[] esc_y=esc_coord_y.split("-");
@@ -156,6 +161,9 @@ public class LocalizacionController {
 		String[] bano_y=bano_coord_y.split("-");
 		String[] des_x=des_coord_x.split("-");
 		String[] des_y=des_coord_y.split("-");
+		String[] tex=textos.split("-");
+		String[] cTex_x=coord_textosX.split("-");
+		String[] cTex_y=coord_textosY.split("-");
 		
 		LocalizacionInteres locInteres=null;
 		Mapa mapa=mapaService.buscarMapaActivo();
@@ -187,6 +195,14 @@ public class LocalizacionController {
 		if(des_x.length>=1){
 			for(int i=1;i<des_x.length;i++){
 				locInteres= new LocalizacionInteres("despacho",Double.parseDouble(des_x[i]),Double.parseDouble(des_y[i]),"",null);
+				locInteres.setMapa(mapa);
+				locInteresService.crearLocInteres(locInteres);
+			}
+		}
+		
+		if(tex.length>=1){
+			for(int i=1;i<tex.length;i++){
+				locInteres= new LocalizacionInteres("texto",Double.parseDouble(cTex_x[i]),Double.parseDouble(cTex_y[i]),tex[i],null);
 				locInteres.setMapa(mapa);
 				locInteresService.crearLocInteres(locInteres);
 			}

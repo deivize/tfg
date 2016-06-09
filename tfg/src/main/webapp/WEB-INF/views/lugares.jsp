@@ -62,7 +62,31 @@
 				<h2>
 				</h2>
 			</header>
-			<p>Seleccione un tipo lugar y muévalo a la posición deseada.</p>
+			<p>Seleccione un tipo de lugar y muévalo a la posición deseada.</p>
+			<p>Clique en el mapa e introduzca un nombre para ese lugar</p>
+						<sf:form>
+				<div class="row uniform 50%">
+					<div class="12u$">
+						<input type="text" id="nombreLocalizacion" value
+							placeholder="Nombre" />
+					</div>
+				</div>
+				<div class="oculto">
+				<div class="row uniform 50%">
+					<div class="12u$">
+						<input type="text" id="coordenadaX" value
+							placeholder="Coordenada X" disabled />
+					</div>
+				</div>
+				<div class="row uniform 50%">
+					<div class="12u$">
+						<input type="text" id="coordenadaY" value
+							placeholder="Coordenada Y" disabled />
+					</div>
+				</div>
+				</div>
+				<a id="botonCoord" href="#" class="button special small">Nuevo</a>
+			</sf:form>
 			
 			<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
 				viewBox="0 0 800 1100">
@@ -80,6 +104,9 @@
 			<sf:input id="bano_y" path="bano_coord_y" value=""></sf:input>
 			<sf:input id="despacho_x" path="despacho_coord_x" value=""></sf:input>
 			<sf:input id="despacho_y" path="despacho_coord_y" value=""></sf:input>
+			<sf:input id="texto" path="textos" value=""></sf:input>
+			<sf:input id="coord_textosX" path="coord_textosX" value=""></sf:input>
+			<sf:input id="coord_textosY" path="coord_textosY" value=""></sf:input>
 		</sf:form>
 		</div>
 		<div style="margin-top:10px">
@@ -128,6 +155,7 @@
 				var ascensores=[],ascensorObject;
 				var banos=[],banoObject;
 				var despachos=[],despachoObject;
+				var textosLugares=[],textoObject;
 				var svg =d3.select("#svg1");
 				var activeRect;
 				
@@ -180,9 +208,45 @@
 				despachos.push(despachoObject);
 				</c:forEach>
 				
+				<c:forEach var="text" items="${textosLugares}">
+				textoObject = {
+					coord_x : "${text.width}",
+					coord_y : "${text.height}",
+					texto : "${text.texto}"
+				}
+				textosLugares.push(textoObject);
+				</c:forEach>
+				
+				
+				function mouseclick(d, i) {
+					var coordinates = [0, 0];
+// 					console.log(d3.mouse(this));
+					coordinates = d3.mouse(this);
+					$("#coordenadaX").val(coordinates[0]);
+					$("#coordenadaY").val(coordinates[1]);
+					
+				};
+				
+				$("#botonCoord").on("click",function(){
+					
+					if($("#nombreLocalizacion").val() !== '' && $("#coordenadaX").val() !== '' && $("#coordenadaY").val() !== ''){
+						var text = svg.append("text")
+						.attr("x",$("#coordenadaX").val())
+						.attr("y",$("#coordenadaY").val())
+						.attr("font-family","sans-serif")
+						.text($("#nombreLocalizacion").val())
+						.attr("font-size","20px")
+						.attr("fill","blue")
+						.attr("class","tex")
+						.attr("contenido",$("#nombreLocalizacion").val());
+					}
+				});
+				
+				svg.on("click",mouseclick);
 				
 				function fillForm(){
 					var lugares=$(".lugar");
+					var tex=$(".tex");
 					var form= $("#lugar_interes_form");
 					var escalera_x = $("#escalera_x");
 					var escalera_y = $("#escalera_y");
@@ -192,6 +256,9 @@
 					var bano_y = $("#bano_y");
 					var despacho_x = $("#despacho_x");
 					var despacho_y = $("#despacho_y");
+					var textos=$("#texto");
+					var coord_textosX=$("#coord_textosX");
+					var coord_textosY=$("#coord_textosY");
 					
 					escalera_x.val('');
 					escalera_y.val('');
@@ -201,6 +268,9 @@
 					bano_y.val('');
 					despacho_x.val('');
 					despacho_y.val('');
+					textos.val('');
+					coord_textosX.val('');
+					coord_textosY.val('');
 					
 					for(i=0;i<lugares.length;i++){
 						if($(lugares[i]).attr("tipo")=="escalera"){
@@ -219,6 +289,12 @@
 							despacho_x.val(despacho_x.val()+"-"+$(lugares[i]).attr("x"));
 							despacho_y.val(despacho_y.val()+"-"+$(lugares[i]).attr("y"));
 						}
+					}
+					
+					for(i=0;i<tex.length;i++){
+						textos.val(textos.val()+"-"+$(tex[i]).attr("contenido"));
+						coord_textosX.val(coord_textosX.val()+"-"+$(tex[i]).attr("x"));
+						coord_textosY.val(coord_textosY.val()+"-"+$(tex[i]).attr("y"));
 					}
 					
 					form.submit();

@@ -262,6 +262,7 @@ public class ActivoController {
 		List<LocalizacionInteres> ascensores= locInteresService.buscarPorTipo("ascensor");
 		List<LocalizacionInteres> banos= locInteresService.buscarPorTipo("bano");
 		List<LocalizacionInteres> despachos= locInteresService.buscarPorTipo("despacho");
+		List<LocalizacionInteres> textos= locInteresService.buscarPorTipo("texto");
 		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
 		
 		
@@ -275,6 +276,7 @@ public class ActivoController {
 		model.addAttribute("ascensores",ascensores);
 		model.addAttribute("banos", banos);
 		model.addAttribute("despachos", despachos);
+		model.addAttribute("textosLugares",textos);
 		
 		return "verTrazados";
 	}
@@ -288,6 +290,7 @@ public class ActivoController {
 		List<LocalizacionInteres> ascensores= locInteresService.buscarPorTipo("ascensor");
 		List<LocalizacionInteres> banos= locInteresService.buscarPorTipo("bano");
 		List<LocalizacionInteres> despachos= locInteresService.buscarPorTipo("despacho");
+		List<LocalizacionInteres> textos= locInteresService.buscarPorTipo("texto");
 		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
 		
 		Timestamp fechaDesde=null;
@@ -321,6 +324,7 @@ public class ActivoController {
 		model.addAttribute("ascensores",ascensores);
 		model.addAttribute("banos", banos);
 		model.addAttribute("despachos", despachos);
+		model.addAttribute("textosLugares",textos);
 		
 		
 		return "verTrazados";

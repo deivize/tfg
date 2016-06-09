@@ -176,6 +176,21 @@ function dibujarLugares(){
 		
 	}
 	
+	for(i=0;i<textosLugares.length;i++){
+		
+		
+		
+		var text = svg.append("text")
+		.attr("x",textosLugares[i].coord_x)
+		.attr("y",textosLugares[i].coord_y)
+		.attr("font-family","sans-serif")
+		.text(textosLugares[i].texto)
+		.attr("font-size","20px")
+		.attr("fill","blue")
+		.attr("class","textoLugar")
+		
+	}
+	
 }
 
 $(document).ready(function(){

@@ -10,6 +10,9 @@ public class LugarForm {
 	private String bano_coord_y;
 	private String despacho_coord_x;
 	private String despacho_coord_y;
+	private String textos;
+	private String coord_textosX;
+	private String coord_textosY;
 	
 	public String getEscalera_coord_x() {
 		return escalera_coord_x;
@@ -58,6 +61,24 @@ public class LugarForm {
 	}
 	public void setDespacho_coord_y(String despacho_coord_y) {
 		this.despacho_coord_y = despacho_coord_y;
+	}
+	public String getTextos() {
+		return textos;
+	}
+	public void setTextos(String textos) {
+		this.textos = textos;
+	}
+	public String getCoord_textosX() {
+		return coord_textosX;
+	}
+	public void setCoord_textosX(String coord_textosX) {
+		this.coord_textosX = coord_textosX;
+	}
+	public String getCoord_textosY() {
+		return coord_textosY;
+	}
+	public void setCoord_textosY(String coord_textosY) {
+		this.coord_textosY = coord_textosY;
 	}
 	
 	

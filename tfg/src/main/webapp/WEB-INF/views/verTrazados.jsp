@@ -140,7 +140,8 @@
 				var escaleras=[],escaleraObject;
 				var ascensores=[],ascensorObject;
 				var banos=[],banoObject;
-				var despachos=[],despachoObject
+				var despachos=[],despachoObject;
+				var textosLugares=[],textoObject;
 				var trazados=[], trazadoObject;
 				var coordenadas=[], coordObject;
 				
@@ -230,6 +231,15 @@
 				}
 				despachos.push(despachoObject);
 				</c:forEach>;
+				
+				<c:forEach var="text" items="${textosLugares}">
+				textoObject = {
+					coord_x : "${text.width}",
+					coord_y : "${text.height}",
+					texto : "${text.texto}"
+				}
+				textosLugares.push(textoObject);
+				</c:forEach>
 				
 				var svg =d3.select("#svg1");
 				
