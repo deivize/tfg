@@ -3228,4 +3228,8 @@ div.tooltipPath {
     pointer-events: none;			
 }
 
+#Gmap{
+	width:600px;
+	height:500px;
+}
 

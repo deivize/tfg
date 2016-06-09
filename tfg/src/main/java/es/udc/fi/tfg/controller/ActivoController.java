@@ -115,9 +115,12 @@ public class ActivoController {
 	
 	@RequestMapping(value="/verRecorrido")
 	public String verRecorrido(Model model, Long id){
+		Mapa mapa=mapaService.buscarMapaActivo();
 		List<Localizacion> localizaciones_=activoService.getLocalizacines(id);
 		Activo activo=activoService.buscarActivoPorId(id);
-		String mapaActivo=mapaService.buscarMapaActivo().getNombre();
+		String mapaActivo=mapa.getNombre();
+		double latitud=mapa.getLatitud();
+		double longitud=mapa.getLongitud();
 		ArrayList<ArrayList<Double>> coordenadas= new ArrayList<ArrayList<Double>>();
 		List<LocalizacionInteres> locsInteres= locInteresService.buscarPorTipo("area");
 		List<LocalizacionInteres> escaleras= locInteresService.buscarPorTipo("escalera");
@@ -157,6 +160,12 @@ public class ActivoController {
 		model.addAttribute("path_size",paths.size());
 		model.addAttribute("idActivo",id);
 		model.addAttribute("mapaActivo",mapaActivo);
+		model.addAttribute("latitud",latitud);
+		model.addAttribute("longitud",longitud);
+		
+		System.out.println("+++++++++++++++++++++++++++++++++++");
+		System.out.println(mapa.getNombre());
+		System.out.println(mapa.getLatitud());
 		
 		model.addAttribute("areas",locsInteres);
 		model.addAttribute("escaleras",escaleras);

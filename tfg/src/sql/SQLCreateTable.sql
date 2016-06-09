@@ -46,6 +46,8 @@ CREATE INDEX EtiquetaIndexByidEtiqueta ON Etiqueta(idEtiqueta);
 CREATE TABLE Mapa (idMapa BIGSERIAL NOT NULL,
 	nombre VARCHAR(255),
 	activo BOOLEAN,
+	latitud DOUBLE PRECISION,
+	longitud DOUBLE PRECISION,
 	CONSTRAINT MapaPK PRIMARY KEY (idMapa));
 
 -- -----------Activo-----------------------

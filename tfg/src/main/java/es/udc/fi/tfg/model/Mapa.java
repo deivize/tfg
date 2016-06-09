@@ -15,6 +15,8 @@ public class Mapa {
 	private Long idMapa;
 	private String nombre;
 	private Boolean activo;
+	private double latitud;
+	private double longitud;
 	
 	@Id
 	@SequenceGenerator(name="idMapa",sequenceName="mapa_idmapa_seq")
@@ -42,11 +44,31 @@ public class Mapa {
 		this.activo = activo;
 	}
 	
+	@Column(name="latitud")
+	public double getLatitud() {
+		return latitud;
+	}
+	public void setLatitud(double latitud) {
+		this.latitud = latitud;
+	}
+	@Column(name="longitud")
+	public double getLongitud() {
+		return longitud;
+	}
+	public void setLongitud(double longitud) {
+		this.longitud = longitud;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((activo == null) ? 0 : activo.hashCode());
 		result = prime * result + ((idMapa == null) ? 0 : idMapa.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(latitud);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longitud);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
@@ -59,10 +81,21 @@ public class Mapa {
 		if (getClass() != obj.getClass())
 			return false;
 		Mapa other = (Mapa) obj;
+		if (activo == null) {
+			if (other.activo != null)
+				return false;
+		} else if (!activo.equals(other.activo))
+			return false;
 		if (idMapa == null) {
 			if (other.idMapa != null)
 				return false;
 		} else if (!idMapa.equals(other.idMapa))
+			return false;
+		if (Double.doubleToLongBits(latitud) != Double
+				.doubleToLongBits(other.latitud))
+			return false;
+		if (Double.doubleToLongBits(longitud) != Double
+				.doubleToLongBits(other.longitud))
 			return false;
 		if (nombre == null) {
 			if (other.nombre != null)

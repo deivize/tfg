@@ -70,7 +70,7 @@
 </header>
 
 <!-- Main -->
-<div id="main">
+<div id="main" style="height:100%; width:100%;">
 
 	<!-- One -->
 	<section id="one">
@@ -108,6 +108,13 @@
 							<jsp:include page="maps/${mapaActivo}.jsp"></jsp:include>
 						</svg>
 	</section>
+	
+	<section>
+		<h4>Ubicación real del plano</h4>
+		<div id="Gmap"></div>
+	
+	</section>
+	
 	<section>
 		<h4>Localizaciones</h4>
 		<div class="table-wrapper">
@@ -144,6 +151,7 @@
 			</table>
 		</div>
 	</section>
+	
 </div>
 
 <!-- Footer -->
@@ -167,6 +175,7 @@
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
 <s:url value="/resources/js/areas.js" var="area" />
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDcA9VqUwn-DPYsun0vMx6fKWgLrUdr6Q&callback=initMap" async defer></script>
 <script src="${area}"></script>
 <script src="${jqueryPop}"></script>
 <script src="${skel}"></script>
@@ -184,6 +193,8 @@
 				var ascensores=[],ascensorObject;
 				var banos=[],banoObject;
 				var despachos=[],despachoObject
+				var latitud="${latitud}";
+				var longitud="${longitud}";
 				
 				
 				<c:forEach var="loc" items="${localizaciones}">
@@ -292,7 +303,13 @@
 					}
 
 				
-				
+				function initMap(){
+					var mapDiv = document.getElementById('Gmap');
+					var map = new google.maps.Map(mapDiv,{
+					      center: {lat: parseFloat("${latitud}"), lng: parseFloat("${longitud}")},
+					      zoom: 18
+					    });
+				}
 				
 				
 
@@ -355,6 +372,7 @@
 					        .ease("linear")
 					        .attr("stroke-dashoffset", 0); 
 					};
+					
 				});
 				
 			</script>
