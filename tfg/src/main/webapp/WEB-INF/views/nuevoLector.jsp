@@ -136,6 +136,7 @@
 	var ascensores=[],ascensorObject;
 	var banos=[],banoObject;
 	var despachos=[],despachoObject;
+	var textosLugares=[],textoObject;
 	
 	<c:forEach var="area" items="${areas}">
 	areaObject = {
@@ -192,6 +193,14 @@
 	despachos.push(despachoObject);
 	</c:forEach>
 	
+	<c:forEach var="text" items="${textosLugares}">
+	textoObject = {
+		coord_x : "${text.width}",
+		coord_y : "${text.height}",
+		texto : "${text.texto}"
+	}
+	textosLugares.push(textoObject);
+	</c:forEach>
 	
 	
 

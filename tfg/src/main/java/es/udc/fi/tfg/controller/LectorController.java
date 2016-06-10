@@ -136,10 +136,20 @@ public class LectorController {
 		
 		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
 		List<LocalizacionInteres> locsInteres= locInteresService.buscarPorTipo("area");
+		List<LocalizacionInteres> escaleras= locInteresService.buscarPorTipo("escalera");
+		List<LocalizacionInteres> ascensores= locInteresService.buscarPorTipo("ascensor");
+		List<LocalizacionInteres> banos= locInteresService.buscarPorTipo("bano");
+		List<LocalizacionInteres> despachos= locInteresService.buscarPorTipo("despacho");
+		List<LocalizacionInteres> textos= locInteresService.buscarPorTipo("texto");
 		String mapaActivo=mapaService.buscarMapaActivo().getNombre();
 		
 		model.addAttribute("lectores", lectoresDto);
 		model.addAttribute("areas",locsInteres);
+		model.addAttribute("escaleras",escaleras);
+		model.addAttribute("ascensores",ascensores);
+		model.addAttribute("banos", banos);
+		model.addAttribute("despachos", despachos);
+		model.addAttribute("textosLugares",textos);
 		model.addAttribute("lectorForm", new LectorForm());
 		model.addAttribute("mapaActivo", mapaActivo);
 		
