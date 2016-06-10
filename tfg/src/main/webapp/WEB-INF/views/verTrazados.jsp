@@ -98,6 +98,40 @@
 							<jsp:include page="maps/${mapaActivo}.jsp"></jsp:include>
 						</svg>
 	</section>
+	
+	<section>
+		<table class="alt">
+				<thead>
+					<tr>
+						<th>idActivo</th>
+						<th>Nombre</th>
+						<th>idEtiqueta</th>
+						<th>Contenido</th>
+						<th>Tecnología</th>
+						<th>Estándar</th>
+						<th>Parámetro</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<c:forEach var="traz" items="${trazados}"
+						varStatus="status">
+
+						<tr>
+							<td>${traz.idActivo}</td>
+							<td>${traz.nombre}</td>
+							<td>${traz.etiqueta.idEtiqueta}</td>
+							<td>${traz.etiqueta.contenido}</td>
+							<td>${traz.etiqueta.tecnologia.tipo}</td>
+							<td>${traz.etiqueta.estandar.nombre}</td>
+							<td>${traz.etiqueta.parametros.nombre}</td>
+						</tr>
+						
+					</c:forEach>
+				</tbody>
+			</table>
+	
+	</section>
 </div>
 
 <!-- Footer -->

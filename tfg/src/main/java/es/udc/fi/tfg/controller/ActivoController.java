@@ -163,9 +163,6 @@ public class ActivoController {
 		model.addAttribute("latitud",latitud);
 		model.addAttribute("longitud",longitud);
 		
-		System.out.println("+++++++++++++++++++++++++++++++++++");
-		System.out.println(mapa.getNombre());
-		System.out.println(mapa.getLatitud());
 		
 		model.addAttribute("areas",locsInteres);
 		model.addAttribute("escaleras",escaleras);
