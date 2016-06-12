@@ -330,12 +330,10 @@
 				
 				$(document).ready(function(){
 					$("#datepicker1").datetimepicker({
-						changeMonth : true,
-						changeYear : true
+					
 					});
 					$("#datepicker2").datetimepicker({
-						changeMonth : true,
-						changeYear : true
+						
 					});
 	
 					

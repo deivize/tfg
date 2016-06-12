@@ -192,7 +192,12 @@ public class ActivoController {
 		List<Activo> activos=new ArrayList<Activo>();
 		Timestamp ts= null;
 		if(activoForm.getFechaCaducidad()!=null){
-			ts= new Timestamp(activoForm.getFechaCaducidad().getTime());
+			Calendar cal= Calendar.getInstance();
+			cal.setTime(activoForm.getFechaCaducidad());
+			if(cal.get(Calendar.YEAR)!=2200){
+				ts= new Timestamp(activoForm.getFechaCaducidad().getTime());
+			}
+			
 		}
 		activos= activoService.buscarActivosConsulta(activoForm.getNombre(), activoForm.getCategoria(), ts);
 		model.addAttribute("listaActivos",activos);
