@@ -80,10 +80,12 @@
 		<p></p>
 		<sf:form id="trazado_form" method="POST" modelAttribute="trazadoForm">
 			<div class="12u$">
+				<label for="datepicker1">Fecha desde</label>
 				<sf:input path="fechaDesde" name="fecha_desde"
 					id="datepicker1" value="" placeholder="Fecha desde"/>
 			</div>
 			<div class="12u$">
+				<label for="datepicker2">Fecha hasta</label>
 				<sf:input path="fechaHasta" name="fecha_hasta"
 					id="datepicker2" value="" placeholder="Fecha hasta"/>
 			</div>
@@ -96,7 +98,7 @@
 		<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
 			viewBox="0 0 800 1100">
 							<jsp:include page="maps/${mapaActivo}.jsp"></jsp:include>
-						</svg>
+		</svg>
 	</section>
 	
 	<section>
@@ -340,7 +342,7 @@
 					
 					for(i=0; i<trazados.length; i++){
 						var strokePath=randomColor();
-						
+						var markFill=randomColor();
 						for(j=0;j<trazados[i].coord.length;j++){
 						var div = d3.select("body").append("div")	
 								    .attr("class", "tooltipPath")				
@@ -379,7 +381,7 @@
 
 						var marker = svg.append("circle")
 						 				.attr("r", 7)
-						 				.attr("fill","red");
+						 				.attr("fill",markFill);
 						transition();    
 						
 						function transition() {

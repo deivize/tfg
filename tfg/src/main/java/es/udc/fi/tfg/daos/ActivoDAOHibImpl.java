@@ -272,8 +272,7 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TrazadoDto> getTrazados(Timestamp fechaDesde,
-			Timestamp fechaHasta) {
-		
+			Timestamp fechaHasta) {	
 		List<TrazadoDto> trazados=new ArrayList<TrazadoDto>();
 		List<Activo> idActivos=null ;
 		
@@ -297,24 +296,14 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 			query2.setParameter("fechaHasta", fechaHasta);
 		}
 		
-		idActivos=(List<Activo>) query2.list();
-		
-//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
-//		System.out.println(idActivos);
-		
-		
+		idActivos=(List<Activo>) query2.list();	
 		List<Activo> idActivosMapa=new ArrayList<Activo>();;
 		
 		for(Activo activo:idActivos){
 			if(activo.getMapa()!=null && activo.getMapa().getActivo()){
 				idActivosMapa.add(activo);
 			}
-		}
-		
-//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
-//		System.out.println(idActivosMapa);
-		
-		
+		}	
 		String query3="FROM ActivoLocalizacion WHERE idActivo= :idAct";
 		
 		if(fechaDesde!=null && fechaHasta==null){
@@ -334,25 +323,18 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 		if(fechaHasta!=null){
 			query4.setParameter("fechaHasta", fechaHasta);
 		}
-		
-		
-		
 		for(Activo activo:idActivosMapa){
 			TrazadoDto trazado=new TrazadoDto();
-		
 			query4.setParameter("idAct", activo.getIdActivo());
-			
 			trazado.setIdActivo(activo.getIdActivo());
 			trazado.setEtiqueta(activo.getEtiqueta());
 			trazado.setNombre(activo.getNombre());
 			
 			List<ActivoLocalizacion> activoLocs=(List<ActivoLocalizacion>) query4.list();
-			
 			List<Long> idLocalizaciones= new ArrayList<Long>();
 			for(ActivoLocalizacion actLoc:activoLocs){
 				idLocalizaciones.add(actLoc.getLocalizacion().getIdLocalizacion());
 			}
-			
 			List<Localizacion> localizaciones=new ArrayList<Localizacion>();
 			for(Long idLoc:idLocalizaciones){
 				Query query5 = miSessionFactory.getCurrentSession().
@@ -361,13 +343,11 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 				Localizacion auxLoc =(Localizacion) query5.uniqueResult();
 				localizaciones.add(auxLoc);
 			}
-			
 			ArrayList<Double> coord= new ArrayList<Double>();
 			for(Localizacion loc:localizaciones){
 				coord.add(loc.getCoord_x());
 				coord.add(loc.getCoord_y());
 			}
-			
 			ArrayList<ArrayList<Double>> paths=new ArrayList<ArrayList<Double>>();
 			for(int i=0;i<coord.size()-2;i=i+2){
 				ArrayList<Double> cood=new ArrayList<Double>();
@@ -375,24 +355,11 @@ public class ActivoDAOHibImpl implements ActivoDAO {
 				cood.add(1,coord.get(i+1));
 				cood.add(2,coord.get(i+2));
 				cood.add(3,coord.get(i+3));
-				
-				
 				paths.add(cood);
 			}
-			
 			trazado.setCoordenadas(paths);
-			
 			trazados.add(trazado);
-		}
-		
-//		System.out.println("+++++++++++++++++++++++++++");
-//		System.out.println(trazados.size());
-//		System.out.println(trazados.get(0).getIdActivo());
-//		System.out.println(trazados.get(1).getIdActivo());
-//		System.out.println(trazados.get(0).getCoordenadas());
-//		System.out.println(trazados.get(1).getCoordenadas());
-		
-		
+		}			
 		return trazados;
 	}
 

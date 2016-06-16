@@ -106,15 +106,12 @@
 		<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
 			viewBox="0 0 800 1100">
 							<jsp:include page="maps/${mapaActivo}.jsp"></jsp:include>
-						</svg>
-	</section>
-	
-	<section>
-		<h4>Ubicación real del plano</h4>
-		<div id="Gmap"></div>
-	
-	</section>
-	
+		</svg>
+		
+		<div style="margin-top:2px">
+			<a href="#" class="button special" onClick="mostrarUbicacionReal(); return false;">Mostrar ubicacion real</a>
+		</div>
+	</section>	
 	<section>
 		<h4>Localizaciones</h4>
 		<div class="table-wrapper">
@@ -150,6 +147,11 @@
 				</tbody>
 			</table>
 		</div>
+	</section>
+	<section id="mapaG" style="visibility:hidden;">
+		<h4>Ubicación real del plano</h4>
+		<div id="Gmap" style="margin-bottom:5px;"></div>
+	
 	</section>
 	
 </div>
@@ -322,7 +324,10 @@
 				}
 				
 				
-
+				function mostrarUbicacionReal(){
+					$("#mapaG").css("visibility","visible");
+					
+				}
 				
 				$(document).ready(function(){
 					for(i=0; i<paths.length; i++){
