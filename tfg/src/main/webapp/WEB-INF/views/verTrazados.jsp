@@ -371,6 +371,13 @@
 				            		.duration(500)		
 				            		.style("opacity", 0);});
 						
+						if(j==0){
+							svg.append("polygon")
+								.attr("points","-15,-15 15,-15 0,0")
+								.attr("transform","translate("+trazados[i].coord[j].coord_x1+","+trazados[i].coord[j].coord_y1+")")
+								.attr("style","fill:lime");
+						}
+						
 // 						var arrow = svg.append("svg:path")
 // 						.attr("d", d3.svg.symbol().type("triangle-down")(10,1));
 						
@@ -382,7 +389,14 @@
 						var marker = svg.append("circle")
 						 				.attr("r", 7)
 						 				.attr("fill",markFill);
-						transition();    
+						transition(); 
+						
+						if(j==trazados[i].coord.length-1){
+							svg.append("polygon")
+								.attr("points","15,15 -15,15 0,0")
+								.attr("transform","translate("+trazados[i].coord[j].coord_x2+","+trazados[i].coord[j].coord_y2+")")
+								.attr("style","fill:lime");
+						}
 						
 						function transition() {
 						    marker.transition()
