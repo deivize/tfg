@@ -151,7 +151,7 @@ public class ActivoController {
 			
 			paths.add(cood);
 		}
-		Localizacion locActual=activoService.getLocalizacionActual(id);
+		//Localizacion locActual=activoService.getLocalizacionActual(id);
 		List<LectorDto> lectoresDto=lectorService.lectorToLectorDto();
 		model.addAttribute("lectores", lectoresDto);
 		model.addAttribute("activo",activo);
