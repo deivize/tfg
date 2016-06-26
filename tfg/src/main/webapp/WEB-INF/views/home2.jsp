@@ -118,32 +118,11 @@
 
 		<!-- One -->
 		<section id="one">
-<%-- 			<sf:form> --%>
-<!-- 				<div class="row uniform 50%"> -->
-<!-- 					<div class="12u$"> -->
-<!-- 						<input type="text" id="nombreLocalizacion" value -->
-<!-- 							placeholder="Nombre" /> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="row uniform 50%"> -->
-<!-- 					<div class="12u$"> -->
-<!-- 						<input type="text" id="coordenadaX" value -->
-<!-- 							placeholder="Coordenada X" disabled /> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="row uniform 50%"> -->
-<!-- 					<div class="12u$"> -->
-<!-- 						<input type="text" id="coordenadaY" value -->
-<!-- 							placeholder="Coordenada Y" disabled /> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<a id="botonCoord" href="#" class="button special small">Nueva</a> -->
-<%-- 			</sf:form> --%>
 			<svg xmlns="http://www.w3.org/2000/svg" id="svg1"
-				viewBox="0 0 800 1100"> 
-							<jsp:include page="maps/${mapaActivo}.jsp"></jsp:include> 
- 						</svg> 
-		</section>
+				viewBox="0 0 800 1100">  
+ 							<jsp:include page="maps/${mapaActivo}.jsp"></jsp:include>  
+  						</svg>  
+ 		</section> 
 		<section>
 			
 			<h4>Notificaciones</h4>

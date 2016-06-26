@@ -71,7 +71,7 @@
 							placeholder="Nombre" />
 					</div>
 				</div>
-				<div class="oculto">
+				<div class="">
 				<div class="row uniform 50%">
 					<div class="12u$">
 						<input type="text" id="coordenadaX" value
