@@ -48,13 +48,13 @@
 			<div class="navbar-collapse collapse sidebar-navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="<s:url value="/home"/>">HOME</a></li>
-					<li>
-						<c:url var="descargar" value="descarga">
-							<c:param name="tipo" value="${lectorForm.tipo}"/>
-							<c:param name="modelo" value="${lectorForm.modelo}"/>
-						</c:url>
-						<a href="<c:out value="${descargar}"/>">Descargar informe</a>
-					</li>
+<!-- 					<li> -->
+<%-- 						<c:url var="descargar" value="descarga"> --%>
+<%-- 							<c:param name="tipo" value="${lectorForm.tipo}"/> --%>
+<%-- 							<c:param name="modelo" value="${lectorForm.modelo}"/> --%>
+<%-- 						</c:url> --%>
+<%-- 						<a href="<c:out value="${descargar}"/>">Descargar informe</a> --%>
+<!-- 					</li> -->
 					<li><a href="<s:url value="/home"/>">Volver</a></li>
 				</ul>
 			</div>

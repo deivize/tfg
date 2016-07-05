@@ -57,8 +57,6 @@
 										nuevo activo</a></li>
 								<li><a href="<s:url value="/activos/buscaractivos"/>">Buscar
 										activos</a></li>
-								<li><a href="<s:url value="/activos/borraractivo"/>">Borrar
-										activos</a></li>
 							</ul></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Lectores<b class="caret"></b></a>
